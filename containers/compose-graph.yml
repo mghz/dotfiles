@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  janusgraph:
+    image: janusgraph/janusgraph:latest
+    container_name: jgraph
+    ports:
+      - "8182:8182"
+    # The mounted volume only makes sense if JanusGraph is being run with the BerekeleyDB storage.
+    volumes:
+      # Named volume mounts. The data mount is only used when BerkeleyDB is used for storage.
+      - "./data/janusgraph:/var/lib/janusgraph"

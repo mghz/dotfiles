@@ -1,0 +1,24 @@
+[user]
+    name = mghz
+    email = m1gharzed@gmail.com
+[push]
+    default = simple
+[color]
+    ui = true
+    diff = auto
+    status = auto
+    branch = auto
+    interactive = auto
+[core]
+    quotepath = false
+    editor = vim
+    excludesfile = .gitignore
+[merge]
+    tool = vimdiff
+[mergetool]
+    prompt = true
+    keepBackup = false
+[alias]
+    cm = "!f() { git add -A && git commit -m \"$@\"; }; f"
+    commits = "!f() { git log --branches --not --remotes --decorate --oneline; }; f"
+    amend = "commit --amend"

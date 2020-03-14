@@ -1,0 +1,104 @@
+
+# exports {{{
+
+export PS1="\[\033[32m\]\w\[\033[33m\]\$(parse_git_branch)\[\033[00m\] -> "
+export CLICOLOR=1
+export PAGER=less
+export VISUAL=vim
+
+export PATH="/usr/local/sbin:$PATH"
+
+export PATH="$PATH:/snap/bin"
+
+# }}}
+
+
+# functions {{{
+
+if [ -f $HOME/.bash_aliases ]; then
+  source $HOME/.bash_aliases
+fi
+
+# check for os
+#if [ `uname` == "Darwin" ];
+#then
+#  # updates
+#  alias brewup='brew update; brew upgrade; brew cleanup; brew doctor'
+#  alias caskup='brew cask upgrade'
+#  alias rup='rustup self update; rustup update'
+#  alias nodeup='npm update -g; npm doctor'
+#  alias up='brewup;caskup'
+#
+#  alias dins='sudo spctl --master-disable'     # disable install of 3rd party
+#  alias eins='sudo spctl --master-enable'      # enable install of 3rd party
+#  alias fdstart='sudo launchctl load /Library/LaunchDaemons/com.foundationdb.fdbmonitor.plist'
+#  alias fdstop='sudo launchctl unload /Library/LaunchDaemons/com.foundationdb.fdbmonitor.plist'
+#  alias flushdns='sudo killall -HUP mDNSResponder;sudo killall mDNSResponderHelper;sudo dscacheutil -flushcache'
+#
+#elif [ `uname` == "Linux" ]
+#then
+#  alias l='ls -al --group-directories-first'
+#fi
+
+parse_git_branch() {
+  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+
+function trash() { command mv "$@" ~/.Trash ; }
+
+# Find a file with a pattern in name:
+function ff() { find . -type f -iname '*'"$*"'*' -ls ; }
+
+# Find a file with pattern $1 in name and Execute $2 on it:
+function fe() { find . -type f -iname '*'"${1:-}"'*' \
+  -exec ${2:-file} {} \;  ; }
+
+# Creates an archive (*.tar.gz) from given directory.
+function maketar() { tar cvzf "${1%%/}.tar.gz"  "${1%%/}/"; }
+
+# Create a ZIP archive of a file or folder.
+function makezip() { zip -r "${1%%/}.zip" "$1" ; }
+
+# Make your directories and files access rights sane.
+function sanitize() { chmod -R u=rwX,g=rX,o= "$@" ;}
+
+# mans:   Search manpage given in argument '1' for term given in argument '2' (case insensitive)
+# displays paginated result with colored search terms and two lines surrounding each hit. Example: mans mplayer codec
+#   --------------------------------------------------------------------
+mans () {
+  man $1 | grep -iC2 --color=always $2 | less
+}
+
+#   extract:  Extract most know archives with one command
+#   ---------------------------------------------------------
+extract () {
+  if [ -f $1 ] ; then
+    case $1 in
+      *.tar.bz2)   tar xjf $1     ;;
+      *.tar.gz)    tar xzf $1     ;;
+      *.bz2)       bunzip2 $1     ;;
+      *.rar)       unrar e $1     ;;
+      *.gz)        gunzip $1      ;;
+      *.tar)       tar xf $1      ;;
+      *.tbz2)      tar xjf $1     ;;
+      *.tgz)       tar xzf $1     ;;
+      *.zip)       unzip $1       ;;
+      *.Z)         uncompress $1  ;;
+      *.7z)        7z x $1        ;;
+      *)     echo "'$1' cannot be extracted via extract()" ;;
+    esac
+  else
+    echo "'$1' is not a valid file"
+  fi
+}
+
+## gitignore.io functionality
+function gi() { curl -L -s https://www.gitignore.io/api/$@; }
+
+## open man pages in separate window or preview
+function manx() { open x-man-page://$@ ; }
+function manp() { man -t "$@" | open -f -a "Preview" ;}
+
+# }}}
+
+[ -z "$ZSH_NAME" ] && [ -f ~/.fzf.bash ] && source ~/.fzf.bash

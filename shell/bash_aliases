@@ -1,0 +1,85 @@
+# aliases {{{
+
+# directories
+alias ....='cd ../../..'
+alias ...='cd ../..'
+alias ..='cd ..'
+alias cd3='cd ../../..'
+alias cd4='cd ../../../..'
+
+# commands
+alias c="clear"
+alias x="exit"
+alias cpi='cp -iv'
+alias h='history'
+alias j='jobs -l'
+alias l="ls -al"
+alias la="ls -d .*"
+alias lav="ls -a1d .*"
+alias mk='mkdir -p'
+alias mv='mv -iv'
+alias path='echo -e ${PATH//:/\\n}'
+alias rm='rm -i'
+alias rmf='rm -rf'
+alias which='type -a'
+
+# config files
+alias rel='source ~/.bashrc'          # reload bash profile
+alias bashrc='vim ~/.bashrc'
+alias bashp='vim ~/.bash_profile'
+alias gitrc='vim ~/.gitconfig'
+alias epath='vim /etc/paths'
+alias zconf='vim ~/.zshrc'
+
+
+# vim
+alias neorc='vim ~/.config/nvim/init.vim'
+alias vimrc='vim ~/.vimrc'
+
+# networking
+alias ping='ping -c 4'
+
+# docker
+alias dk='docker'
+alias dc='docker-compose'
+alias di='docker-images'
+
+# common
+alias grep='grep -n'
+alias pre='open -a Preview'
+alias text='open -a TextEdit'
+
+# rust lang
+alias cb='cargo fmt; cargo build'
+alias cf='cargo fmt'
+alias co='cargo'
+alias cr='cargo run'
+alias ct='cargo test'
+alias cw='cargo watch -x run'
+alias ru='rustup'
+
+# }}}
+
+# OS specific {{{
+
+# check for os
+if [ `uname` == "Darwin" ]
+then
+  # updates
+  alias brewup='brew update; brew upgrade; brew cleanup; brew doctor'
+  alias caskup='brew cask upgrade'
+  alias rup='rustup self update; rustup update'
+  alias nodeup='npm update -g; npm doctor'
+  alias up='brewup;caskup'
+
+  alias dins='sudo spctl --master-disable'     # disable install of 3rd party
+  alias eins='sudo spctl --master-enable'      # enable install of 3rd party
+  alias fdstart='sudo launchctl load /Library/LaunchDaemons/com.foundationdb.fdbmonitor.plist'
+  alias fdstop='sudo launchctl unload /Library/LaunchDaemons/com.foundationdb.fdbmonitor.plist'
+  alias flushdns='sudo killall -HUP mDNSResponder;sudo killall mDNSResponderHelper;sudo dscacheutil -flushcache'
+elif [ `uname` == "Linux" ]
+then
+  alias l='ls -al --group-directories-first'
+fi
+
+# }}}

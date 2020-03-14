@@ -5,6 +5,12 @@
 # make config directory for neovim
 mkdir -p ~/.config/nvim
 
+# setup links
+ln -sfv ~/dotfiles/nvim/init.vim $HOME/.config/nvim/init.vim
+ln -sfv ~/dotfiles/nvim/init.vim $HOME/.vimrc
+ln -sfv ~/dotfiles/shell/bash_profile $HOME/.bash_profile
+ln -sfv ~/dotfiles/shell/bashrc $HOME/.bashrc
+ln -sfv ~/dotfiles/git/gitconfig $HOME/.gitconfig
 
 ########### linux setup #################
 
