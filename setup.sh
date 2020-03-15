@@ -11,31 +11,59 @@ function linux_config {
 #  sudo apt autoclean
 #
   # install software
-  sudo apt install git curl ctags snapd -y
+  echo -e "\ninstalling ubuntu software ..."
+  sudo apt install git curl snapd -y
 
+  echo -e "\ninstalling curl ..."
+  sudo apt install curl -y
+
+  echo -e "\ninstalling snapd ..."
+  sudo apt install snapd -y
 }
+
+# ubuntu zsh {{{
 
 function linux_zsh {
 
+  echo -e "\ninstall zsh ..."
   sudo apt install zsh -y
 
   # install zprezto zsh
+  echo "installing zsh zprezto ..."
   if [ -D "~/.zprezto" ]; then
+    echo "zprezto found, updating to latest ..."
     cd "${ZDOTDIR:-$HOME}/.zprezto/"
     git pull && git submodule update --init --recursive
     cd -
   else
+    echo "cloning zprezto ..."
     silent !git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
   fi
 
   # switch to zsh
+  echo "switching to zsh ..."
   chsh -s $(which zsh)
 
 }
+# }}}
+
+# ubuntu neovim {{{
 
 function linux_neovim {
 
-  sudo apt install neovim -y
+  echo -e "\n install neovim ..."
+  echo "creating neovim config directory ..."
+  mkdir -p ~/.config/nvim
+
+  echo "installing neovim ... "
+  #sudo apt install neovim -y
+  sudo snap install --beta nvim --classic
+
+  echo "installing ctags ... "
+  sudo apt install ctags -y
+
+  echo "installing neovim plugins ..."
+  nvim +PlugInstall +PlugClean +qa
 
   echo "installing vim.plug nerd font ..."
   # (optional but recommended) install a nerd font for icons and a beautiful airline bar
@@ -44,6 +72,8 @@ function linux_neovim {
 	  https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Iosevka/Regular/complete/Iosevka%20Term%20Nerd%20Font%20Complete.ttf
 
 }
+
+# }}}
 
 # }}}
 
@@ -72,6 +102,8 @@ function mac_config {
 # common setup {{{
 
 function config_links {
+
+  echo -e "\n configuring symlinks ..."
 
   # vim/nvim
   echo "configuring vim/neovim links ..."
@@ -102,19 +134,13 @@ function config_links {
 
 # init {{{
 
-# make config directory for neovim
-mkdir -p ~/.config/nvim
-
-# setup links
-
 # check for os
 if [ `uname` == "Darwin" ]
 then
-  #mac_config
   echo "loading mac config"
+  #mac_config
 elif [ `uname` == "Linux" ]
 then
-  echo "loading linux config ..."
   linux_config
   linux_zsh
   linux_neovim
@@ -122,6 +148,6 @@ fi
 
 config_links
 
-echo "setup ended!!"
+echo -e "\nsetup ended!!"
 
 # }}}
