@@ -328,7 +328,7 @@ set hidden " disable warning of hidden buffers
 set history=1000
 set linebreak " avoid wrapping a line in the middle of a word
 set mouse=a " enable text copy
-set relativenumber " show hybrid line numbers
+set number relativenumber " show hybrid line numbers
 set scrolloff=10 " screenlines to keep above and below the cursor
 set shell=$SHELL " shell
 set shortmess+=c " don't give ins-completion-menu messages
