@@ -7,15 +7,14 @@ export PAGER=less
 export VISUAL=vim
 
 export PATH="/usr/local/sbin:$PATH"
-
+export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$PATH:/snap/bin"
 
 # }}}
 
-
 # functions {{{
 
-if [ -f $HOME/.bash_aliases ]; then
+if [ -L $HOME/.bash_aliases ]; then
   source $HOME/.bash_aliases
 fi
 

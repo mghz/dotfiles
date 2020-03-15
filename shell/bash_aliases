@@ -24,25 +24,20 @@ alias rmf='rm -rf'
 alias which='type -a'
 
 # config files
-alias rel='source ~/.bashrc'          # reload bash profile
+alias rel='source ~/.bashrc'
+alias relz='source ~/.zshrc'
 alias bashrc='vim ~/.bashrc'
 alias bashp='vim ~/.bash_profile'
 alias gitrc='vim ~/.gitconfig'
 alias epath='vim /etc/paths'
 alias zconf='vim ~/.zshrc'
 
-
 # vim
 alias neorc='vim ~/.config/nvim/init.vim'
-alias vimrc='vim ~/.vimrc'
+alias vimrc='vim ~/.config/nvim/init.vim'
 
 # networking
 alias ping='ping -c 4'
-
-# docker
-alias dk='docker'
-alias dc='docker-compose'
-alias di='docker-images'
 
 # common
 alias grep='grep -n'
