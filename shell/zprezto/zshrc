@@ -1,0 +1,72 @@
+#
+# Executes commands at the start of an interactive session.
+#
+# Authors:
+#   Sorin Ionescu <sorin.ionescu@gmail.com>
+
+# Source Prezto.
+if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+fi
+
+# Customize to your needs...
+
+# exports {{{
+
+export PATH="/usr/local/sbin:$PATH"
+
+# }}}
+
+# aliases {{{
+
+# commands
+alias c='clear'
+alias x='exit'
+alias lg='ls -la1 --group-directories-first'
+alias cpi='cp -iv'
+alias h='history'
+alias j='jobs -l'
+alias mk='mkdir -p'
+alias mv='mv -iv'
+alias path='echo -e ${PATH//:/\\n}'
+alias rm='rm -i'
+alias rmf='rm -rf'
+alias which='type -a'
+
+# vim
+alias vim='nvim'
+alias neorc='vim ~/.config/nvim/init.vim'
+alias vimrc='vim ~/.vimrc'
+
+# config files
+alias rel='source ~/.zshrc'
+alias bashrc='vim ~/.bashrc'
+alias bashp='vim ~/.bash_profile'
+alias gitrc='vim ~/.gitconfig'
+alias epath='vim /etc/paths'
+alias zconf='vim ~/.zshrc'
+
+# networking
+alias ping='ping -c 4'
+
+# docker
+alias dk='docker'
+alias dc='docker-compose'
+alias di='docker-images'
+
+# common
+alias grep='grep -n'
+alias pre='open -a Preview'
+alias text='open -a TextEdit'
+alias mup='brew update && brew upgrade && brew cleanup && brew doctor'
+
+# rust lang
+alias cb='cargo fmt; cargo build'
+alias cf='cargo fmt'
+alias co='cargo'
+alias cr='cargo run'
+alias ct='cargo test'
+alias cw='cargo watch -x run'
+alias ru='rustup'
+
+# }}}
