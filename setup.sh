@@ -5,18 +5,20 @@
 function linux_config {
 
   # update distro
-  sudo apt update
-  sudo apt upgrade -y
-  sudo apt autoremove
-  sudo apt autoclean
-
+#  sudo apt update
+#  sudo apt upgrade -y
+#  sudo apt autoremove
+#  sudo apt autoclean
+#
   # install software
   sudo apt install git curl neovim ctags snapd -y
 
   # install vim-plug plugin manager
+  echo "installing vim.plug ..."
   curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
+  echo "installing vim.plug nerd font ..."
   # (optional but recommended) install a nerd font for icons and a beautiful airline bar
   # (https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts) (I'll be using Iosevka for Powerline)
   curl -fLo ~/.fonts/Iosevka\ Term\ Nerd\ Font\ Complete.ttf --create-dirs \
@@ -31,11 +33,15 @@ function linux_zsh {
   # install zprezto zsh
   git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
 
-#  setopt EXTENDED_GLOB
-#  for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
-#    ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
-#  done
-#
+  cd "${ZDOTDIR:-$HOME}/.zprezto/"
+  git pull && git submodule update --init --recursive
+  cd -
+
+  setopt EXTENDED_GLOB
+  for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
+    ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
+  done
+
   # switch to new shell
   chsh -s $(which zsh)
 }
@@ -78,7 +84,7 @@ function config_links {
   # ln -sfv ~/dotfiles/shell/zshell/zshrc $HOME/.zprezto/runcoms/.zshrc
 
   # bash
-  echo "configuring zsh links ..."
+  echo "configuring bash links ..."
   ln -sfv ~/dotfiles/shell/bash_profile $HOME/.bash_profile
   ln -sfv ~/dotfiles/shell/bash_aliases $HOME/.bash_aliases
   ln -sfv ~/dotfiles/shell/bashrc $HOME/.bashrc
@@ -100,12 +106,13 @@ mkdir -p ~/.config/nvim
 # check for os
 if [ `uname` == "Darwin" ]
 then
-  #config_mac
+  #mac_config
   echo "loading mac config"
 elif [ `uname` == "Linux" ]
 then
   echo "loading linux config ..."
-  #config_linux
+  linux_config
+  linux_zsh
 fi
 
 config_links
