@@ -11,18 +11,7 @@ function linux_config {
 #  sudo apt autoclean
 #
   # install software
-  sudo apt install git curl neovim ctags snapd -y
-
-  # install vim-plug plugin manager
-  echo "installing vim.plug ..."
-  curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-
-  echo "installing vim.plug nerd font ..."
-  # (optional but recommended) install a nerd font for icons and a beautiful airline bar
-  # (https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts) (I'll be using Iosevka for Powerline)
-  curl -fLo ~/.fonts/Iosevka\ Term\ Nerd\ Font\ Complete.ttf --create-dirs \
-	  https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Iosevka/Regular/complete/Iosevka%20Term%20Nerd%20Font%20Complete.ttf
+  sudo apt install git curl ctags snapd -y
 
 }
 
@@ -31,19 +20,29 @@ function linux_zsh {
   sudo apt install zsh -y
 
   # install zprezto zsh
-  git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+  if [ -D "~/.zprezto" ]; then
+    cd "${ZDOTDIR:-$HOME}/.zprezto/"
+    git pull && git submodule update --init --recursive
+    cd -
+  else
+    silent !git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+  fi
 
-  cd "${ZDOTDIR:-$HOME}/.zprezto/"
-  git pull && git submodule update --init --recursive
-  cd -
-
-  setopt EXTENDED_GLOB
-  for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
-    ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
-  done
-
-  # switch to new shell
+  # switch to zsh
   chsh -s $(which zsh)
+
+}
+
+function linux_neovim {
+
+  sudo apt install neovim -y
+
+  echo "installing vim.plug nerd font ..."
+  # (optional but recommended) install a nerd font for icons and a beautiful airline bar
+  # (https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts) (I'll be using Iosevka for Powerline)
+  curl -fLo ~/.fonts/Iosevka\ Term\ Nerd\ Font\ Complete.ttf --create-dirs \
+	  https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Iosevka/Regular/complete/Iosevka%20Term%20Nerd%20Font%20Complete.ttf
+
 }
 
 # }}}
@@ -81,7 +80,12 @@ function config_links {
 
   # zsh
   echo "configuring zsh links ..."
-  # ln -sfv ~/dotfiles/shell/zshell/zshrc $HOME/.zprezto/runcoms/.zshrc
+  ln -sfv ~/dotfiles/shell/zprezto/zlogin $HOME/.zlogin
+  ln -sfv ~/dotfiles/shell/zprezto/zlogout $HOME/.zlogout
+  ln -sfv ~/dotfiles/shell/zprezto/zshenv $HOME/.zshenv
+  ln -sfv ~/dotfiles/shell/zprezto/zprofile $HOME/.zprofile
+  ln -sfv ~/dotfiles/shell/zprezto/zpreztorc $HOME/.zpreztorc
+  ln -sfv ~/dotfiles/shell/zprezto/zshrc $HOME/.zshrc
 
   # bash
   echo "configuring bash links ..."
@@ -113,6 +117,7 @@ then
   echo "loading linux config ..."
   linux_config
   linux_zsh
+  linux_neovim
 fi
 
 config_links
