@@ -79,9 +79,9 @@ function linux_zsh {
   fi
 
   # switch to zsh
-  eco $green "\nswitching to zsh ..."
-  eco $yellow "if you get a pam error you must update /etc/pam.d/chsh to sufficient"
-  chsh -s $(which zsh)
+  #eco $green "\nswitching to zsh ..."
+  #eco $yellow "if you get a pam error you must update /etc/pam.d/chsh to sufficient"
+  #chsh -s $(which zsh)
 }
 
 # }}}
