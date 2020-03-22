@@ -292,7 +292,6 @@ map <silent> <A-l> <C-w>>
 
 " }}}
 
-
 " }}}
 
 " settings {{{

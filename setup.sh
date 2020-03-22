@@ -37,10 +37,10 @@ function linux_zsh {
   git pull && git submodule update --init --recursive
   cd -
 
-  setopt EXTENDED_GLOB
-  for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
-    ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
-  done
+  #setopt EXTENDED_GLOB
+  #for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
+  #  ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
+  #done
 
   # switch to new shell
   chsh -s $(which zsh)
@@ -70,7 +70,7 @@ function mac_config {
 
 # }}}
 
-# common setup {{{
+# symlinks setup {{{
 
 function config_links {
 
@@ -111,8 +111,8 @@ then
 elif [ `uname` == "Linux" ]
 then
   echo "loading linux config ..."
-  linux_config
-  linux_zsh
+  #linux_config
+  #linux_zsh
 fi
 
 config_links
