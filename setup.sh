@@ -86,14 +86,7 @@ function linux_zsh {
 
 # }}}
 
-<<<<<<< HEAD
-  #setopt EXTENDED_GLOB
-  #for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
-  #  ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
-  #done
-=======
 # ubuntu neovim {{{
->>>>>>> 6972aa4180eb8c66b057fdc1c04b4d06ca1ad3fb
 
 function linux_neovim {
 
