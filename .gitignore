@@ -180,3 +180,6 @@ zsdoc/data
 !/tests/_output/.gitkeep
 
 # End of https://www.gitignore.io/api/vim,ssh,zsh,linux,macos,emacs,windows
+
+# custom ...
+.nvimlog

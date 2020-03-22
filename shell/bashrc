@@ -6,9 +6,9 @@ export CLICOLOR=1
 export PAGER=less
 export VISUAL=vim
 
-export PATH="/usr/local/sbin:$PATH"
-export PATH="$HOME/.cargo/bin:$PATH"
-export PATH="$PATH:/snap/bin"
+export PATH=/usr/local/sbin:$PATH
+export PATH=$HOME/.cargo/bin:$PATH
+export PATH=$PATH:/snap/bin
 
 # }}}
 

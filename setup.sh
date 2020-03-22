@@ -1,50 +1,129 @@
 #!/bin/bash
 
+# colors {{{
+
+# examples
+# tput setab [1-7] – Set a background color using ANSI escape
+# tput setb [1-7] – Set a background color
+# tput setaf [1-7] – Set a foreground color using ANSI escape
+# tput setf [1-7] – Set a foreground color
+
+# formatting
+BOLD=`tput bold` # set bold mode
+DIM=`tput dim` # turn on half bright mode
+BUL=`tput smul` # begin underline mode
+EUL=`tput rmul` # exit underline mode
+REV=`tput rev` # turn on reverse mode
+BSO=`tput smso` # enter standout mode (bold on rxvt)
+ESO=`tput rmso` # exit standout mode
+RESET=`tput sgr0` # turn off all attributes
+
+# color functions
+# example: eco $green "success!"
+eco () {
+  local _color=$1; shift
+  echo -e "$(tput setaf $_color)$@${RESET}"
+}
+
+#err wrapping function
+err () {
+  eco 1 "$@" >&2;
+}
+
+#}}}
+
 # linux setup {{{
 
 function linux_config {
 
+  eco $cyan "\nstarting ubuntu linux setup ..."
+
   # update distro
-#  sudo apt update
-#  sudo apt upgrade -y
-#  sudo apt autoremove
-#  sudo apt autoclean
-#
+  eco $green "\nupdating distro ..."
+  sudo apt update
+  sudo apt upgrade -y
+  sudo apt autoremove
+  sudo apt autoclean
+
   # install software
-  sudo apt install git curl neovim ctags snapd -y
+  eco $green "\ninstalling git ..."
+  sudo apt install git -y
 
-  # install vim-plug plugin manager
-  echo "installing vim.plug ..."
-  curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  eco $green "\ninstalling curl ..."
+  sudo apt install curl -y
 
-  echo "installing vim.plug nerd font ..."
-  # (optional but recommended) install a nerd font for icons and a beautiful airline bar
-  # (https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts) (I'll be using Iosevka for Powerline)
-  curl -fLo ~/.fonts/Iosevka\ Term\ Nerd\ Font\ Complete.ttf --create-dirs \
-	  https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Iosevka/Regular/complete/Iosevka%20Term%20Nerd%20Font%20Complete.ttf
-
+  eco $green "\ninstalling snapd ..."
+  sudo apt install snapd -y
 }
+
+# ubuntu zsh {{{
 
 function linux_zsh {
 
+  eco $cyan "\nstarting zsh setup ..."
+
+  eco $green "\ninstalling zsh ..."
   sudo apt install zsh -y
 
   # install zprezto zsh
-  git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+  eco $green "\nsetting up zsh zprezto ..."
+  if [ -d "$HOME/.zprezto" ]; then
+    eco $yellow "\nzprezto found, pulling latest ..."
 
-  cd "${ZDOTDIR:-$HOME}/.zprezto/"
-  git pull && git submodule update --init --recursive
-  cd -
+    cd "${ZDOTDIR:-$HOME}/.zprezto/"
+    git pull && git submodule update --init --recursive
+    cd -
+  else
+    eco $green "\ncloning zprezto ..."
+    git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+  fi
 
+  # switch to zsh
+  eco $green "\nswitching to zsh ..."
+  eco $yellow "if you get a pam error you must update /etc/pam.d/chsh to sufficient"
+  chsh -s $(which zsh)
+}
+
+# }}}
+
+<<<<<<< HEAD
   #setopt EXTENDED_GLOB
   #for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
   #  ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
   #done
+=======
+# ubuntu neovim {{{
+>>>>>>> 6972aa4180eb8c66b057fdc1c04b4d06ca1ad3fb
 
-  # switch to new shell
-  chsh -s $(which zsh)
+function linux_neovim {
+
+  eco $cyan "\nconfiguring neovim ..."
+
+  eco $green "\ncreating config directory ..."
+  mkdir -p ~/.config/nvim
+
+  eco $green "\ninstalling neovim... "
+  #sudo apt install neovim -y
+  sudo snap install --beta nvim --classic
+
+  eco $green "\ninstalling ctags ... "
+  sudo apt install ctags -y
+
+  eco $green "\ninstalling vim.plug ..."
+  curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+  eco $green "\ninstalling neovim plugins ..."
+  vim +PlugInstall +PlugClean +qa
+
+  eco $green "\ninstalling vim.plug nerd font ..."
+  # (optional but recommended) install a nerd font for icons and a beautiful airline bar
+  # (https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts) (I'll be using Iosevka for Powerline)
+  curl -fLo ~/.fonts/Iosevka\ Term\ Nerd\ Font\ Complete.ttf --create-dirs \
+	  https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Iosevka/Regular/complete/Iosevka%20Term%20Nerd%20Font%20Complete.ttf
 }
+
+# }}}
 
 # }}}
 
@@ -74,23 +153,30 @@ function mac_config {
 
 function config_links {
 
+  eco $cyan "\nconfiguring sym links ..."
+
   # vim/nvim
-  echo "configuring vim/neovim links ..."
+  eco $green "configuring vim/neovim links ..."
   ln -sfv ~/dotfiles/nvim/init.vim $HOME/.config/nvim/init.vim
   ln -sfv ~/dotfiles/nvim/init.vim $HOME/.vimrc
 
   # zsh
-  echo "configuring zsh links ..."
-  # ln -sfv ~/dotfiles/shell/zshell/zshrc $HOME/.zprezto/runcoms/.zshrc
+  eco $green "configuring zsh links ..."
+  ln -sfv ~/dotfiles/shell/zprezto/zlogin $HOME/.zlogin
+  ln -sfv ~/dotfiles/shell/zprezto/zlogout $HOME/.zlogout
+  ln -sfv ~/dotfiles/shell/zprezto/zshenv $HOME/.zshenv
+  ln -sfv ~/dotfiles/shell/zprezto/zprofile $HOME/.zprofile
+  ln -sfv ~/dotfiles/shell/zprezto/zpreztorc $HOME/.zpreztorc
+  ln -sfv ~/dotfiles/shell/zprezto/zshrc $HOME/.zshrc
 
   # bash
-  echo "configuring bash links ..."
+  eco $green "configuring bash links ..."
   ln -sfv ~/dotfiles/shell/bash_profile $HOME/.bash_profile
   ln -sfv ~/dotfiles/shell/bash_aliases $HOME/.bash_aliases
   ln -sfv ~/dotfiles/shell/bashrc $HOME/.bashrc
 
   # git
-  echo "configuring git links ..."
+  eco $green "configuring git links ..."
   ln -sfv ~/dotfiles/git/gitconfig $HOME/.gitconfig
 }
 
@@ -98,25 +184,20 @@ function config_links {
 
 # init {{{
 
-# make config directory for neovim
-mkdir -p ~/.config/nvim
-
-# setup links
-
-# check for os
+# check for os to run setup
 if [ `uname` == "Darwin" ]
 then
+  eco $cyan "\nstarting osx setup ..."
   #mac_config
-  echo "loading mac config"
 elif [ `uname` == "Linux" ]
 then
   echo "loading linux config ..."
-  #linux_config
-  #linux_zsh
+  linux_config
+  linux_zsh
+  linux_neovim
 fi
 
 config_links
-
-echo "setup ended!!"
+eco $cyan "\nsetup ended!!"
 
 # }}}
