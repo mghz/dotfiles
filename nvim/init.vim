@@ -101,7 +101,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " nerd git plugin
 let NERDTreeShowHidden=1 "show hidden files
-let g:NERDTreeQuitOnOpen=1 "close after opening file
+let g:NERDTreeQuitOnOpen=0 "close after opening file
 let g:NERDTreeGitStatusWithFlags = 1
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 let g:NERDTreeGitStatusNodeColorization = 1
