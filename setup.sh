@@ -142,7 +142,7 @@ function mac_config {
 
 # }}}
 
-# common setup {{{
+# symlinks setup {{{
 
 function config_links {
 
@@ -184,6 +184,7 @@ then
   #mac_config
 elif [ `uname` == "Linux" ]
 then
+  echo "loading linux config ..."
   linux_config
   linux_zsh
   linux_neovim
