@@ -45,7 +45,7 @@ function linux_config {
   eco $green "\nupdating distro ..."
   sudo apt update
   sudo apt upgrade -y
-  sudo apt autoremove
+  sudo apt autoremove -y
   sudo apt autoclean
 
   # install software
@@ -133,13 +133,14 @@ function mac_config {
   # run brew bundle
   cd mac
   brew bundle
+  cd -
 
   # install vim plug
-  curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-	  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  # curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+	#  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
   # configure fuzzy file finder
-  $(brew --prefix)/opt/fzf/install
+  #$(brew --prefix)/opt/fzf/install
 
 }
 
@@ -184,7 +185,7 @@ function config_links {
 if [ `uname` == "Darwin" ]
 then
   eco $cyan "\nstarting osx setup ..."
-  #mac_config
+  mac_config
 elif [ `uname` == "Linux" ]
 then
   echo "loading linux config ..."
@@ -193,7 +194,9 @@ then
   linux_neovim
 fi
 
+# common setup
 config_links
+
 eco $cyan "\nsetup ended!!"
 
 # }}}

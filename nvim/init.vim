@@ -125,6 +125,12 @@ Plug 'airblade/vim-gitgutter'
 
 " }}}
 
+" fzf {{{
+
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+
+" }}}
+
 " coc completion {{{
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
