@@ -1,6 +1,4 @@
-####################################################################
-# taps
-####################################################################
+# taps {{{
 
 tap "dunn/emacs"
 tap "homebrew/bundle"
@@ -11,11 +9,10 @@ tap "homebrew/core"
 tap "homebrew/services"
 tap "adoptopenjdk/openjdk"
 
-####################################################################
-# formulaes
-####################################################################
+# }}}
 
-brew "brew-cask-completion"
+# formulaes {{{
+
 brew "bash"
 brew "zsh"
 brew "coreutils"
@@ -30,23 +27,25 @@ brew "tmux"
 brew "tree"
 brew "unrar"
 brew "wget"
-brew "fzf"
+brew "nodejs"
+#brew "fzf"
 #brew "findutils"
 #brew "youtube-dl"
 #brew "gnu-tar"
 #brew "jq"
 
-####################################################################
-# completions
-####################################################################
+# completions {{{
 
+brew "brew-cask-completion"
 brew "cargo-completion"
 brew "rustc-completion"
 brew "zsh-completions"
 
-####################################################################
-# casks
-####################################################################
+# }}}
+
+# }}}
+
+# casks {{{
 
 cask "adobe-acrobat-reader"
 cask "appcleaner"
@@ -66,10 +65,7 @@ cask "multipass"
 #cask "vlc"
 #cask "visual-studio-code"
 
-
-####################################################################
-# fonts
-####################################################################
+# fonts {{{
 
 cask "font-anonymice-powerline"
 cask "font-anonymous-pro"
@@ -104,3 +100,6 @@ cask "font-source-sans-pro"
 cask "font-ubuntu"
 cask "font-ubuntu-mono-derivative-powerline"
 
+# }}}
+
+# }}}
