@@ -118,6 +118,26 @@ let g:NERDTreeColorMapCustom = {
 
 " }}}
 
+" tagbar {{{
+
+Plug 'majutsushi/tagbar'
+
+nmap <F8> :TagbarToggle<CR>
+
+" }}}
+
+" {{{
+
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'default'
+"let g:airline#extensions#tabline#left_sep = ' '
+"let g:airline#extensions#tabline#left_alt_sep = '|'
+
+" }}}
+
 " git {{{
 
 Plug 'tpope/vim-fugitive'
@@ -257,6 +277,42 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
 " }}}
 
+" toml {{{
+
+Plug 'cespare/vim-toml'
+
+" }}}
+
+" yaml {{{
+
+Plug 'mrk21/yaml-vim'
+
+au! BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml foldmethod=indent
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+
+" }}}
+
+" rust {{{
+
+Plug 'rust-lang/rust.vim'
+
+let g:rustfmt_autosave = 1
+
+"macunix                 Macintosh version of Vim, using Unix files (OS-X).
+"unix                    Unix version of Vim.
+"win32                   Win32 version of Vim (MS-Windows 95 and later, 32 or 64 bits)
+"win32unix               Win32 version of Vim, using Unix files (Cygwin)
+
+if has('macunix')
+  let g:rust_clip_command = 'pbcopy'
+elseif has('unix')
+  let g:rust_clip_command = 'xclip -selection clipboard'
+endif
+
+au! BufNewFile,BufReadPost *.{rs} set foldmethod=syntax
+
+" }}}
+
 " initialize
 call plug#end()
 
@@ -312,6 +368,11 @@ vnoremap . :normal .<cr>
 " keep visual selection when indenting/outdenting
 vmap < <gv
 vmap > >gv
+
+map <F5> :mak<CR>
+map <F7> :cn<CR>
+map <F8> :cp<CR>
+map <F6> :!./a.out<CR>
 
 " leader mappings {{{
 
@@ -393,6 +454,21 @@ nnoremap <A-F0> 10gt
 "nnoremap tl :tabprev<CR>
 "nnoremap tn :tabnew<CR>
 
+" terminal
+tnoremap <Esc> <C-\><C-n>
+tnoremap <A-h> <C-\><C-N><C-w>h
+tnoremap <A-j> <C-\><C-N><C-w>j
+tnoremap <A-k> <C-\><C-N><C-w>k
+tnoremap <A-l> <C-\><C-N><C-w>l
+inoremap <A-h> <C-\><C-N><C-w>h
+inoremap <A-j> <C-\><C-N><C-w>j
+inoremap <A-k> <C-\><C-N><C-w>k
+inoremap <A-l> <C-\><C-N><C-w>l
+nnoremap <A-h> <C-w>h
+nnoremap <A-j> <C-w>j
+nnoremap <A-k> <C-w>k
+nnoremap <A-l> <C-w>l
+
 " set leader shortcut for splits
 nnoremap ,w <C-w>
 
@@ -453,6 +529,8 @@ if has('clipboard')
   endif
 endif
 
+
+
 " appearance
 set backspace=indent,eol,start " OSX stupid backspace fix
 set encoding=utf-8 " use an encoding that supports unicode
@@ -464,8 +542,9 @@ set number relativenumber " show hybrid line numbers
 set scrolloff=10 " screenlines to keep above and below the cursor
 set shell=$SHELL " shell
 set shortmess+=c " don't give ins-completion-menu messages
-set showcmd "show imcomplete commands
+set showcmd "show incomplete commands
 set showmatch " highlight matching [{()}]
+set matchtime=1 " When typing a closing bracket, briefly flash the one it matches
 set sidescrolloff=5 " col to keep to the left and right of the cursor
 set signcolumn=yes " show sign column
 set splitbelow
