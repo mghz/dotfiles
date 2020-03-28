@@ -136,6 +136,74 @@ let g:airline#extensions#tabline#formatter = 'default'
 "let g:airline#extensions#tabline#left_sep = ' '
 "let g:airline#extensions#tabline#left_alt_sep = '|'
 
+" nerdcommenter {{{
+
+Plug 'preservim/nerdcommenter'
+
+" settings
+
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+
+" Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs = 1
+
+" Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDDefaultAlign = 'left'
+
+" Set a language to use its alternate delimiters by default
+let g:NERDAltDelims_java = 1
+
+" Add your own custom formats or override the defaults
+"let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
+
+" Allow commenting and inverting empty lines (useful when commenting a region)
+let g:NERDCommentEmptyLines = 1
+
+" Enable trimming of trailing whitespace when uncommenting
+let g:NERDTrimTrailingWhitespace = 1
+
+" Enable NERDCommenterToggle to check all selected lines is commented or not
+let g:NERDToggleCheckAllLines = 1
+
+" mappings
+" ---------
+"Comment out the current line or text selected in visual mode.
+"[count]<leader>cc |NERDCommenterComment|
+
+"Same as cc but forces nesting.
+"[count]<leader>cn |NERDCommenterNested|
+
+"Toggles the comment state of the selected line(s). If the topmost selected line is commented, all selected lines are uncommented and vice versa.
+"[count]<leader>c<space> |NERDCommenterToggle|
+
+"Comments the given lines using only one set of multipart delimiters.
+"[count]<leader>cm |NERDCommenterMinimal|
+
+"Toggles the comment state of the selected line(s) individually.
+"[count]<leader>ci |NERDCommenterInvert|
+
+"Comments out the selected lines with a pretty block formatted layout.
+"[count]<leader>cs |NERDCommenterSexy|
+
+"Same as cc except that the commented line(s) are yanked first.
+"[count]<leader>cy |NERDCommenterYank|
+
+"Comments the current line from the cursor to the end of line.
+"<leader>c$ |NERDCommenterToEOL|
+
+"Adds comment delimiters to the end of line and goes into insert mode between them.
+"<leader>cA |NERDCommenterAppend|
+
+"Switches to the alternative set of delimiters.
+"<leader>ca |NERDCommenterAltDelims|
+
+"Same as |NERDCommenterComment| except that the delimiters are aligned down the left side (<leader>cl) or both sides (<leader>cb).
+"[count]<leader>cl |NERDCommenterAlignLeft [count]<leader>cb |NERDCommenterAlignBoth
+
+"Uncomments the selected line(s).
+"[count]<leader>cu |NERDCommenterUncomment|
+
 " }}}
 
 " git {{{
@@ -342,6 +410,8 @@ inoremap jk <esc>
 inoremap kj <esc>
 vnoremap jk <esc>
 vnoremap kj <esc>
+cnoremap jk <esc>
+cnoremap kj <esc>
 
 " remap command toggle
 nnoremap ; :
@@ -353,14 +423,16 @@ nnoremap <silent> k gk
 nnoremap <silent> ^ g^
 nnoremap <silent> $ g$
 
+" remove highlight from search
+nnoremap <silent> ,<space> :noh<CR>
+
 " map delete line
-nnoremap - o<esc>
-nnoremap <bs> dd
-inoremap <c-d> <esc>ddi
+nnoremap <silent> - o<esc>
+nnoremap <silent> <bs> dd
 
 " scroll the viewport faster
-nnoremap <C-e> 3<C-e>
-nnoremap <C-y> 3<C-y>
+nnoremap <silent> <C-e> 3<C-e>
+nnoremap <silent> <C-y> 3<C-y>
 
 " enable . command in visual mode
 vnoremap . :normal .<cr>
@@ -396,9 +468,6 @@ nnoremap <leader>" viw<esc>a"<esc>bi"<esc>lel
 " switch between current and last buffer
 nmap <leader>. <c-^>
 
-" remove highlight
-nnoremap <leader>, :noh<cr>
-
 " }}}
 
 " splits {{{
@@ -418,14 +487,10 @@ nnoremap <C-H> <C-W><C-H>
 " tabs {{{
 
 " navigation
-nnoremap <C-S-tab>  :tabprevious<CR>
-nnoremap <C-tab>    :tabnext<CR>
 nnoremap <C-t>      :tabnew<CR>
-inoremap <C-S-tab>  <Esc>:tabprevious<CR>i
-inoremap <C-tab>    <Esc>:tabnext<CR>i
 inoremap <C-t>      <Esc>:tabnew<CR>
-nnoremap <C-Insert> :tabnew<CR>
-nnoremap <C-Delete> :tabclose<CR>
+nnoremap <C-w>      :tabclose<CR>
+inoremap <C-w>      <Esc>:tabclose<CR>
 
 nnoremap th :tabfirst<CR>
 nnoremap tk :tabnext<CR>
@@ -435,24 +500,10 @@ nnoremap tt :tabedit<Space>
 nnoremap tn :tabnext<Space>
 nnoremap tm :tabm<Space>
 nnoremap td :tabclose<CR>
-
-" use <A-Fn> to go to the nth tabpage
-nnoremap <A-F1> 1gt
-nnoremap <A-F2> 2gt
-nnoremap <A-F3> 3gt
-nnoremap <A-F4> 4gt
-nnoremap <A-F5> 5gt
-nnoremap <A-F6> 6gt
-nnoremap <A-F7> 7gt
-nnoremap <A-F8> 8gt
-nnoremap <A-F9> 9gt
-nnoremap <A-F0> 10gt
+nnoremap tw :tabnew<CR>
 
 " Alternatively use
-"nnoremap L gt
-"nnoremap th :tabnext<CR>
-"nnoremap tl :tabprev<CR>
-"nnoremap tn :tabnew<CR>
+nnoremap L gt
 
 " terminal
 tnoremap <Esc> <C-\><C-n>
@@ -541,8 +592,9 @@ set mouse=a " enable text copy
 set number relativenumber " show hybrid line numbers
 set scrolloff=10 " screenlines to keep above and below the cursor
 set shell=$SHELL " shell
-set shortmess+=c " don't give ins-completion-menu messages
-set showcmd "show incomplete commands
+"set shortmess+=c " don't give ins-completion-menu messages
+set shortmess=at " don't give ins-completion-menu messages
+set showcmd "show imcomplete commands
 set showmatch " highlight matching [{()}]
 set matchtime=1 " When typing a closing bracket, briefly flash the one it matches
 set sidescrolloff=5 " col to keep to the left and right of the cursor
