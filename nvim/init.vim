@@ -579,8 +579,6 @@ if has('clipboard')
   endif
 endif
 
-
-
 " appearance
 set backspace=indent,eol,start " OSX stupid backspace fix
 set encoding=utf-8 " use an encoding that supports unicode
