@@ -14,27 +14,27 @@ abbr attribuet attribute
 
 " }}}
 
-" hightlights {{{
+" hightlights - disabled {{{
 
-" highlight whitespace in red
-highlight ExtraWhitespace ctermbg=red guibg=red
-match ExtraWhitespace /\s\+$/
-autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-autocmd BufWinLeave * call clearmatches()
-
-" make the highlighting of tabs and other non-text less annoying
-highlight SpecialKey ctermfg=19 guifg=#333333
-highlight NonText ctermfg=19 guifg=#333333
-
-" make comments and HTML attributes italic
-highlight Comment cterm=italic term=italic gui=italic
-highlight htmlArg cterm=italic term=italic gui=italic
-highlight xmlAttrib cterm=italic term=italic gui=italic
-
-" highlight Type cterm=italic term=italic gui=italic
-highlight Normal ctermbg=none
+" " highlight whitespace in red
+" highlight ExtraWhitespace ctermbg=red guibg=red
+" match ExtraWhitespace /\s\+$/
+" autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+" autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+" autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+" autocmd BufWinLeave * call clearmatches()
+"
+" " make the highlighting of tabs and other non-text less annoying
+" highlight SpecialKey ctermfg=19 guifg=#333333
+" highlight NonText ctermfg=19 guifg=#333333
+"
+" " make comments and attributes italic
+" highlight Comment cterm=italic term=italic gui=italic
+" highlight htmlArg cterm=italic term=italic gui=italic
+" highlight xmlAttrib cterm=italic term=italic gui=italic
+"
+" " highlight Type cterm=italic term=italic gui=italic
+" highlight Normal ctermbg=none
 
 " }}}
 
@@ -75,54 +75,54 @@ Plug 'dracula/vim', { 'as': 'dracula' }
 
 " }}}
 
-" nerdtree {{{
+" nerdtree - disabled {{{
 
-Plug 'preservim/nerdtree'
-
-" nerdtree
-" open NERDTree automatically when vim starts up on opening a directory
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
-
-" close vim if the only window left open is a NERDTree
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
-" % opens current directory of file
-nnoremap <C-o> :NERDTreeToggle %<cr>
-
-" nerdtree ignore files
-let g:NERDTreeIgnore = ['^node_modules$']
-
-" }}}
-
-" nerdtree git {{{
-
-Plug 'Xuyuanp/nerdtree-git-plugin'
-
-" nerd git plugin
-let NERDTreeShowHidden=1 "show hidden files
-let g:NERDTreeQuitOnOpen=0 "close after opening file
-let g:NERDTreeGitStatusWithFlags = 1
-let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-let g:NERDTreeGitStatusNodeColorization = 1
-let g:NERDTreeColorMapCustom = {
-      \ "Staged"    : "#0ee375",
-      \ "Modified"  : "#d9bf91",
-      \ "Renamed"   : "#51C9FC",
-      \ "Untracked" : "#FCE77C",
-      \ "Unmerged"  : "#FC51E6",
-      \ "Dirty"     : "#FFBD61",
-      \ "Clean"     : "#87939A",
-      \ "Ignored"   : "#808080"
-      \ }
+" Plug 'preservim/nerdtree'
+"
+" " nerdtree
+" " open NERDTree automatically when vim starts up on opening a directory
+" autocmd StdinReadPre * let s:std_in=1
+" autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
+"
+" " close vim if the only window left open is a NERDTree
+" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+"
+" " % opens current directory of file
+" nnoremap <C-o> :NERDTreeToggle %<cr>
+"
+" " nerdtree ignore files
+" let g:NERDTreeIgnore = ['^node_modules$']
 
 " }}}
 
-" tagbar {{{
+" nerdtree git - disabled{{{
 
-Plug 'majutsushi/tagbar'
+" Plug 'Xuyuanp/nerdtree-git-plugin'
+"
+" " nerd git plugin
+" let NERDTreeShowHidden=1 "show hidden files
+" let g:NERDTreeQuitOnOpen=0 "close after opening file
+" let g:NERDTreeGitStatusWithFlags = 1
+" let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+" let g:NERDTreeGitStatusNodeColorization = 1
+" let g:NERDTreeColorMapCustom = {
+"       \ "Staged"    : "#0ee375",
+"       \ "Modified"  : "#d9bf91",
+"       \ "Renamed"   : "#51C9FC",
+"       \ "Untracked" : "#FCE77C",
+"       \ "Unmerged"  : "#FC51E6",
+"       \ "Dirty"     : "#FFBD61",
+"       \ "Clean"     : "#87939A",
+"       \ "Ignored"   : "#808080"
+"       \ }
 
-nmap <F8> :TagbarToggle<CR>
+" }}}
+
+" tagbar - disabled {{{
+
+" Plug 'majutsushi/tagbar'
+"
+" nmap <F8> :TagbarToggle<CR>
 
 " }}}
 
