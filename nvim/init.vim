@@ -16,7 +16,7 @@ abbr attribuet attribute
 
 " hightlights - disabled {{{
 
-" " highlight whitespace in red
+"" highlight whitespace in red
 " highlight ExtraWhitespace ctermbg=red guibg=red
 " match ExtraWhitespace /\s\+$/
 " autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
@@ -38,21 +38,6 @@ abbr attribuet attribute
 
 " }}}
 
-" functions {{{
-
-function! PlugLoad()
-
-endfunction
-
-" Trim Whitespaces
-function! TrimWhitespace()
-    let l:save = winsaveview()
-    %s/\\\@<!\s\+$//e
-    call winrestview(l:save)
-endfunction
-
-" }}}
-
 " plugins {{{
 
 " ensure vim-plug is installed
@@ -61,7 +46,7 @@ endfunction
 " automatically install vim-plug and run PlugInstall if vim-plug not found
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-      \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall | source $MYVIMRC
 endif
 
@@ -72,57 +57,6 @@ call plug#begin(expand('~/.config/nvim/plugged'))
 Plug 'chriskempson/base16-vim'
 Plug 'morhetz/gruvbox'
 Plug 'dracula/vim', { 'as': 'dracula' }
-
-" }}}
-
-" nerdtree - disabled {{{
-
-" Plug 'preservim/nerdtree'
-"
-" " nerdtree
-" " open NERDTree automatically when vim starts up on opening a directory
-" autocmd StdinReadPre * let s:std_in=1
-" autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
-"
-" " close vim if the only window left open is a NERDTree
-" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-"
-" " % opens current directory of file
-" nnoremap <C-o> :NERDTreeToggle %<cr>
-"
-" " nerdtree ignore files
-" let g:NERDTreeIgnore = ['^node_modules$']
-
-" }}}
-
-" nerdtree git - disabled{{{
-
-" Plug 'Xuyuanp/nerdtree-git-plugin'
-"
-" " nerd git plugin
-" let NERDTreeShowHidden=1 "show hidden files
-" let g:NERDTreeQuitOnOpen=0 "close after opening file
-" let g:NERDTreeGitStatusWithFlags = 1
-" let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-" let g:NERDTreeGitStatusNodeColorization = 1
-" let g:NERDTreeColorMapCustom = {
-"       \ "Staged"    : "#0ee375",
-"       \ "Modified"  : "#d9bf91",
-"       \ "Renamed"   : "#51C9FC",
-"       \ "Untracked" : "#FCE77C",
-"       \ "Unmerged"  : "#FC51E6",
-"       \ "Dirty"     : "#FFBD61",
-"       \ "Clean"     : "#87939A",
-"       \ "Ignored"   : "#808080"
-"       \ }
-
-" }}}
-
-" tagbar - disabled {{{
-
-" Plug 'majutsushi/tagbar'
-"
-" nmap <F8> :TagbarToggle<CR>
 
 " }}}
 
@@ -205,6 +139,12 @@ let g:NERDToggleCheckAllLines = 1
 
 " }}}
 
+" auto-pairs {{{
+
+Plug 'jiangmiao/auto-pairs'
+
+" }}}
+
 " git {{{
 
 Plug 'tpope/vim-fugitive'
@@ -215,6 +155,38 @@ Plug 'airblade/vim-gitgutter'
 " fzf {{{
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
+" Mapping selecting mappings
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
+
+" Insert mode completion
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+imap <c-x><c-l> <plug>(fzf-complete-line)
+
+" Advanced customization using Vim function
+inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
+
+" hide statusline
+autocmd! FileType fzf set laststatus=0 noshowmode noruler
+  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+
+" custom statusline
+function! s:fzf_statusline()
+  " Override statusline as you like
+  highlight fzf1 ctermfg=161 ctermbg=251
+  highlight fzf2 ctermfg=23 ctermbg=251
+  highlight fzf3 ctermfg=237 ctermbg=251
+  setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
+endfunction
+
+autocmd! User FzfStatusLine call <SID>fzf_statusline()
+
+nnoremap <silent> <Leader>z :Files<CR>
 
 " }}}
 
@@ -359,6 +331,13 @@ autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
 " }}}
 
+" markdown {{{
+
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
+
+" }}}
+
 " rust {{{
 
 Plug 'rust-lang/rust.vim'
@@ -380,8 +359,64 @@ au! BufNewFile,BufReadPost *.{rs} set foldmethod=syntax
 
 " }}}
 
+" rust-racer {{{
+
+Plug 'racer-rust/vim-racer'
+
+" racer path
+let g:racer_cmd = "$HOME/.cargo/bin/racer"
+
+" insert parentheses
+let g:racer_insert_paren = 1
+
+" auto commands
+augroup Racer
+    autocmd!
+    autocmd FileType rust nmap <buffer> gd         <Plug>(rust-def)
+    autocmd FileType rust nmap <buffer> gs         <Plug>(rust-def-split)
+    autocmd FileType rust nmap <buffer> gx         <Plug>(rust-def-vertical)
+    autocmd FileType rust nmap <buffer> gt         <Plug>(rust-def-tab)
+    autocmd FileType rust nmap <buffer> <leader>gd <Plug>(rust-doc)
+augroup END
+
+" }}}
+
+" ultisnips {{{
+
+" engine.
+Plug 'SirVer/ultisnips'
+
+" snippets
+Plug 'honza/vim-snippets'
+
+" Trigger configuration
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" :UltiSnipsEdit to split your window.
+" let g:UltiSnipsEditSplit="vertical"
+
+" }}}
+
 " initialize
 call plug#end()
+
+" }}}
+
+" functions {{{
+
+function! PlugLoad()
+
+endfunction
+
+" Trim Whitespaces
+function! TrimWhitespace()
+  let l:save = winsaveview()
+  %s/\\\@<!\s\+$//e
+  call winrestview(l:save)
+endfunction
+
 
 " }}}
 
@@ -393,9 +428,9 @@ augroup vimrc
   " trim whitespace on save
   au BufWritePre * :%s/\s\+$//e
 
-  " auto format html, no wrap
-  au BufWritePre,BufRead *.rs :normal gg=G
-  au BufWritePre,BufRead *.html :normal gg=G
+  "" auto format html, no wrap
+  " au BufWritePre,BufRead *.rs :normal gg=G
+  " au BufWritePre,BufRead *.html :normal gg=G
   au BufNewFile,BufRead *.html setlocal nowrap
 augroup END
 
@@ -440,7 +475,7 @@ vnoremap . :normal .<cr>
 vmap < <gv
 vmap > >gv
 
-map <F5> :mak<CR>
+map<F5> :mak<CR>
 map <F7> :cn<CR>
 map <F8> :cp<CR>
 map <F6> :!./a.out<CR>
@@ -486,23 +521,20 @@ nnoremap <C-H> <C-W><C-H>
 " tabs {{{
 
 " navigation
-nnoremap <C-t>      :tabnew<CR>
-inoremap <C-t>      <Esc>:tabnew<CR>
-nnoremap <C-w>      :tabclose<CR>
-inoremap <C-w>      <Esc>:tabclose<CR>
+" nnoremap <C-t>      :tabnew<CR>
+" inoremap <C-t>      <Esc>:tabnew<CR>
+" nnoremap <C-w>      :tabclose<CR>
+" inoremap <C-w>      <Esc>:tabclose<CR>
 
-nnoremap th :tabfirst<CR>
-nnoremap tk :tabnext<CR>
-nnoremap tj :tabprev<CR>
-nnoremap tl :tablast<CR>
-nnoremap tt :tabedit<Space>
-nnoremap tn :tabnext<Space>
-nnoremap tm :tabm<Space>
-nnoremap td :tabclose<CR>
-nnoremap tw :tabnew<CR>
-
-" Alternatively use
-nnoremap L gt
+" nnoremap th :tabfirst<CR>
+" nnoremap tk :tabnext<CR>
+" nnoremap tj :tabprev<CR>
+" nnoremap tl :tablast<CR>
+" nnoremap tt :tabedit<Space>
+" nnoremap tn :tabnext<Space>
+" nnoremap tm :tabm<Space>
+" nnoremap td :tabclose<CR>
+" nnoremap tw :tabnew<CR>
 
 " terminal
 tnoremap <Esc> <C-\><C-n>
@@ -648,6 +680,34 @@ if (has('nvim'))
   " show results of substition as they're happening
   " but don't open a split
   set inccommand=nosplit
+
+  " https://github.com/neovim/neovim/issues/2897#issuecomment-115464516
+  let g:terminal_color_0 = '#4e4e4e'
+  let g:terminal_color_1 = '#d68787'
+  let g:terminal_color_2 = '#5f865f'
+  let g:terminal_color_3 = '#d8af5f'
+  let g:terminal_color_4 = '#85add4'
+  let g:terminal_color_5 = '#d7afaf'
+  let g:terminal_color_6 = '#87afaf'
+  let g:terminal_color_7 = '#d0d0d0'
+  let g:terminal_color_8 = '#626262'
+  let g:terminal_color_9 = '#d75f87'
+  let g:terminal_color_10 = '#87af87'
+  let g:terminal_color_11 = '#ffd787'
+  let g:terminal_color_12 = '#add4fb'
+  let g:terminal_color_13 = '#ffafaf'
+  let g:terminal_color_14 = '#87d7d7'
+  let g:terminal_color_15 = '#e4e4e4'
+
+  set fillchars=vert:\|,fold:-
+  autocmd BufReadPost *
+    \ if line("'\"") >= 1 && line("'\"") <= line("$") |
+    \   exe "normal! g`\"" |
+    \ endif
+
+  " Escape inside a FZF terminal window should exit the terminal window
+    " rather than going into the terminal's normal mode.
+    autocmd FileType fzf tnoremap <buffer> <Esc> <Esc>
 endif
 
 " error bell

@@ -79,3 +79,5 @@ alias wp='wasm-pack'
 alias mp='multipass'
 
 # }}}
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
