@@ -25,7 +25,7 @@ bindkey -M vicmd '^R' history-incremental-search-backward
 
 # fzf ignore directories
 # Add any other directories you want ignored with -o -name directory_name -prune
-export FZF_DEFAULT_COMMAND='find . -name .git -prune -o -name node_modules -prune -o -name coverage -prune -o -name tmp -prune -o -type f -print'
+# export FZF_DEFAULT_COMMAND='find . -name .git -prune -o -name node_modules -prune -o -name coverage -prune -o -name tmp -prune -o -type f -print'
 
 # os specific exports
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
