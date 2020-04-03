@@ -71,6 +71,7 @@ alias cr='cargo run'
 alias ct='cargo test'
 alias cw='cargo watch -x run'
 alias ru='rustup'
+alias cwatch='cargo watch -i .gitignore -i "pkg/*" -s "wasm-pack build"'
 
 # web assembly
 alias wp='wasm-pack'
