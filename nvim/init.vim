@@ -299,7 +299,14 @@ Plug 'junegunn/fzf.vim'
 " autocmd! FileType fzf set laststatus=0 noshowmode noruler
 "   \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
-nnoremap <silent> <Leader>z :Files<CR>
+" FZF key bindings
+nnoremap <C-f> :FZF<CR>
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-i': 'split',
+  \ 'ctrl-v': 'vsplit' }
+
+
 
 " }}}
 
