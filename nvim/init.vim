@@ -70,7 +70,7 @@ set tabstop=2	"default tab space
 set foldlevel=2
 set foldlevelstart=2
 set foldmethod=marker "fold based on marker
-set foldnestmax=10 "deepest fold is 10 levels
+set foldnestmax=15 "deepest fold is 10 levels
 set foldenable "fold by default (nofoldenable)
 
 " status
@@ -367,6 +367,14 @@ au! BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml foldmethod=indent
 
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
+
+" }}}
+
+" polyglot {{{
+
+Plug 'sheerun/vim-polyglot'
+
+
 
 " }}}
 
