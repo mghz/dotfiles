@@ -1,3 +1,0 @@
-" vim ftplugin language file
-
-

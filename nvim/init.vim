@@ -348,33 +348,9 @@ nmap <leader>rn <Plug>(coc-rename)
 
 " }}}
 
-" toml {{{
-
-Plug 'cespare/vim-toml'
-
-" }}}
-
-" yaml {{{
-
-Plug 'mrk21/yaml-vim'
-
-au! BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml foldmethod=indent
-" autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
-
-" }}}
-
-" markdown {{{
-
-Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
-
-" }}}
-
 " polyglot {{{
 
 Plug 'sheerun/vim-polyglot'
-
-
 
 " }}}
 
