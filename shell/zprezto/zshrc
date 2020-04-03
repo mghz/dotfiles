@@ -17,11 +17,21 @@ export PATH=/usr/local/sbin:$PATH
 export PATH=$HOME/.cargo/bin:$PATH
 export PATH=$PATH:/snap/bin
 
-# add homebrew to path
-eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 
 # fzf configuration
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# os specific exports
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
+
+  # add homebrew to path
+  eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+  echo "no exports for mac yet"
+else
+  echo "no exports"
+fi
 
 # }}}
 
