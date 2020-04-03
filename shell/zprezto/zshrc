@@ -17,6 +17,12 @@ export PATH=/usr/local/sbin:$PATH
 export PATH=$HOME/.cargo/bin:$PATH
 export PATH=$PATH:/snap/bin
 
+# add homebrew to path
+eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+
+# fzf configuration
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
 # }}}
 
 # aliases {{{
@@ -81,4 +87,3 @@ alias mp='multipass'
 
 # }}}
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
