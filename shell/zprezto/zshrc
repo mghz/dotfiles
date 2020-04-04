@@ -1,22 +1,15 @@
-#
 # Executes commands at the start of an interactive session.
-#
-# Authors:
-#   Sorin Ionescu <sorin.ionescu@gmail.com>
 
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-# Customize to your needs...
-
 # exports {{{
 
 export PATH=/usr/local/sbin:$PATH
 export PATH=$HOME/.cargo/bin:$PATH
 export PATH=$PATH:/snap/bin
-
 
 # fzf configuration
 bindkey -M viins '^R' history-incremental-search-backward
@@ -34,7 +27,7 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
   eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 
 elif [[ "$OSTYPE" == "darwin"* ]]; then
-  echo "no exports for mac yet"
+  echo "mac => exports done."
 else
   echo "no exports"
 fi
@@ -72,11 +65,6 @@ alias zconf='vim ~/.zshrc'
 
 # networking
 alias ping='ping -c 4'
-
-# docker
-#alias dk='docker'
-#alias dc='docker-compose'
-#alias di='docker-images'
 
 # common
 alias grep='grep -n'
