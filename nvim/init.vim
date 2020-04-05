@@ -426,19 +426,57 @@ augroup END
 
 " }}}
 
+" vim-surround {{{
+
+" to use press cs"' to change " to '
+Plug 'tpope/vim-surround'
+
+" }}}
+
+" vim-multiple-cursors {{{
+
+Plug 'terryma/vim-multiple-cursors'
+
+" start: <C-n> start multicursor and add a virtual cursor + selection on the match
+" next: <C-n> add a new virtual cursor + selection on the next match
+" skip: <C-x> skip the next match
+" prev: <C-p> remove current virtual cursor + selection and go back on previous match
+" select all: <A-n> start multicursor and directly select all matches
+
+" }}}
+
+" ale {{{
+
+Plug 'dense-analysis/ale'
+
+let g:ale_fixers = {
+  \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+  \   'javascript': ['eslint'],
+  \}
+
+let g:ale_fix_on_save = 1
+
+" }}}
+
 " ultisnips {{{
 
 " engine and snippets
-" Plug 'SirVer/ultisnips'
-" Plug 'honza/vim-snippets'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
 " Trigger configuration
-" let g:UltiSnipsExpandTrigger="<tab>"
-" let g:UltiSnipsJumpForwardTrigger="<c-b>"
-" let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsExpandTrigger="<C-s>"
+let g:UltiSnipsJumpForwardTrigger="<C-b>"
+let g:UltiSnipsJumpBackwardTrigger="<C-z>"
 
 " :UltiSnipsEdit to split your window.
-" let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsEditSplit="vertical"
+
+" }}}
+
+" snippets bootstrap 4 {{{
+
+Plug 'jvanja/vim-bootstrap4-snippets'
 
 " }}}
 
@@ -514,6 +552,10 @@ nnoremap <leader>" viw<esc>a"<esc>bi"<esc>lel
 
 " switch between current and last buffer
 nmap <leader>. <c-^>
+
+" show netrw
+nnoremap <leader>ex :Exp<CR>
+
 
 " }}}
 
