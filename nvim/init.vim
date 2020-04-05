@@ -1,5 +1,8 @@
 " vim/nvim configuration
 
+" define leader
+let mapleader=","
+
 " abbreviations {{{
 
 abbr waht what
@@ -31,7 +34,7 @@ endif
 " appearance
 set backspace=indent,eol,start " OSX stupid backspace fix
 set encoding=utf-8 " use an encoding that supports unicode
-set hidden " disable warning of hidden buffers
+" set hidden " disable warning of hidden buffers
 set history=1000
 set linebreak "avoid wrapping a line in the middle of a word
 set list "enable list
@@ -46,8 +49,8 @@ set showcmd "show imcomplete commands
 set showmatch " highlight matching [{()}]
 set sidescrolloff=5 "col to keep to the left and right of the cursor
 set signcolumn=yes "show sign column
-set splitbelow
-set splitright
+set splitbelow " split below by default"
+set splitright " split right by default "
 set title "set title of window to file
 set ttyfast "faster redrawing
 set updatetime=300 "bad experience for diagnostic messages when it's default 4000
@@ -83,7 +86,7 @@ set nospell "disable spelling highlights
 set noswapfile "no swap files
 set nowritebackup "delete backup after write
 
-" searc
+" search
 set hlsearch "highlight search results
 set ignorecase "case insensitive searching
 set magic "set magic on, for regex
@@ -156,9 +159,6 @@ endif
 
 " highlights {{{
 
-" highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
-highlight ExtraWhitespace ctermbg=red guibg=red
-
 " }}}
 
 " functions {{{
@@ -177,9 +177,6 @@ highlight ExtraWhitespace ctermbg=red guibg=red
 " }}}
 
 " plugins {{{
-
-" ensure vim-plug is installed
-" call functions#PlugLoad()
 
 " automatically install vim-plug and run PlugInstall if vim-plug not found
 if empty(glob('~/.vim/autoload/plug.vim'))
@@ -203,10 +200,14 @@ Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#formatter = 'default'
-"let g:airline#extensions#tabline#left_sep = ' '
-"let g:airline#extensions#tabline#left_alt_sep = '|'
+" enable buffers as tabs"
+" let g:airline#extensions#tabline#enabled = 1
+
+" Show just the filename
+" let g:airline#extensions#tabline#fnamemod = ':t'
+
+" let g:airline#extensions#tabline#formatter = 'default'
+
 " }}}
 
 " nerdcommenter {{{
@@ -302,18 +303,15 @@ Plug 'junegunn/fzf.vim'
 " FZF key bindings
 nnoremap <C-f> :FZF<CR>
 let g:fzf_action = {
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-i': 'split',
-  \ 'ctrl-v': 'vsplit' }
-
-
+      \ 'ctrl-t': 'tab split',
+      \ 'ctrl-i': 'split',
+      \ 'ctrl-v': 'vsplit' }
 
 " }}}
 
 " coc completion {{{
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -442,24 +440,16 @@ call plug#end()
 
 augroup vimrc
   au!
-
   " trim whitespace on save
-  " au BufWritePre * :%s/\s\+$//e
-
+  au BufWritePre * :%s/\s\+$//e
 augroup END
 
 " wipe resiters contents
 command! WipeReg for i in range(34,122) | silent! call setreg(nr2char(i), []) | endfor
 
-autocmd Syntax * syn match ExtraWhitespace /\s\+$\| \+\ze\t/
-
-
-
 " }}}
 
 " mappings {{{
-
-let mapleader=","
 
 " editing {{{
 
@@ -508,13 +498,6 @@ vmap > >gv
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
-" clear highlighted search
-noremap <leader>h :set hlsearch! hlsearch?<cr>
-
-" remove extra whitespace
-nmap <leader><space> :%s/\s\+$<cr>
-nmap <leader><space><space> :%s/\n\{2,}/\r\r/g<cr>
-
 " surround with double quotes
 nnoremap <leader>" viw<esc>a"<esc>bi"<esc>lel
 
@@ -523,9 +506,9 @@ nmap <leader>. <c-^>
 
 " }}}
 
-" splits {{{
+" windows {{{
 
-" Split related commands "
+" split related commands "
 " :sp filename	Open filename in horizontal split
 " :vsp filename	Open filename in vertical split
 " Ctrl-w h Ctrl-w ←	Shift focus to split on left of current
@@ -536,8 +519,8 @@ nmap <leader>. <c-^>
 " Ctrl-w n-	Decrease size of current split by n lines
 
 " add a split
-nnoremap ,v <C-w>v
-nnoremap ,h <C-w>s
+nnoremap ,wv <C-w>v
+nnoremap ,wh <C-w>s
 
 " split nav
 nnoremap <C-J> <C-W><C-J>
@@ -545,78 +528,21 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+" resize windows
+map <c-n> <c-w><
+map <c-m> <c-w>>
+map <c-u> <c-w>+
+map <c-i> <c-w>-
+
 " }}}
 
 " buffers {{{
 
-map gn :bn<cr>
-map gp :bp<cr>
-map gd :bd<cr>
+" switch to buffer by number
+nnoremap <leader>gb :ls<CR>:b<Space>
 
-" }}}
-
-" tabs {{{
-
-" navigation
-" nnoremap <C-t>      :tabnew<CR>
-" inoremap <C-t>      <Esc>:tabnew<CR>
-" nnoremap <C-w>      :tabclose<CR>
-" inoremap <C-w>      <Esc>:tabclose<CR>
-
-" nnoremap th :tabfirst<CR>
-" nnoremap tk :tabnext<CR>
-" nnoremap tj :tabprev<CR>
-" nnoremap tl :tablast<CR>
-" nnoremap tt :tabedit<Space>
-" nnoremap tn :tabnext<Space>
-" nnoremap tm :tabm<Space>
-" nnoremap td :tabclose<CR>
-" nnoremap tw :tabnew<CR>
-
-" terminal
-tnoremap <Esc> <C-\><C-n>
-tnoremap <A-h> <C-\><C-N><C-w>h
-tnoremap <A-j> <C-\><C-N><C-w>j
-tnoremap <A-k> <C-\><C-N><C-w>k
-tnoremap <A-l> <C-\><C-N><C-w>l
-inoremap <A-h> <C-\><C-N><C-w>h
-inoremap <A-j> <C-\><C-N><C-w>j
-inoremap <A-k> <C-\><C-N><C-w>k
-inoremap <A-l> <C-\><C-N><C-w>l
-nnoremap <A-h> <C-w>h
-nnoremap <A-j> <C-w>j
-nnoremap <A-k> <C-w>k
-nnoremap <A-l> <C-w>l
-
-" set leader shortcut for splits
-nnoremap ,w <C-w>
-
-" switch between splits
-nnoremap ,, <C-w><C-w>
-
-" maps Alt-[h,j,k,l] to resizing a window split
-map <silent> <A-h> <C-w><
-map <silent> <A-j> <C-W>-
-map <silent> <A-k> <C-W>+
-map <silent> <A-l> <C-w>>
-
-" Max out the height of the current split
-" ctrl + w _
-
-" Max out the width of the current split
-" ctrl + w |
-
-" Normalize all split sizes, which is very handy when resizing terminal
-" ctrl + w =
-
-" Swap top/bottom or left/right split
-" Ctrl+W R
-
-" Break out current window into a new tabview
-" Ctrl+W T
-
-" Close every window in the current tabview but the current one
-" Ctrl+W o
+" switch to buffer by name [partial]
+nnoremap <leader>b :buffer *
 
 " }}}
 
