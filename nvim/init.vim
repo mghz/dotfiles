@@ -2,6 +2,8 @@
 
 " define leader
 let mapleader=","
+" let g:mapleader = "\<Space>"
+" let g:maplocalleader = ','
 
 " abbreviations {{{
 
@@ -207,6 +209,15 @@ Plug 'vim-airline/vim-airline-themes'
 " let g:airline#extensions#tabline#fnamemod = ':t'
 
 " let g:airline#extensions#tabline#formatter = 'default'
+
+" }}}
+
+" which-key {{{
+
+" Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
+
+" map key
+" nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
 
 " }}}
 
@@ -495,8 +506,8 @@ vmap > >gv
 " leader mappings {{{
 
 " edit, source vim file
-nnoremap <leader>ev :vsplit $MYVIMRC<cr>
-nnoremap <leader>sv :source $MYVIMRC<cr>
+nnoremap <silent> <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <silent> <leader>sv :source $MYVIMRC<cr>
 
 " surround with double quotes
 nnoremap <leader>" viw<esc>a"<esc>bi"<esc>lel
@@ -547,7 +558,7 @@ map <C-i> <c-w>-
 nnoremap <leader>gb :ls<CR>:b<Space>
 
 " switch to buffer by name [partial]
-nnoremap <leader>b :buffer *
+ nnoremap <leader>bb :buffer *
 
 " }}}
 
