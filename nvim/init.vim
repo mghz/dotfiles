@@ -521,6 +521,11 @@ nmap <leader>. <c-^>
 " add a split
 nnoremap ,wv <C-w>v
 nnoremap ,wh <C-w>s
+nnoremap ,wo <C-w>o
+nnoremap ,wq <C-w>q
+nnoremap ,we <C-w>=
+nnoremap ,wu <C-w>_
+nnoremap ,wn <C-w>|
 
 " split nav
 nnoremap <C-J> <C-W><C-J>
@@ -529,10 +534,10 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
 " resize windows
-map <c-n> <c-w><
-map <c-m> <c-w>>
-map <c-u> <c-w>+
-map <c-i> <c-w>-
+map <C-m> <c-w><
+map <C-n> <c-w>>
+map <C-u> <c-w>+
+map <C-i> <c-w>-
 
 " }}}
 
@@ -546,17 +551,46 @@ nnoremap <leader>b :buffer *
 
 " }}}
 
+" tabs {{{
+
+" tab new
+nnoremap <leader>tn :tabnew<CR>
+
+" tab edit a file
+nnoremap <leader>te :tabedit **/*
+
+" tab find a file
+nnoremap <leader>tf :tabfind *
+
+" close current tab
+nnoremap <leader>tw :tabclose<CR>
+
+" closes all tab pages except the current one
+nnoremap <leader>to :tabo<CR>
+
+" CTRL-Tab is next tab
+noremap <C-Tab> <C-U>:tabnext<CR>
+inoremap <C-Tab> <C-\><C-N>:tabnext<CR>
+cnoremap <C-Tab> <C-C>:tabnext<CR>
+
+" CTRL-SHIFT-Tab is previous tab
+noremap <C-S-Tab> <C-U>:tabprevious<CR>
+inoremap <C-S-Tab> <C-\><C-N>:tabprevious<CR>
+cnoremap <C-S-Tab> <C-C>:tabprevious<CR>
+
 " }}}
 
-" colorscheme {{{
+" }}}
 
-colorscheme base16-default-dark
+" color schemes {{{
 
-"let g:onedark_termcolors=16
-"let g:onedark_terminal_italics=1
-"colorscheme onedark
+" colorscheme base16-default-dark
 
-colorscheme dracula
+" let g:onedark_termcolors=16
+" let g:onedark_terminal_italics=1
+" colorscheme onedark
+
 "colorscheme gruvbox
+colorscheme dracula
 
 " }}}
