@@ -621,6 +621,7 @@ nnoremap <leader>tw :tabclose<CR>
 " closes all tab pages except the current one
 nnoremap <leader>to :tabo<CR>
 
+" navigate tabs
 map <S-n> gT
 map <S-m> gt
 
