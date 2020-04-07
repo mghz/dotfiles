@@ -26,10 +26,10 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
   # add homebrew to path
   eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 
-elif [[ "$OSTYPE" == "darwin"* ]]; then
-  echo "mac => exports done."
-else
-  echo "no exports"
+# elif [[ "$OSTYPE" == "darwin"* ]]; then
+#   echo "mac => exports done."
+# else
+#   echo "no exports"
 fi
 
 # }}}
