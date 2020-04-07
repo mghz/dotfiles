@@ -449,13 +449,6 @@ Plug 'terryma/vim-multiple-cursors'
 
 Plug 'dense-analysis/ale'
 
-let g:ale_fixers = {
-  \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-  \   'javascript': ['eslint'],
-  \}
-
-let g:ale_fix_on_save = 1
-
 " }}}
 
 " ultisnips {{{
@@ -626,6 +619,14 @@ map <S-n> gT
 map <S-m> gt
 
 " }}}
+
+" terminal {{{
+
+" remap exit
+tnoremap <Esc> <C-\><C-n>
+
+" }}}
+
 
 " }}}
 
