@@ -157,6 +157,83 @@ if (has("termguicolors"))
   set termguicolors
 endif
 
+" netrw {{{
+
+" Navigation
+" ==========
+" enter - Open files/directories
+" - - Go up one directory
+" u - Go back to previously visited directory (like <C-o> in vim)
+" U - Go forward to subsequently visited directory (like <C-i> in vim)
+" o - Open file/directory in new horizontal split
+" v - Open file/directory in new vertical split
+" t - Open file/directory in new tab
+" p - Preview file without (moving the cursor from netrw)
+" x - Open the file/directory with the default system app
+"
+" Appearance and Behaviour
+" ========================
+" i - Cycle between different listing modes (one of them is tree mode)
+" I - Toggle the banner
+" c - Make the browsing directory the current working directory
+" gn - Make the directory under the cursor the top of the tree
+" gh - Toggle hidden files on or off
+" a - Cycle between all files, not hidden files or just hidden files visible
+" s - Cycle sort order between name, time or filesize
+" r - Reverse sort order
+
+" File Operations
+" ===============
+" % - Create a new file
+" d - Create a new directory
+" D - Delete the file/directory under the cursor (or marked files/dirs)
+" R - Rename/move file/directory
+" mf - Toggle whether the file/directory is marked
+" mt - Mark the directory under the cursor as the copy target
+" mc - Execute the copy operation
+" mu - Unmark all marked items
+
+" Commands
+" ========
+" :e. - Open the current directory normally
+" :sp. - Open the current directory in a horizontal split
+" :vs. - Open the current directory in a vertical split
+" :tabe. - Open the current directory in a new tab
+" :Ex - Use current buffer if available, otherwise split horizontally
+" :Ex! - Use current buffer if available, otherwise split vertically
+" :Sex! - Horizontal split
+" :Hex - Horizontal split
+" :Hex! - Horizontal split (opposite side)
+" :Sex - Vertical split
+" :Vex - Vertical split
+" :Vex! - Vertical split (opposite side)
+" :Tex - New tab, directory of currently open buffer
+" :Lex - Vertical split full height, current working directory
+" :Lex! - Vertical split, current working directory (opposite side)
+
+
+" options
+let g:netrw_banner = 0
+
+" cycle thru views with i
+let g:netrw_liststyle = 3
+
+" 1 = new horizontal split
+" 2 = new vertical split
+" 3 = new tab
+" 4 = in previous window
+" let g:netrw_browse_split = 2
+
+" let g:netrw_altv = 1
+" let g:netrw_winsize = 25
+
+" augroup ProjectDrawer
+"   autocmd!
+"   autocmd VimEnter * :Vex
+" augroup END
+
+" }}}
+
 " }}}
 
 " highlights {{{
