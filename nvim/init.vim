@@ -2,8 +2,6 @@
 
 " define leader
 let mapleader=","
-" let g:mapleader = "\<Space>"
-" let g:maplocalleader = ','
 
 " abbreviations {{{
 
@@ -226,9 +224,170 @@ Plug 'vim-airline/vim-airline-themes'
 " which-key {{{
 
 " Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
-
-" map key
+"
+" let g:mapleader = "\<Space>"
+" let g:maplocalleader = ","
+"
 " nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
+" nnoremap <silent> <localleader> :WhichKey ','<CR>
+
+
+" }}}
+
+" fzf {{{
+
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
+" hide statusline
+" autocmd! FileType fzf set laststatus=0 noshowmode noruler
+"   \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+
+" FZF key bindings
+nnoremap <C-f> :FZF<CR>
+let g:fzf_action = {
+      \ 'ctrl-t': 'tab split',
+      \ 'ctrl-i': 'split',
+      \ 'ctrl-v': 'vsplit' }
+
+" }}}
+
+" vim-surround {{{
+
+" to use press cs"' to change " to '
+Plug 'tpope/vim-surround'
+
+" }}}
+
+" vim-multiple-cursors {{{
+
+Plug 'terryma/vim-multiple-cursors'
+
+" start: <C-n> start multicursor and add a virtual cursor + selection on the match
+" next: <C-n> add a new virtual cursor + selection on the next match
+" skip: <C-x> skip the next match
+" prev: <C-p> remove current virtual cursor + selection and go back on previous match
+" select all: <A-n> start multicursor and directly select all matches
+
+" }}}
+
+" development {{{
+
+" coc completion {{{
+
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+inoremap <silent><expr> <Tab>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<Tab>" :
+      \ coc#refresh()
+
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+
+" use <Tab> and <S-Tab> to navigate the completion list
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" use <cr> to confirm completion
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" close the preview window when completion is done
+" autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+
+" }}}
+
+" ale {{{
+
+Plug 'dense-analysis/ale'
+
+" fix on save
+let g:ale_fixers = {}
+let g:ale_fixers.javascript = ['eslint']
+let g:ale_fix_on_save = 1
+
+
+" }}}
+
+" polyglot {{{
+
+Plug 'sheerun/vim-polyglot'
+
+" }}}
+
+" rust {{{
+
+Plug 'rust-lang/rust.vim'
+
+let g:rustfmt_autosave = 1
+
+"macunix                 Macintosh version of Vim, using Unix files (OS-X).
+"unix                    Unix version of Vim.
+"win32                   Win32 version of Vim (MS-Windows 95 and later, 32 or 64 bits)
+"win32unix               Win32 version of Vim, using Unix files (Cygwin)
+
+if has('macunix')
+  let g:rust_clip_command = 'pbcopy'
+elseif has('unix')
+  let g:rust_clip_command = 'xclip -selection clipboard'
+endif
+
+au! BufNewFile,BufReadPost *.{rs} set foldmethod=syntax
+
+" }}}
+
+" rust-racer {{{
+
+Plug 'racer-rust/vim-racer'
+
+" racer path
+let g:racer_cmd = "$HOME/.cargo/bin/racer"
+
+" insert parentheses
+let g:racer_insert_paren = 1
+
+" auto commands
+augroup Racer
+  autocmd!
+  autocmd FileType rust nmap <buffer> gd         <Plug>(rust-def)
+  autocmd FileType rust nmap <buffer> gs         <Plug>(rust-def-split)
+  autocmd FileType rust nmap <buffer> gx         <Plug>(rust-def-vertical)
+  autocmd FileType rust nmap <buffer> gt         <Plug>(rust-def-tab)
+  autocmd FileType rust nmap <buffer> <leader>gd <Plug>(rust-doc)
+augroup END
 
 " }}}
 
@@ -313,161 +472,6 @@ Plug 'airblade/vim-gitgutter'
 
 " }}}
 
-" fzf {{{
-
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-
-" hide statusline
-" autocmd! FileType fzf set laststatus=0 noshowmode noruler
-"   \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
-
-" FZF key bindings
-nnoremap <C-f> :FZF<CR>
-let g:fzf_action = {
-      \ 'ctrl-t': 'tab split',
-      \ 'ctrl-i': 'split',
-      \ 'ctrl-v': 'vsplit' }
-
-" }}}
-
-" coc completion {{{
-
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
-inoremap <silent><expr> <Tab>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<Tab>" :
-      \ coc#refresh()
-
-" Use tab for trigger completion with characters ahead and navigate.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
-
-" use <Tab> and <S-Tab> to navigate the completion list
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-" use <cr> to confirm completion
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-
-" Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
-
-" Use `[g` and `]g` to navigate diagnostics
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-" GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-" Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
-" close the preview window when completion is done
-" autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
-
-" }}}
-
-" polyglot {{{
-
-Plug 'sheerun/vim-polyglot'
-
-" }}}
-
-" rust {{{
-
-Plug 'rust-lang/rust.vim'
-
-let g:rustfmt_autosave = 1
-
-"macunix                 Macintosh version of Vim, using Unix files (OS-X).
-"unix                    Unix version of Vim.
-"win32                   Win32 version of Vim (MS-Windows 95 and later, 32 or 64 bits)
-"win32unix               Win32 version of Vim, using Unix files (Cygwin)
-
-if has('macunix')
-  let g:rust_clip_command = 'pbcopy'
-elseif has('unix')
-  let g:rust_clip_command = 'xclip -selection clipboard'
-endif
-
-au! BufNewFile,BufReadPost *.{rs} set foldmethod=syntax
-
-" }}}
-
-" rust-racer {{{
-
-Plug 'racer-rust/vim-racer'
-
-" racer path
-let g:racer_cmd = "$HOME/.cargo/bin/racer"
-
-" insert parentheses
-let g:racer_insert_paren = 1
-
-" auto commands
-augroup Racer
-  autocmd!
-  autocmd FileType rust nmap <buffer> gd         <Plug>(rust-def)
-  autocmd FileType rust nmap <buffer> gs         <Plug>(rust-def-split)
-  autocmd FileType rust nmap <buffer> gx         <Plug>(rust-def-vertical)
-  autocmd FileType rust nmap <buffer> gt         <Plug>(rust-def-tab)
-  autocmd FileType rust nmap <buffer> <leader>gd <Plug>(rust-doc)
-augroup END
-
-" }}}
-
-" vim-surround {{{
-
-" to use press cs"' to change " to '
-Plug 'tpope/vim-surround'
-
-" }}}
-
-" vim-multiple-cursors {{{
-
-Plug 'terryma/vim-multiple-cursors'
-
-" start: <C-n> start multicursor and add a virtual cursor + selection on the match
-" next: <C-n> add a new virtual cursor + selection on the next match
-" skip: <C-x> skip the next match
-" prev: <C-p> remove current virtual cursor + selection and go back on previous match
-" select all: <A-n> start multicursor and directly select all matches
-
-" }}}
-
-" ale {{{
-
-Plug 'dense-analysis/ale'
-
-" fix on save
-let g:ale_fixers = {}
-let g:ale_fixers.javascript = ['eslint']
-let g:ale_fix_on_save = 1
-
-
-" }}}
-
 " ultisnips {{{
 
 " engine and snippets
@@ -482,11 +486,13 @@ let g:UltiSnipsJumpBackwardTrigger="<C-z>"
 " :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
 
-" }}}
-
 " snippets bootstrap 4 {{{
 
 Plug 'jvanja/vim-bootstrap4-snippets'
+
+" }}}
+
+" }}}
 
 " }}}
 
@@ -502,6 +508,10 @@ augroup vimrc
   " trim whitespace on save
   au BufWritePre * :%s/\s\+$//e
 augroup END
+
+" auto save view of buffers
+autocmd BufWinLeave *.* mkview!
+autocmd BufWinEnter *.* silent loadview
 
 " wipe resiters contents
 command! WipeReg for i in range(34,122) | silent! call setreg(nr2char(i), []) | endfor
@@ -532,7 +542,7 @@ nnoremap <silent> ^ g^
 nnoremap <silent> $ g$
 
 " remove highlight from search
-nnoremap <silent> ,<space> :noh<CR>
+nnoremap <silent> <leader><space> :noh<CR>
 
 " map delete line
 nnoremap <silent> - o<esc>
@@ -548,6 +558,10 @@ vnoremap . :normal .<cr>
 " keep visual selection when indenting/outdenting
 vmap < <gv
 vmap > >gv
+
+" folding
+nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
+vnoremap <Space> zf
 
 " }}}
 
@@ -581,26 +595,35 @@ nnoremap <leader>ex :Exp<CR>
 " Ctrl-w n+	Increase size of current split by n lines
 " Ctrl-w n-	Decrease size of current split by n lines
 
-" add a split
-nnoremap ,wv <C-w>v
-nnoremap ,wh <C-w>s
-nnoremap ,wo <C-w>o
-nnoremap ,wq <C-w>q
-nnoremap ,we <C-w>=
-nnoremap ,wu <C-w>_
-nnoremap ,wn <C-w>|
+" split vertically
+nnoremap <leader>wv <C-w>v
 
-" split nav
+" split horizontally
+nnoremap <leader>wh <C-w>s
+
+" close all but current
+nnoremap <leader>wo <C-w>o
+
+" quit window
+nnoremap <leader>wq <C-w>q
+
+" resize =
+nnoremap <leader>we <C-w>=
+
+" kotate window
+nnoremap <leader>wr <C-W>r
+
+" move to window
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
 " resize windows
-map <C-m> <c-w><
-map <C-n> <c-w>>
-map <C-u> <c-w>+
-map <C-i> <c-w>-
+map <right> <c-w><
+map <left>  <c-w>>
+map <up>    <c-w>+
+map <down>  <c-w>-
 
 " }}}
 
@@ -631,10 +654,6 @@ nnoremap <leader>tw :tabclose<CR>
 " closes all tab pages except the current one
 nnoremap <leader>to :tabo<CR>
 
-" navigate tabs
-map <S-n> gT
-map <S-m> gt
-
 " }}}
 
 " terminal {{{
@@ -643,7 +662,6 @@ map <S-m> gt
 tnoremap <Esc> <C-\><C-n>
 
 " }}}
-
 
 " }}}
 
