@@ -460,6 +460,12 @@ Plug 'terryma/vim-multiple-cursors'
 
 Plug 'dense-analysis/ale'
 
+" fix on save
+let g:ale_fixers = {}
+let g:ale_fixers.javascript = ['eslint']
+let g:ale_fix_on_save = 1
+
+
 " }}}
 
 " ultisnips {{{
