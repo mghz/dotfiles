@@ -509,9 +509,8 @@ augroup vimrc
   au BufWritePre * :%s/\s\+$//e
 augroup END
 
-" auto save view of buffers
-autocmd BufWinLeave *.* mkview!
-autocmd BufWinEnter *.* silent loadview
+" auto save
+autocmd CursorHold * update
 
 " wipe resiters contents
 command! WipeReg for i in range(34,122) | silent! call setreg(nr2char(i), []) | endfor
@@ -579,7 +578,6 @@ nmap <leader>. <c-^>
 
 " show netrw
 nnoremap <leader>ex :Exp<CR>
-
 
 " }}}
 

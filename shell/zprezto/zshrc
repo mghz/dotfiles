@@ -73,6 +73,10 @@ alias text='open -a TextEdit'
 alias mup='brew update && brew upgrade && brew cleanup && brew doctor'
 alias lup='sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && sudo apt autoclean'
 
+# docker
+alias dk='docker'
+alias dc='docker-compose'
+
 # rust lang
 alias cb='cargo fmt; cargo build'
 alias cf='cargo fmt'
