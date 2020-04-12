@@ -1,3 +1,3 @@
 # dotfiles
 
-dot files for linux and mac
+dot files for mac and ubuntu linux

@@ -33,21 +33,24 @@ endif
 
 " appearance
 set backspace=indent,eol,start " OSX stupid backspace fix
+" set cursorline " enable cursor line "
 set encoding=utf-8 " use an encoding that supports unicode
-" set hidden " disable warning of hidden buffers
+" set guicursor=a:blinkon200 " blink cursor "
+set guicursor= " disable cursor "
+set hidden " disable warning of hidden buffers
 set history=1000
 set linebreak "avoid wrapping a line in the middle of a word
 set list "enable list
 set matchtime=1 " When typing a closing bracket, briefly flash the one it matches
-set mouse=a "enable text copy
+" set mouse=a "enable mouse mode
 set number relativenumber " show hybrid line numbers
-set scrolloff=10 "screenlines to keep above and below the cursor
+" set scrolloff=10 "screenlines to keep above and below the cursor
 set shell=$SHELL "shell
 "set shortmess+=c " don't give ins-completion-menu messages
 set shortmess=at "don't give ins-completion-menu messages
 set showcmd "show imcomplete commands
 set showmatch " highlight matching [{()}]
-set sidescrolloff=5 "col to keep to the left and right of the cursor
+" set sidescrolloff=5 "col to keep to the left and right of the cursor
 set signcolumn=yes "show sign column
 set splitbelow " split below by default"
 set splitright " split right by default "
@@ -170,6 +173,12 @@ let g:netrw_liststyle = 3
 
 " highlights {{{
 
+" set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
+"   \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
+"   \,sm:block-blinkwait175-blinkoff150-blinkon175
+
+set guicursor+=i-ci:ver30-iCursor-blinkwait300-blinkon200-blinkoff150
+
 " }}}
 
 " functions {{{
@@ -256,6 +265,8 @@ let g:fzf_action = {
 
 " to use press cs"' to change " to '
 Plug 'tpope/vim-surround'
+
+
 
 " }}}
 
@@ -510,7 +521,13 @@ augroup vimrc
 augroup END
 
 " auto save
-autocmd CursorHold * update
+au CursorHold * update
+
+" remove cursor line on insert
+" autocmd InsertEnter,InsertLeave * set cul!
+
+" guicursor backward compatibility with older plugins
+au OptionSet guicursor noautocmd set guicursor=
 
 " wipe resiters contents
 command! WipeReg for i in range(34,122) | silent! call setreg(nr2char(i), []) | endfor
@@ -633,6 +650,15 @@ nnoremap <leader>gb :ls<CR>:b<Space>
 " switch to buffer by name [partial]
  nnoremap <leader>bb :buffer *
 
+" buffer next
+nnoremap <leader>bn :bn<CR>
+
+" buffer previous
+nnoremap <leader>bp :bp<CR>
+
+" buffer delete
+nnoremap <leader>bd :bd<CR>
+
 " }}}
 
 " tabs {{{
@@ -671,7 +697,7 @@ tnoremap <Esc> <C-\><C-n>
 " let g:onedark_terminal_italics=1
 " colorscheme onedark
 
-"colorscheme gruvbox
-colorscheme dracula
+colorscheme gruvbox
+" colorscheme dracula
 
 " }}}

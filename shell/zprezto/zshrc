@@ -75,7 +75,9 @@ alias lup='sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && s
 
 # docker
 alias dk='docker'
+alias dke='docker exec'
 alias dc='docker-compose'
+alias dra='docker rm -f $(docker ps -aq)'
 
 # rust lang
 alias cb='cargo fmt; cargo build'
