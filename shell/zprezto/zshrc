@@ -65,6 +65,7 @@ alias zconf='vim ~/.zshrc'
 
 # networking
 alias ping='ping -c 4'
+alias zt='zerotier-cli'
 
 # common
 alias grep='grep -n'
