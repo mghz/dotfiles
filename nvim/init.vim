@@ -177,7 +177,7 @@ let g:netrw_liststyle = 3
 "   \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
 "   \,sm:block-blinkwait175-blinkoff150-blinkon175
 
-set guicursor+=i-ci:ver30-iCursor-blinkwait300-blinkon200-blinkoff150
+" set guicursor+=i-ci:ver30-iCursor-blinkwait300-blinkon200-blinkoff150
 
 " }}}
 
