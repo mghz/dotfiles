@@ -2,7 +2,7 @@
 
 import datetime
 import os
-impor subprocess
+import subprocess
 
 from sys import exit
 from pathlib import Path
@@ -148,6 +148,15 @@ def setup_neovim():
     os.system('pip3 install neovim')
     os.system('gem install neovim')
 
+def setup_docker():
+    print('=> installing docker ...')
+    os.system('sudo apt install -y apt-transport-https ca-certificates gnupg-agent software-properties-common')
+    os.system('curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -')
+    os.system('sudo apt-key fingerprint 0EBFCD88')
+    os.system('sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"')
+    install_updates()
+    os.system('sudo apt-get install -y docker-ce docker-ce-cli containerd.io')
+
 def setup():
     #create_dir()
     #install_updates()
@@ -160,6 +169,7 @@ def setup():
     #setup_links()
     #setup_zprezto()
     #setup_neovim()
+    setup_docker()
 
 if __name__ == "__main__":
     setup()

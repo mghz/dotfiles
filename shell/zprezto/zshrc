@@ -57,11 +57,12 @@ alias vimrc='vim ~/.vimrc'
 
 # config files
 alias rel='source ~/.zshrc'
+alias zrc='vim ~/.zshrc'
 alias bashrc='vim ~/.bashrc'
 alias bashp='vim ~/.bash_profile'
 alias gitrc='vim ~/.gitconfig'
-alias epath='vim /etc/paths'
-alias zconf='vim ~/.zshrc'
+alias epath='vim /etc/paths.d'
+alias path='echo "${PATH//:/\n}"'
 
 # networking
 alias ping='ping -c 4'
@@ -72,7 +73,7 @@ alias grep='grep -n'
 alias pre='open -a Preview'
 alias text='open -a TextEdit'
 alias mup='brew update && brew upgrade && brew cleanup && brew doctor'
-alias lup='sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && sudo apt autoclean'
+alias lup='sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && sudo apt autoclean && brew update && brew upgrade && brew cleanup && brew doctor;'
 
 # docker
 alias dk='docker'
@@ -89,6 +90,10 @@ alias ct='cargo test'
 alias cw='cargo watch -x run'
 alias ru='rustup'
 alias cwatch='cargo watch -i .gitignore -i "pkg/*" -s "wasm-pack build"'
+
+# python
+alias python='python3'
+alias pip='pip3'
 
 # web assembly
 alias wp='wasm-pack'

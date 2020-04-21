@@ -19,7 +19,7 @@ brew "rustc-completion"
 brew "python3"
 brew "pipenv"
 brew "ruby"
-brew "docker"
+# brew "docker"
 #brew "youtube-dl"
 
 # casks

@@ -9,6 +9,7 @@ export PAGER=less
 export PATH=/usr/local/sbin:$PATH
 export PATH=$HOME/.cargo/bin:$PATH
 #export PATH=$PATH:/snap/bin
+export PATH="/home/linuxbrew/.linuxbrew/opt/python@3.8/bin:$PATH"
 
 # }}}
 

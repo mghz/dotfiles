@@ -2,19 +2,19 @@
   "entries": {
     "tap": {
       "homebrew/core": {
-        "revision": "601b74fcc2ed6ba07672c2412ac9490270096c5c"
+        "revision": "ead35f1da450310b79575a0313de1a51c2c2aecb"
       },
       "homebrew/bundle": {
-        "revision": "79503805c4c557f842a49c3e0ec4021fac0813be"
+        "revision": "784f4e47c2e527c515454212db158149f869c7f3"
       },
       "homebrew/services": {
-        "revision": "64347a3a5761db1b392f1b30b045aeb4592e17a9"
+        "revision": "6e7ea0cff515df8b5d53a6e3066e16cf5e94d03a"
       },
       "homebrew/cask-fonts": {
-        "revision": "ab8b8f1457df8ba66ee0ff23f8ef799b077562f1"
+        "revision": "d71f24256b3134c0c0159b6767e95e0134da94c6"
       },
       "homebrew/cask-versions": {
-        "revision": "09b98129765ad98cfcd45c4c4ec104cb64728810"
+        "revision": "65a8b97978ef0c526bfa781968e19f9973f5dbde"
       }
     },
     "brew": {
@@ -248,6 +248,31 @@
             }
           }
         }
+      },
+      "docker": {
+        "version": "19.03.8",
+        "bottle": {
+          "cellar": ":any_skip_relocation",
+          "prefix": "/home/linuxbrew/.linuxbrew",
+          "files": {
+            "catalina": {
+              "url": "https://linuxbrew.bintray.com/bottles/docker-19.03.8.catalina.bottle.tar.gz",
+              "sha256": "198515494e343db1d955f7027ba81517195f66c1ab76d5a77c17e23e9855533c"
+            },
+            "mojave": {
+              "url": "https://linuxbrew.bintray.com/bottles/docker-19.03.8.mojave.bottle.tar.gz",
+              "sha256": "ebd73dadcc26794e5e415a63f5eeea08c966bf7ebf257b83234ec788ad6281b2"
+            },
+            "high_sierra": {
+              "url": "https://linuxbrew.bintray.com/bottles/docker-19.03.8.high_sierra.bottle.tar.gz",
+              "sha256": "e0684b2f6f45cae96788f577f1aa1a7f65bd2529282b6d3c3479219080e4a464"
+            },
+            "x86_64_linux": {
+              "url": "https://linuxbrew.bintray.com/bottles/docker-19.03.8.x86_64_linux.bottle.tar.gz",
+              "sha256": "d016d8148092c8a615b340c9be39ed10f1f1110e94c86d864c9fd677d8c8c87d"
+            }
+          }
+        }
       }
     }
   },
@@ -256,7 +281,7 @@
       "Ubuntu 18.04.4 LTS (bionic)": {
         "HOMEBREW_VERSION": "2.2.13",
         "HOMEBREW_PREFIX": "/home/linuxbrew/.linuxbrew",
-        "Homebrew/linuxbrew-core": "601b74fcc2ed6ba07672c2412ac9490270096c5c",
+        "Homebrew/linuxbrew-core": "ead35f1da450310b79575a0313de1a51c2c2aecb",
         "GCC": "5.5.0"
       }
     }
