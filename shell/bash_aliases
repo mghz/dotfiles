@@ -13,9 +13,9 @@ alias x="exit"
 alias cpi='cp -iv'
 alias h='history'
 alias j='jobs -l'
-alias l="ls -al"
-alias la="ls -d .*"
-alias lav="ls -a1d .*"
+#alias l="ls -al"
+#alias la="ls -d .*"
+#alias lav="ls -a1d .*"
 alias mk='mkdir -p'
 alias mv='mv -iv'
 alias path='echo -e ${PATH//:/\\n}'
@@ -24,13 +24,13 @@ alias rmf='rm -rf'
 alias which='type -a'
 
 # config files
-alias rel='source ~/.bashrc'
-alias relz='source ~/.zshrc'
+alias rel='source ~/.zshrc'
+alias relb='source ~/.bashrc'
 alias bashrc='vim ~/.bashrc'
 alias bashp='vim ~/.bash_profile'
 alias gitrc='vim ~/.gitconfig'
 alias epath='vim /etc/paths'
-alias zconf='vim ~/.zshrc'
+alias zrc='vim ~/.zshrc'
 
 # vim
 alias vim='nvim'
@@ -54,13 +54,16 @@ alias ct='cargo test'
 alias cw='cargo watch -x run'
 alias ru='rustup'
 
+# python
+alias python='python3'
+alias pip='pip3'
+
 # }}}
 
 # OS specific {{{
 
 # check for os
-if [ `uname` == "Darwin" ]
-then
+if [ `uname` == "Darwin" ]; then
   # updates
   alias brewup='brew update; brew upgrade; brew cleanup; brew doctor'
   alias caskup='brew cask upgrade'
@@ -73,8 +76,7 @@ then
   alias fdstart='sudo launchctl load /Library/LaunchDaemons/com.foundationdb.fdbmonitor.plist'
   alias fdstop='sudo launchctl unload /Library/LaunchDaemons/com.foundationdb.fdbmonitor.plist'
   alias flushdns='sudo killall -HUP mDNSResponder;sudo killall mDNSResponderHelper;sudo dscacheutil -flushcache'
-elif [ `uname` == "Linux" ]
-then
+elif [ `uname` == "Linux" ]; then
   alias l='ls -al --group-directories-first'
 fi
 

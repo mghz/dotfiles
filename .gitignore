@@ -183,3 +183,4 @@ zsdoc/data
 
 # custom ...
 .nvimlog
+*.log

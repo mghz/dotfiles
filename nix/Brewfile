@@ -1,0 +1,25 @@
+# taps
+tap "homebrew/cask"
+tap "homebrew/core"
+tap "homebrew/bundle"
+tap "homebrew/services"
+tap "homebrew/cask-fonts"
+tap "homebrew/cask-versions"
+
+# formulaes
+brew "curl"
+brew "git"
+brew "gcc"
+brew "neovim"
+brew "bash"
+brew "zsh"
+brew "nodejs"
+brew "rustup-init"
+brew "rustc-completion"
+brew "python3"
+brew "pipenv"
+brew "ruby"
+# brew "docker"
+#brew "youtube-dl"
+
+# casks

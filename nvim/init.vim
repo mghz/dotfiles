@@ -42,6 +42,7 @@ set history=1000
 set linebreak "avoid wrapping a line in the middle of a word
 set list "enable list
 set matchtime=1 " When typing a closing bracket, briefly flash the one it matches
+set modelines=1 "check end of file for folding instructions"
 " set mouse=a "enable mouse mode
 set number relativenumber " show hybrid line numbers
 " set scrolloff=10 "screenlines to keep above and below the cursor
@@ -75,7 +76,7 @@ set tabstop=2	"default tab space
 " folding
 set foldlevel=2
 set foldlevelstart=2
-set foldmethod=marker "fold based on marker
+set foldmethod=indent "fold based on marker
 set foldnestmax=15 "deepest fold is 10 levels
 set foldenable "fold by default (nofoldenable)
 
@@ -266,8 +267,6 @@ let g:fzf_action = {
 " to use press cs"' to change " to '
 Plug 'tpope/vim-surround'
 
-
-
 " }}}
 
 " vim-multiple-cursors {{{
@@ -283,6 +282,8 @@ Plug 'terryma/vim-multiple-cursors'
 " }}}
 
 " development {{{
+
+Plug 'ryanoasis/vim-devicons'
 
 " coc completion {{{
 
@@ -486,16 +487,16 @@ Plug 'airblade/vim-gitgutter'
 " ultisnips {{{
 
 " engine and snippets
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
+" Plug 'SirVer/ultisnips'
+" Plug 'honza/vim-snippets'
 
 " Trigger configuration
-let g:UltiSnipsExpandTrigger="<C-s>"
-let g:UltiSnipsJumpForwardTrigger="<C-b>"
-let g:UltiSnipsJumpBackwardTrigger="<C-z>"
+" let g:UltiSnipsExpandTrigger="<C-s>"
+" let g:UltiSnipsJumpForwardTrigger="<C-b>"
+" let g:UltiSnipsJumpBackwardTrigger="<C-z>"
 
 " :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
+" let g:UltiSnipsEditSplit="vertical"
 
 " snippets bootstrap 4 {{{
 
@@ -521,13 +522,20 @@ augroup vimrc
 augroup END
 
 " auto save
-au CursorHold * update
+" au CursorHold * update
+
+" enter insert mode any time focus is put on a terminal
+autocmd BufWinEnter,WinEnter term://* startinsert
 
 " remove cursor line on insert
 " autocmd InsertEnter,InsertLeave * set cul!
 
 " guicursor backward compatibility with older plugins
-au OptionSet guicursor noautocmd set guicursor=
+" au OptionSet guicursor noautocmd set guicursor=
+
+" }}}
+
+" commands {{{
 
 " wipe resiters contents
 command! WipeReg for i in range(34,122) | silent! call setreg(nr2char(i), []) | endfor
@@ -546,6 +554,8 @@ vnoremap jk <esc>
 vnoremap kj <esc>
 cnoremap jk <esc>
 cnoremap kj <esc>
+tnoremap jk <C-\><C-n>
+tnoremap kj <C-\><C-n>
 
 " remap command toggle
 nnoremap ; :
@@ -575,17 +585,29 @@ vnoremap . :normal .<cr>
 vmap < <gv
 vmap > >gv
 
+" highlight last inserted text
+nnoremap gV `[v`]
+
 " folding
 nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 vnoremap <Space> zf
+
+" return turns off search highlighting
+nnoremap <CR> :set hlsearch! hlsearch?<CR>
+
+" toggle spell check
+map <F7> :setlocal spell! spelllang=en_us<CR>
+
+" toggle tagbar
+nmap <F8> :TagbarToggle<CR>
 
 " }}}
 
 " leader mappings {{{
 
 " edit, source vim file
-nnoremap <silent> <leader>ev :vsplit $MYVIMRC<cr>
-nnoremap <silent> <leader>sv :source $MYVIMRC<cr>
+nnoremap <silent> <leader>ev :vsp $MYVIMRC<cr>
+nnoremap <silent> <leader>ez :vsp ~/.zshrc<CR>
 
 " surround with double quotes
 nnoremap <leader>" viw<esc>a"<esc>bi"<esc>lel
@@ -595,6 +617,8 @@ nmap <leader>. <c-^>
 
 " show netrw
 nnoremap <leader>ex :Exp<CR>
+
+" edit zshrc
 
 " }}}
 
@@ -658,6 +682,10 @@ nnoremap <leader>bp :bp<CR>
 
 " buffer delete
 nnoremap <leader>bd :bd<CR>
+
+" navigate between buffers using tab and shift+tab
+nnoremap <Tab> :bnext<CR>
+nnoremap <S-Tab> :bprevious<CR>
 
 " }}}
 
