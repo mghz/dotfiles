@@ -72,7 +72,7 @@ alias grep='grep -n'
 alias pre='open -a Preview'
 alias text='open -a TextEdit'
 alias mup='brew update && brew upgrade && brew cleanup && brew doctor'
-alias lup='sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && sudo apt autoclean && brew update && brew upgrade && brew cleanup && brew doctor;'
+alias lup='sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && sudo apt autoclean'
 
 # docker
 alias dk='docker'
