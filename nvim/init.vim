@@ -31,6 +31,10 @@ if has('clipboard')
   endif
 endif
 
+" set default shell
+" set shell=$HOMEBREW_PREFIX/bin/zsh
+set shell=/home/linuxbrew/.linuxbrew/bin/zsh
+
 " appearance
 set backspace=indent,eol,start " OSX stupid backspace fix
 " set cursorline " enable cursor line "
@@ -40,7 +44,8 @@ set guicursor= " disable cursor "
 set hidden " disable warning of hidden buffers
 set history=1000
 set linebreak "avoid wrapping a line in the middle of a word
-set list "enable list
+set list
+set listchars=tab:>.,trail:.,extends:#,nbsp:.
 set matchtime=1 " When typing a closing bracket, briefly flash the one it matches
 set modelines=1 "check end of file for folding instructions"
 " set mouse=a "enable mouse mode
@@ -62,6 +67,9 @@ set virtualedit=block "virtual cursor movements. options: block, insert or all"
 set wildmenu "wild menu
 set wildmode=longest,list,full "wild mode
 "set wildmode=list:longest " complete files like a shell
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+set signcolumn=yes
 
 " tab control
 set autoindent "auto indent on new lines set autoread
@@ -75,7 +83,7 @@ set tabstop=2	"default tab space
 
 " folding
 set foldlevel=2
-set foldlevelstart=2
+set foldlevelstart=1
 set foldmethod=indent "fold based on marker
 set foldnestmax=15 "deepest fold is 10 levels
 set foldenable "fold by default (nofoldenable)
@@ -93,6 +101,7 @@ set nowritebackup "delete backup after write
 " search
 set hlsearch "highlight search results
 set ignorecase "case insensitive searching
+set gdefault "default global search"
 set magic "set magic on, for regex
 set incsearch "set incremental search, like modern browsers
 set nolazyredraw "don't redraw while executing macros
@@ -515,23 +524,42 @@ call plug#end()
 
 " auto commands {{{
 
-augroup vimrc
-  au!
+augroup configgroup
+  autocmd!
+  " autocmd VimEnter * highlight clear SignColumn
+  " autocmd BufWritePre *.php,*.py,*.js,*.txt,*.hs,*.java,*.md
+  " \:call <SID>StripTrailingWhitespaces()
+  " autocmd FileType java setlocal noexpandtab
+  " autocmd FileType java setlocal list
+  " autocmd FileType java setlocal listchars=tab:+\ ,eol:-
+  " autocmd FileType java setlocal formatprg=par\ -w80\ -T4
+  " autocmd FileType php setlocal expandtab
+  " autocmd FileType php setlocal list
+  " autocmd FileType php setlocal listchars=tab:+\ ,eol:-
+  " autocmd FileType php setlocal formatprg=par\ -w80\ -T4
+  " autocmd FileType ruby setlocal tabstop=2
+  " autocmd FileType ruby setlocal shiftwidth=2
+  " autocmd FileType ruby setlocal softtabstop=2
+  " autocmd FileType ruby setlocal commentstring=#\ %s
+  " autocmd FileType python setlocal commentstring=#\ %s
+  " autocmd FileType vim setlocal foldmethod=marker foldlevel=0
+
+  " autocmd BufEnter *.cls setlocal filetype=java
+  " autocmd BufEnter Makefile setlocal noexpandtab
+  " autocmd BufEnter *.sh setlocal tabstop=2
+  " autocmd BufEnter *.sh setlocal shiftwidth=2
+  " autocmd BufEnter *.sh setlocal softtabstop=2
+  autocmd BufEnter *.zsh-theme setlocal filetype=zsh
+
   " trim whitespace on save
   au BufWritePre * :%s/\s\+$//e
+
+  " enter insert mode any time focus is put on a terminal
+  autocmd BufWinEnter,WinEnter term://* startinsert
+
+  " remove cursor line on insert
+  autocmd InsertEnter,InsertLeave * set cul!
 augroup END
-
-" auto save
-" au CursorHold * update
-
-" enter insert mode any time focus is put on a terminal
-autocmd BufWinEnter,WinEnter term://* startinsert
-
-" remove cursor line on insert
-" autocmd InsertEnter,InsertLeave * set cul!
-
-" guicursor backward compatibility with older plugins
-" au OptionSet guicursor noautocmd set guicursor=
 
 " }}}
 
@@ -545,6 +573,14 @@ command! WipeReg for i in range(34,122) | silent! call setreg(nr2char(i), []) | 
 " mappings {{{
 
 " editing {{{
+
+" disabled keys
+map <up> <nop>
+map <down> <nop>
+map <left> <nop>
+map <right> <nop>
+" nnoremap $ <nop>
+" nnoremap ^ <nop>
 
 " disable, remap esc
 inoremap <esc> <nop>
@@ -561,11 +597,15 @@ tnoremap kj <C-\><C-n>
 nnoremap ; :
 nnoremap : ;
 
+" move to beginning/end of line
+" nnoremap B ^
+" nnoremap E $
+" nnoremap <silent> B g^
+" nnoremap <silent> E g$
+
 " moving up and down work as you would expect
 nnoremap <silent> j gj
 nnoremap <silent> k gk
-nnoremap <silent> ^ g^
-nnoremap <silent> $ g$
 
 " remove highlight from search
 nnoremap <silent> <leader><space> :noh<CR>
@@ -618,7 +658,8 @@ nmap <leader>. <c-^>
 " show netrw
 nnoremap <leader>ex :Exp<CR>
 
-" edit zshrc
+" format document
+nnoremap <leader>ff gg=G<CR>
 
 " }}}
 
@@ -653,16 +694,19 @@ nnoremap <leader>we <C-w>=
 nnoremap <leader>wr <C-W>r
 
 " move to window
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
 
 " resize windows
 map <right> <c-w><
 map <left>  <c-w>>
 map <up>    <c-w>+
 map <down>  <c-w>-
+
+" edit file in sudo if protected
+cmap w!! w !sudo tee % >/dev/null
 
 " }}}
 
@@ -672,7 +716,7 @@ map <down>  <c-w>-
 nnoremap <leader>gb :ls<CR>:b<Space>
 
 " switch to buffer by name [partial]
- nnoremap <leader>bb :buffer *
+nnoremap <leader>bb :buffer *
 
 " buffer next
 nnoremap <leader>bn :bn<CR>
@@ -729,3 +773,5 @@ colorscheme gruvbox
 " colorscheme dracula
 
 " }}}
+
+" vim:foldmethod=marker:foldlevel=0

@@ -21,16 +21,13 @@ bindkey -M vicmd '^R' history-incremental-search-backward
 # export FZF_DEFAULT_COMMAND='find . -name .git -prune -o -name node_modules -prune -o -name coverage -prune -o -name tmp -prune -o -type f -print'
 
 # os specific exports
-if [[ "$OSTYPE" == "linux-gnu" ]]; then
-
-  # add homebrew to path
-  eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-
+# if [[ "$OSTYPE" == "linux-gnu" ]]; then
+  # echo "linux"
 # elif [[ "$OSTYPE" == "darwin"* ]]; then
 #   echo "mac => exports done."
 # else
 #   echo "no exports"
-fi
+# fi
 
 # }}}
 
@@ -57,9 +54,11 @@ alias vimrc='vim ~/.vimrc'
 
 # config files
 alias rel='source ~/.zshrc'
+alias relb='source ~/.bashrc'
 alias zrc='vim ~/.zshrc'
 alias bashrc='vim ~/.bashrc'
 alias bashp='vim ~/.bash_profile'
+alias aliases='vim ~/.bash_aliases'
 alias gitrc='vim ~/.gitconfig'
 alias epath='vim /etc/paths.d'
 alias path='echo "${PATH//:/\n}"'
