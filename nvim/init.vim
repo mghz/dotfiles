@@ -371,22 +371,22 @@ Plug 'sheerun/vim-polyglot'
 
 " rust {{{
 
-Plug 'rust-lang/rust.vim'
+" Plug 'rust-lang/rust.vim'
+"
+" let g:rustfmt_autosave = 1
+"
+" "macunix                 Macintosh version of Vim, using Unix files (OS-X).
+" "unix                    Unix version of Vim.
+" "win32                   Win32 version of Vim (MS-Windows 95 and later, 32 or 64 bits)
+" "win32unix               Win32 version of Vim, using Unix files (Cygwin)
+"
+" if has('macunix')
+"   let g:rust_clip_command = 'pbcopy'
+" elseif has('unix')
+"   let g:rust_clip_command = 'xclip -selection clipboard'
+" endif
 
-let g:rustfmt_autosave = 1
-
-"macunix                 Macintosh version of Vim, using Unix files (OS-X).
-"unix                    Unix version of Vim.
-"win32                   Win32 version of Vim (MS-Windows 95 and later, 32 or 64 bits)
-"win32unix               Win32 version of Vim, using Unix files (Cygwin)
-
-if has('macunix')
-  let g:rust_clip_command = 'pbcopy'
-elseif has('unix')
-  let g:rust_clip_command = 'xclip -selection clipboard'
-endif
-
-au! BufNewFile,BufReadPost *.{rs} set foldmethod=syntax
+" au! BufNewFile,BufReadPost *.{rs} set foldmethod=syntax
 
 " }}}
 
@@ -480,6 +480,14 @@ let g:NERDToggleCheckAllLines = 1
 
 " }}}
 
+" tagbar {{{
+
+Plug 'majutsushi/tagbar'
+
+nmap <F8> :TagbarToggle<CR>
+
+" }}}
+
 " auto-pairs {{{
 
 Plug 'jiangmiao/auto-pairs'
@@ -512,6 +520,14 @@ Plug 'airblade/vim-gitgutter'
 Plug 'jvanja/vim-bootstrap4-snippets'
 
 " }}}
+
+" }}}
+
+" prettier {{{
+
+Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+
+" nmap <Leader>py <Plug>(Prettier)
 
 " }}}
 
@@ -637,9 +653,6 @@ nnoremap <CR> :set hlsearch! hlsearch?<CR>
 
 " toggle spell check
 map <F7> :setlocal spell! spelllang=en_us<CR>
-
-" toggle tagbar
-nmap <F8> :TagbarToggle<CR>
 
 " }}}
 
