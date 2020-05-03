@@ -3,20 +3,6 @@
 " define leader
 let mapleader=","
 
-" abbreviations {{{
-
-abbr waht what
-abbr tehn then
-abbr funciton function
-abbr teh the
-abbr tempalte template
-abbr fitler filter
-abbr cosnt const
-abbr attribtue attribute
-abbr attribuet attribute
-
-" }}}
-
 " settings {{{
 
 syntax on
@@ -36,8 +22,12 @@ set dir=~/.cache/vim "swap directory"
 set backupdir=~/.cache/vim "backup directory"
 
 " appearance
+set autoread "auto read files that have changed outside of vim"
+set autowrite "auto write buffer on certain conditions"
 set backspace=indent,eol,start " OSX stupid backspace fix
+set bsdir=last "open last directory"
 set cursorline " enable cursor line "
+set diffopt+=vertical "show diff vertically"
 set encoding=utf-8 " use an encoding that supports unicode
 set hidden " disable warning of hidden buffers
 set history=1000
@@ -48,14 +38,15 @@ set matchtime=1 " When typing a closing bracket, briefly flash the one it matche
 set modelines=1 "check end of file for folding instructions"
 set mouse=a "enable mouse mode
 set number relativenumber " show hybrid line numbers
-set scrolloff=15 "screenlines to keep above and below the cursor
+set ruler "enable column and line numbers"
+set scrolloff=10 "screenlines to keep above and below the cursor
 set shell=$SHELL "shell
-set shortmess+=c " don't give ins-completion-menu messages
-set shortmess=at "don't give ins-completion-menu messages
+set shortmess=acI "reduce press enter warning"
+set showbreak=↪ "show break char"
 set showcmd "show imcomplete commands
 set showmatch " highlight matching [{()}]
 set sidescrolloff=5 "col to keep to the left and right of the cursor
-set signcolumn=yes "show sign column
+set signcolumn=auto "show sign column
 set splitbelow " split below by default"
 set splitright " split right by default "
 set title "set title of window to file
@@ -64,11 +55,6 @@ set updatetime=300 "bad experience for diagnostic messages when it's default 400
 set virtualedit=block "virtual cursor movements. options: block, insert or all"
 set wildmenu "wild menu
 set wildmode=list:longest,full "show list of completions, complete then iterate full
-set bsdir=last "open last directory"
-
-" Always show the signcolumn, otherwise it would shift the text each time
-" diagnostics appear/become resolved.
-set signcolumn=yes
 
 " tab control
 set expandtab "tabs are spaces
@@ -81,12 +67,11 @@ set softtabstop=4 "number of spaces in tab when editing
 set shiftwidth=4 "shift size after rounding
 
 " folding
-set foldlevel=2
-set foldlevelstart=1
-set foldmethod=indent "fold based on marker
-set foldnestmax=15 "deepest fold is 10 levels
-set foldenable "fold by default (nofoldenable)
-setlocal foldmethod=syntax
+set foldlevel=0
+set foldlevelstart=0
+set foldmethod=syntax "marker, indent, syntax"
+set foldnestmax=2 "deepest fold is 10 levels
+set nofoldenable "no fold by default (foldenable)"
 
 " status
 set cmdheight=1 "better display for message
@@ -139,7 +124,7 @@ if (has('nvim'))
     set fillchars=vert:\|,fold:-
     autocmd BufReadPost *
                 \ if line("'\"") >= 1 && line("'\"") <= line("$") |
-                \   exe "normal! g`\"" |
+                \ exe "normal! g`\"" |
                 \ endif
 
     " Escape inside a FZF terminal window should exit the terminal window
@@ -211,19 +196,6 @@ Plug 'vim-airline/vim-airline-themes'
 " let g:airline#extensions#tabline#fnamemod = ':t'
 
 " let g:airline#extensions#tabline#formatter = 'default'
-
-" }}}
-
-" which-key {{{
-
-" Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
-"
-" let g:mapleader = "\<Space>"
-" let g:maplocalleader = ","
-"
-" nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
-" nnoremap <silent> <localleader> :WhichKey ','<CR>
-
 
 " }}}
 
@@ -446,6 +418,8 @@ Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 
 " }}}
 
+" }}}
+
 " disabled {{{
 
 " rust {{{
@@ -512,6 +486,16 @@ Plug 'jvanja/vim-bootstrap4-snippets'
 " }}}
 
 " }}}
+
+" which-key {{{
+
+" Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
+"
+" let g:mapleader = "\<Space>"
+" let g:maplocalleader = ","
+"
+" nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
+" nnoremap <silent> <localleader> :WhichKey ','<CR>
 
 
 " }}}
@@ -645,8 +629,9 @@ map <F7> :setlocal spell! spelllang=en_us<CR>
 " leader mappings {{{
 
 " edit, source vim file
-nnoremap <silent> <leader>ev :vsp $MYVIMRC<cr>
+" nnoremap <silent> <leader>ev :vsp $MYVIMRC<cr>
 " nnoremap <silent> <leader>ez :vsp ~/.zshrc<CR>
+nnoremap <silent> <leader>ev :e $MYVIMRC<cr>
 
 " surround with double quotes
 nnoremap <leader>" viw<esc>a"<esc>bi"<esc>lel
@@ -772,5 +757,19 @@ tnoremap <Esc> <C-\><C-n>
 
 colorscheme gruvbox
 " colorscheme dracula
+
+" }}}
+
+" abbreviations {{{
+
+abbr waht what
+abbr tehn then
+abbr funciton function
+abbr teh the
+abbr tempalte template
+abbr fitler filter
+abbr cosnt const
+abbr attribtue attribute
+abbr attribuet attribute
 
 " }}}

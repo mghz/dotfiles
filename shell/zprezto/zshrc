@@ -5,11 +5,15 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-# path {{{
+# path exports {{{
 
 # export PATH=/usr/local/sbin:$PATH
 export PATH=$PATH:/snap/bin
 export PATH=$HOME/.cargo/bin:$PATH
+
+export GREP_OPTIONS='--color=auto'
+export MANPAGER="less -X" # Don’t clear the screen after quitting a manual page
+export EDITOR="vim"
 
 # }}}
 

@@ -1,4 +1,4 @@
-" vim specific settings
+" file specific settings
 
-foldmethod=syntax
-foldlevel=1
+setlocal foldmethod=syntax
+setlocal foldlevel=1
