@@ -24,39 +24,37 @@ filetype plugin indent on
 
 " clipboard
 if has('clipboard')
-  if has('unnamedplus') " When possible use + register for copy-paste
-    set clipboard+=unnamed,unnamedplus
-  else " On mac and Windows, use * register for copy-paste
-    set clipboard=unnamed
-  endif
+    if has('unnamedplus') " When possible use + register for copy-paste
+        set clipboard+=unnamed,unnamedplus
+    else " On mac and Windows, use * register for copy-paste
+        set clipboard=unnamed
+    endif
 endif
 
-" set default shell
-" set shell=$HOMEBREW_PREFIX/bin/zsh
-set shell=/home/linuxbrew/.linuxbrew/bin/zsh
+" backup
+set dir=~/.cache/vim "swap directory"
+set backupdir=~/.cache/vim "backup directory"
 
 " appearance
 set backspace=indent,eol,start " OSX stupid backspace fix
-" set cursorline " enable cursor line "
+set cursorline " enable cursor line "
 set encoding=utf-8 " use an encoding that supports unicode
-" set guicursor=a:blinkon200 " blink cursor "
-set guicursor= " disable cursor "
 set hidden " disable warning of hidden buffers
 set history=1000
 set linebreak "avoid wrapping a line in the middle of a word
 set list
-set listchars=tab:>.,trail:.,extends:#,nbsp:.
+set listchars=tab:--,trail:.,extends:#,nbsp:.
 set matchtime=1 " When typing a closing bracket, briefly flash the one it matches
 set modelines=1 "check end of file for folding instructions"
-" set mouse=a "enable mouse mode
+set mouse=a "enable mouse mode
 set number relativenumber " show hybrid line numbers
-" set scrolloff=10 "screenlines to keep above and below the cursor
+set scrolloff=15 "screenlines to keep above and below the cursor
 set shell=$SHELL "shell
-"set shortmess+=c " don't give ins-completion-menu messages
+set shortmess+=c " don't give ins-completion-menu messages
 set shortmess=at "don't give ins-completion-menu messages
 set showcmd "show imcomplete commands
 set showmatch " highlight matching [{()}]
-" set sidescrolloff=5 "col to keep to the left and right of the cursor
+set sidescrolloff=5 "col to keep to the left and right of the cursor
 set signcolumn=yes "show sign column
 set splitbelow " split below by default"
 set splitright " split right by default "
@@ -65,21 +63,22 @@ set ttyfast "faster redrawing
 set updatetime=300 "bad experience for diagnostic messages when it's default 4000
 set virtualedit=block "virtual cursor movements. options: block, insert or all"
 set wildmenu "wild menu
-set wildmode=longest,list,full "wild mode
-"set wildmode=list:longest " complete files like a shell
+set wildmode=list:longest,full "show list of completions, complete then iterate full
+set bsdir=last "open last directory"
+
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
 set signcolumn=yes
 
 " tab control
+set expandtab "tabs are spaces
 set autoindent "auto indent on new lines set autoread
-set expandtab	"tabs are spaces
 set shiftround "round indentation when shifting lines
-set shiftwidth=2 "shift size after rounding
 set smartindent "smarter than indent.
 set smarttab "smart tabbing
-set softtabstop=2 "number of spaces in tab when editing
-set tabstop=2	"default tab space
+set tabstop=4 "default tab space
+set softtabstop=4 "number of spaces in tab when editing
+set shiftwidth=4 "shift size after rounding
 
 " folding
 set foldlevel=2
@@ -87,6 +86,7 @@ set foldlevelstart=1
 set foldmethod=indent "fold based on marker
 set foldnestmax=15 "deepest fold is 10 levels
 set foldenable "fold by default (nofoldenable)
+setlocal foldmethod=syntax
 
 " status
 set cmdheight=1 "better display for message
@@ -105,7 +105,7 @@ set gdefault "default global search"
 set magic "set magic on, for regex
 set incsearch "set incremental search, like modern browsers
 set nolazyredraw "don't redraw while executing macros
-set smartcase "case-sensitive if expresson contains a capital letter
+set smartcase "case-sensitive if expression contains a capital letter
 
 " files to ignore
 set wildignore+=.pyc,.swp,.DS_Store
@@ -113,66 +113,65 @@ set wildignore+=.pyc,.swp,.DS_Store
 " nvim options
 if (has('nvim'))
 
-  " show results of substition as they're happening
-  " but don't open a split
-  set inccommand=nosplit
+    " show results of substition as they're happening
+    " but don't open a split
+    set inccommand=nosplit
 
-  " better terminal colors
-  " https://github.com/neovim/neovim/issues/2897#issuecomment-115464516
-  let g:terminal_color_0 = '#4e4e4e'
-  let g:terminal_color_1 = '#d68787'
-  let g:terminal_color_2 = '#5f865f'
-  let g:terminal_color_3 = '#d8af5f'
-  let g:terminal_color_4 = '#85add4'
-  let g:terminal_color_5 = '#d7afaf'
-  let g:terminal_color_6 = '#87afaf'
-  let g:terminal_color_7 = '#d0d0d0'
-  let g:terminal_color_8 = '#626262'
-  let g:terminal_color_9 = '#d75f87'
-  let g:terminal_color_10 = '#87af87'
-  let g:terminal_color_11 = '#ffd787'
-  let g:terminal_color_12 = '#add4fb'
-  let g:terminal_color_13 = '#ffafaf'
-  let g:terminal_color_14 = '#87d7d7'
-  let g:terminal_color_15 = '#e4e4e4'
+    " better terminal colors
+    " https://github.com/neovim/neovim/issues/2897#issuecomment-115464516
+    let g:terminal_color_0 = '#4e4e4e'
+    let g:terminal_color_1 = '#d68787'
+    let g:terminal_color_2 = '#5f865f'
+    let g:terminal_color_3 = '#d8af5f'
+    let g:terminal_color_4 = '#85add4'
+    let g:terminal_color_5 = '#d7afaf'
+    let g:terminal_color_6 = '#87afaf'
+    let g:terminal_color_7 = '#d0d0d0'
+    let g:terminal_color_8 = '#626262'
+    let g:terminal_color_9 = '#d75f87'
+    let g:terminal_color_10 = '#87af87'
+    let g:terminal_color_11 = '#ffd787'
+    let g:terminal_color_12 = '#add4fb'
+    let g:terminal_color_13 = '#ffafaf'
+    let g:terminal_color_14 = '#87d7d7'
+    let g:terminal_color_15 = '#e4e4e4'
 
-  set fillchars=vert:\|,fold:-
-  autocmd BufReadPost *
-        \ if line("'\"") >= 1 && line("'\"") <= line("$") |
-        \   exe "normal! g`\"" |
-        \ endif
+    set fillchars=vert:\|,fold:-
+    autocmd BufReadPost *
+                \ if line("'\"") >= 1 && line("'\"") <= line("$") |
+                \   exe "normal! g`\"" |
+                \ endif
 
-  " Escape inside a FZF terminal window should exit the terminal window
-  " rather than going into the terminal's normal mode.
-  autocmd FileType fzf tnoremap <buffer> <Esc> <Esc>
+    " Escape inside a FZF terminal window should exit the terminal window
+    " rather than going into the terminal's normal mode.
+    autocmd FileType fzf tnoremap <buffer> <Esc> <Esc>
 
 endif
 
 if has('macunix') " options: unix, win32, win32unix
 
-  " prevent mac terminal flash issue
-  set noerrorbells
-  set visualbell
-  set t_vb=
-  set tm=500
+    " prevent mac terminal flash issue
+    set noerrorbells
+    set visualbell
+    set t_vb=
+    set tm=500
 
 endif
 
 " enable 24 bit color support if supported
 if (has("termguicolors"))
-  if (!(has("nvim")))
-    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-  endif
+    if (!(has("nvim")))
+        let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+        let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+    endif
 
-  set termguicolors
+    set termguicolors
 endif
 
 " netrw {{{
 
 " :help netrw-quickmap
-
-let g:netrw_banner = 0
+" let g:netrw_banner = 0
 
 " cycle thru views with i
 let g:netrw_liststyle = 3
@@ -181,38 +180,13 @@ let g:netrw_liststyle = 3
 
 " }}}
 
-" highlights {{{
-
-" set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
-"   \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
-"   \,sm:block-blinkwait175-blinkoff150-blinkon175
-
-" set guicursor+=i-ci:ver30-iCursor-blinkwait300-blinkon200-blinkoff150
-
-" }}}
-
-" functions {{{
-
-" function! s:buflist()
-"   redir => ls
-"   silent ls
-"   redir END
-"   return split(ls, '\n')
-" endfunction
-"
-" function! s:bufopen(e)
-"   execute 'buffer' matchstr(a:e, '^[ 0-9]*')
-" endfunction
-
-" }}}
-
 " plugins {{{
 
 " automatically install vim-plug and run PlugInstall if vim-plug not found
 if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall | source $MYVIMRC
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+                \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall | source $MYVIMRC
 endif
 
 call plug#begin(expand('~/.config/nvim/plugged'))
@@ -265,9 +239,9 @@ Plug 'junegunn/fzf.vim'
 " FZF key bindings
 nnoremap <C-f> :FZF<CR>
 let g:fzf_action = {
-      \ 'ctrl-t': 'tab split',
-      \ 'ctrl-i': 'split',
-      \ 'ctrl-v': 'vsplit' }
+            \ 'ctrl-t': 'tab split',
+            \ 'ctrl-i': 'split',
+            \ 'ctrl-v': 'vsplit' }
 
 " }}}
 
@@ -299,22 +273,22 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
 function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
+    if (index(['vim','help'], &filetype) >= 0)
+        execute 'h '.expand('<cword>')
+    else
+        call CocAction('doHover')
+    endif
 endfunction
 
 inoremap <silent><expr> <Tab>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<Tab>" :
-      \ coc#refresh()
+            \ pumvisible() ? "\<C-n>" :
+            \ <SID>check_back_space() ? "\<Tab>" :
+            \ coc#refresh()
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
@@ -369,46 +343,9 @@ Plug 'sheerun/vim-polyglot'
 
 " }}}
 
-" rust {{{
+" go {{{
 
-" Plug 'rust-lang/rust.vim'
-"
-" let g:rustfmt_autosave = 1
-"
-" "macunix                 Macintosh version of Vim, using Unix files (OS-X).
-" "unix                    Unix version of Vim.
-" "win32                   Win32 version of Vim (MS-Windows 95 and later, 32 or 64 bits)
-" "win32unix               Win32 version of Vim, using Unix files (Cygwin)
-"
-" if has('macunix')
-"   let g:rust_clip_command = 'pbcopy'
-" elseif has('unix')
-"   let g:rust_clip_command = 'xclip -selection clipboard'
-" endif
-
-" au! BufNewFile,BufReadPost *.{rs} set foldmethod=syntax
-
-" }}}
-
-" rust-racer {{{
-
-Plug 'racer-rust/vim-racer'
-
-" racer path
-let g:racer_cmd = "$HOME/.cargo/bin/racer"
-
-" insert parentheses
-let g:racer_insert_paren = 1
-
-" auto commands
-augroup Racer
-  autocmd!
-  autocmd FileType rust nmap <buffer> gd         <Plug>(rust-def)
-  autocmd FileType rust nmap <buffer> gs         <Plug>(rust-def-split)
-  autocmd FileType rust nmap <buffer> gx         <Plug>(rust-def-vertical)
-  autocmd FileType rust nmap <buffer> gt         <Plug>(rust-def-tab)
-  autocmd FileType rust nmap <buffer> <leader>gd <Plug>(rust-doc)
-augroup END
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 " }}}
 
@@ -501,6 +438,59 @@ Plug 'airblade/vim-gitgutter'
 
 " }}}
 
+" prettier {{{
+
+Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+
+" nmap <Leader>py <Plug>(Prettier)
+
+" }}}
+
+" disabled {{{
+
+" rust {{{
+
+" Plug 'rust-lang/rust.vim'
+"
+" let g:rustfmt_autosave = 1
+"
+" "macunix                 Macintosh version of Vim, using Unix files (OS-X).
+" "unix                    Unix version of Vim.
+" "win32                   Win32 version of Vim (MS-Windows 95 and later, 32 or 64 bits)
+" "win32unix               Win32 version of Vim, using Unix files (Cygwin)
+"
+" if has('macunix')
+"   let g:rust_clip_command = 'pbcopy'
+" elseif has('unix')
+"   let g:rust_clip_command = 'xclip -selection clipboard'
+" endif
+
+" au! BufNewFile,BufReadPost *.{rs} set foldmethod=syntax
+
+" rust-racer {{{
+
+" Plug 'racer-rust/vim-racer'
+"
+" " racer path
+" let g:racer_cmd = "$HOME/.cargo/bin/racer"
+"
+" " insert parentheses
+" let g:racer_insert_paren = 1
+"
+" " auto commands
+" augroup Racer
+"   autocmd!
+"   autocmd FileType rust nmap <buffer> gd         <Plug>(rust-def)
+"   autocmd FileType rust nmap <buffer> gs         <Plug>(rust-def-split)
+"   autocmd FileType rust nmap <buffer> gx         <Plug>(rust-def-vertical)
+"   autocmd FileType rust nmap <buffer> gt         <Plug>(rust-def-tab)
+"   autocmd FileType rust nmap <buffer> <leader>gd <Plug>(rust-doc)
+" augroup END
+
+" }}}
+
+" }}}
+
 " ultisnips {{{
 
 " engine and snippets
@@ -523,11 +513,6 @@ Plug 'jvanja/vim-bootstrap4-snippets'
 
 " }}}
 
-" prettier {{{
-
-Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
-
-" nmap <Leader>py <Plug>(Prettier)
 
 " }}}
 
@@ -541,40 +526,42 @@ call plug#end()
 " auto commands {{{
 
 augroup configgroup
-  autocmd!
-  " autocmd VimEnter * highlight clear SignColumn
-  " autocmd BufWritePre *.php,*.py,*.js,*.txt,*.hs,*.java,*.md
-  " \:call <SID>StripTrailingWhitespaces()
-  " autocmd FileType java setlocal noexpandtab
-  " autocmd FileType java setlocal list
-  " autocmd FileType java setlocal listchars=tab:+\ ,eol:-
-  " autocmd FileType java setlocal formatprg=par\ -w80\ -T4
-  " autocmd FileType php setlocal expandtab
-  " autocmd FileType php setlocal list
-  " autocmd FileType php setlocal listchars=tab:+\ ,eol:-
-  " autocmd FileType php setlocal formatprg=par\ -w80\ -T4
-  " autocmd FileType ruby setlocal tabstop=2
-  " autocmd FileType ruby setlocal shiftwidth=2
-  " autocmd FileType ruby setlocal softtabstop=2
-  " autocmd FileType ruby setlocal commentstring=#\ %s
-  " autocmd FileType python setlocal commentstring=#\ %s
-  " autocmd FileType vim setlocal foldmethod=marker foldlevel=0
+    autocmd!
+    " autocmd VimEnter * highlight clear SignColumn
+    " autocmd BufWritePre *.php,*.py,*.js,*.txt,*.hs,*.java,*.md
+    " \:call <SID>StripTrailingWhitespaces()
+    " autocmd FileType java setlocal noexpandtab
+    " autocmd FileType java setlocal list
+    " autocmd FileType java setlocal listchars=tab:+\ ,eol:-
+    " autocmd FileType java setlocal formatprg=par\ -w80\ -T4
+    " autocmd FileType php setlocal expandtab
+    " autocmd FileType php setlocal list
+    " autocmd FileType php setlocal listchars=tab:+\ ,eol:-
+    " autocmd FileType php setlocal formatprg=par\ -w80\ -T4
+    " autocmd FileType ruby setlocal tabstop=2
+    " autocmd FileType ruby setlocal shiftwidth=2
+    " autocmd FileType ruby setlocal softtabstop=2
+    " autocmd FileType ruby setlocal commentstring=#\ %s
+    " autocmd FileType python setlocal commentstring=#\ %s
+    autocmd FileType netrw set nolist
+    autocmd FileType zsh set foldmethod=marker foldlevel=0
+    autocmd FileType vim set foldmethod=marker foldlevel=0
 
-  " autocmd BufEnter *.cls setlocal filetype=java
-  " autocmd BufEnter Makefile setlocal noexpandtab
-  " autocmd BufEnter *.sh setlocal tabstop=2
-  " autocmd BufEnter *.sh setlocal shiftwidth=2
-  " autocmd BufEnter *.sh setlocal softtabstop=2
-  autocmd BufEnter *.zsh-theme setlocal filetype=zsh
+    " autocmd BufEnter *.cls setlocal filetype=java
+    " autocmd BufEnter Makefile setlocal noexpandtab
+    " autocmd BufEnter *.sh setlocal tabstop=2
+    " autocmd BufEnter *.sh setlocal shiftwidth=2
+    " autocmd BufEnter *.sh setlocal softtabstop=2
+    autocmd BufEnter *.zsh-theme setlocal filetype=zsh
 
-  " trim whitespace on save
-  au BufWritePre * :%s/\s\+$//e
+    " trim whitespace on save
+    au BufWritePre * :%s/\s\+$//e
 
-  " enter insert mode any time focus is put on a terminal
-  autocmd BufWinEnter,WinEnter term://* startinsert
+    " enter insert mode any time focus is put on a terminal
+    autocmd BufWinEnter,WinEnter term://* startinsert
 
-  " remove cursor line on insert
-  autocmd InsertEnter,InsertLeave * set cul!
+    " remove cursor line on insert
+    autocmd InsertEnter,InsertLeave * set cul!
 augroup END
 
 " }}}
@@ -613,12 +600,6 @@ tnoremap kj <C-\><C-n>
 nnoremap ; :
 nnoremap : ;
 
-" move to beginning/end of line
-" nnoremap B ^
-" nnoremap E $
-" nnoremap <silent> B g^
-" nnoremap <silent> E g$
-
 " moving up and down work as you would expect
 nnoremap <silent> j gj
 nnoremap <silent> k gk
@@ -627,12 +608,12 @@ nnoremap <silent> k gk
 nnoremap <silent> <leader><space> :noh<CR>
 
 " map delete line
-nnoremap <silent> - o<esc>
+nnoremap <silent> - O<esc>
 nnoremap <silent> <bs> dd
 
 " scroll the viewport faster
-nnoremap <silent> <C-e> 3<C-e>
-nnoremap <silent> <C-y> 3<C-y>
+nnoremap <silent> <C-e> 5<C-e>
+nnoremap <silent> <C-y> 5<C-y>
 
 " enable . command in visual mode
 vnoremap . :normal .<cr>
@@ -645,8 +626,13 @@ vmap > >gv
 nnoremap gV `[v`]
 
 " folding
-nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
-vnoremap <Space> zf
+" nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
+nnoremap <Space> za
+vnoremap <Space> za
+
+" Use space to jump down a page (like browsers do)...
+" nnoremap <Space> <PageDown>
+" xnoremap <Space> <PageDown>
 
 " return turns off search highlighting
 nnoremap <CR> :set hlsearch! hlsearch?<CR>
@@ -660,16 +646,18 @@ map <F7> :setlocal spell! spelllang=en_us<CR>
 
 " edit, source vim file
 nnoremap <silent> <leader>ev :vsp $MYVIMRC<cr>
-nnoremap <silent> <leader>ez :vsp ~/.zshrc<CR>
+" nnoremap <silent> <leader>ez :vsp ~/.zshrc<CR>
 
 " surround with double quotes
 nnoremap <leader>" viw<esc>a"<esc>bi"<esc>lel
+nnoremap <leader>' viw<esc>a'<esc>bi'<esc>lel
 
 " switch between current and last buffer
 nmap <leader>. <c-^>
 
 " show netrw
 nnoremap <leader>ex :Exp<CR>
+nnoremap <F8> :Exp<CR>
 
 " format document
 nnoremap <leader>ff gg=G<CR>
@@ -786,5 +774,3 @@ colorscheme gruvbox
 " colorscheme dracula
 
 " }}}
-
-" vim:foldmethod=marker:foldlevel=0
