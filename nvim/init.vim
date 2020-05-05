@@ -209,6 +209,8 @@ Plug 'junegunn/fzf.vim'
 "   \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
 " FZF key bindings
+nnoremap <C-p> :Files<CR>
+" nnoremap <C-b> :Buffers<CR>
 nnoremap <C-f> :FZF<CR>
 let g:fzf_action = {
             \ 'ctrl-t': 'tab split',
