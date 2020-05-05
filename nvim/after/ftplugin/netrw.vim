@@ -1,3 +1,3 @@
-" vim specific settings
+" vi specific settings
 
 setlocal nolist
