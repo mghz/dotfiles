@@ -176,6 +176,16 @@ endif
 
 call plug#begin(expand('~/.config/nvim/plugged'))
 
+" netrw {{{
+
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+" let g:netrw_browse_split = 4
+" let g:netrw_altv = 1
+" let g:netrw_winsize = 20
+
+" }}}
+
 " color schemes {{{
 
 Plug 'chriskempson/base16-vim'
@@ -216,13 +226,6 @@ let g:fzf_action = {
             \ 'ctrl-t': 'tab split',
             \ 'ctrl-i': 'split',
             \ 'ctrl-v': 'vsplit' }
-
-" }}}
-
-" vim-surround {{{
-
-" to use press cs"' to change " to '
-Plug 'tpope/vim-surround'
 
 " }}}
 
@@ -391,14 +394,6 @@ let g:NERDToggleCheckAllLines = 1
 
 " }}}
 
-" tagbar {{{
-
-Plug 'majutsushi/tagbar'
-
-nmap <F8> :TagbarToggle<CR>
-
-" }}}
-
 " auto-pairs {{{
 
 Plug 'jiangmiao/auto-pairs'
@@ -415,8 +410,6 @@ Plug 'airblade/vim-gitgutter'
 " prettier {{{
 
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
-
-" nmap <Leader>py <Plug>(Prettier)
 
 " }}}
 
@@ -502,6 +495,21 @@ Plug 'jvanja/vim-bootstrap4-snippets'
 
 " }}}
 
+" vim-surround {{{
+
+" to use press cs"' to change " to '
+" Plug 'tpope/vim-surround'
+
+" }}}
+
+" tagbar {{{
+
+" Plug 'majutsushi/tagbar'
+"
+" nmap <F8> :TagbarToggle<CR>
+
+" }}}
+
 " }}}
 
 " initialize
@@ -530,8 +538,8 @@ augroup configgroup
     " autocmd FileType ruby setlocal commentstring=#\ %s
     " autocmd FileType python setlocal commentstring=#\ %s
     autocmd FileType netrw set nolist
-    autocmd FileType zsh set foldmethod=marker foldlevel=0
-    autocmd FileType vim set foldmethod=marker foldlevel=0
+    autocmd FileType zsh set foldmethod=marker foldlevel=0 foldenable
+    autocmd FileType vim set foldmethod=marker foldlevel=0 foldenable
 
     " autocmd BufEnter *.cls setlocal filetype=java
     " autocmd BufEnter Makefile setlocal noexpandtab
@@ -644,7 +652,7 @@ nmap <leader>. <c-^>
 
 " show netrw
 nnoremap <leader>ex :Exp<CR>
-nnoremap <F8> :Exp<CR>
+nnoremap <F7> :Exp<CR>
 
 " format document
 nnoremap <leader>ff gg=G<CR>
