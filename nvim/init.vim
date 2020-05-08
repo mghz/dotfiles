@@ -241,6 +241,12 @@ Plug 'terryma/vim-multiple-cursors'
 
 " }}}
 
+" vim-easymotion {{{
+
+Plug 'easymotion/vim-easymotion'
+
+" }}}
+
 " development {{{
 
 Plug 'ryanoasis/vim-devicons'
@@ -521,32 +527,35 @@ call plug#end()
 
 augroup configgroup
     autocmd!
-    " autocmd VimEnter * highlight clear SignColumn
-    " autocmd BufWritePre *.php,*.py,*.js,*.txt,*.hs,*.java,*.md
+    " au VimEnter * highlight clear SignColumn
+    " au BufWritePre *.php,*.py,*.js,*.txt,*.hs,*.java,*.md
     " \:call <SID>StripTrailingWhitespaces()
-    " autocmd FileType java setlocal noexpandtab
-    " autocmd FileType java setlocal list
-    " autocmd FileType java setlocal listchars=tab:+\ ,eol:-
-    " autocmd FileType java setlocal formatprg=par\ -w80\ -T4
-    " autocmd FileType php setlocal expandtab
-    " autocmd FileType php setlocal list
-    " autocmd FileType php setlocal listchars=tab:+\ ,eol:-
-    " autocmd FileType php setlocal formatprg=par\ -w80\ -T4
-    " autocmd FileType ruby setlocal tabstop=2
-    " autocmd FileType ruby setlocal shiftwidth=2
-    " autocmd FileType ruby setlocal softtabstop=2
-    " autocmd FileType ruby setlocal commentstring=#\ %s
-    " autocmd FileType python setlocal commentstring=#\ %s
-    autocmd FileType netrw set nolist
-    autocmd FileType zsh set foldmethod=marker foldlevel=0 foldenable
-    autocmd FileType vim set foldmethod=marker foldlevel=0 foldenable
+    " au FileType java setlocal noexpandtab
+    " au FileType java setlocal list
+    " au FileType java setlocal listchars=tab:+\ ,eol:-
+    " au FileType java setlocal formatprg=par\ -w80\ -T4
+    " au FileType php setlocal expandtab
+    " au FileType php setlocal list
+    " au FileType php setlocal listchars=tab:+\ ,eol:-
+    " au FileType php setlocal formatprg=par\ -w80\ -T4
+    " au FileType ruby setlocal tabstop=2
+    " au FileType ruby setlocal shiftwidth=2
+    " au FileType ruby setlocal softtabstop=2
+    " au FileType ruby setlocal commentstring=#\ %s
+    " au FileType python setlocal commentstring=#\ %s
+    au FileType netrw set nolist
+    au FileType zsh set foldmethod=marker foldlevel=0 foldenable
+    au FileType vim set foldmethod=marker foldlevel=0 foldenable
 
-    " autocmd BufEnter *.cls setlocal filetype=java
-    " autocmd BufEnter Makefile setlocal noexpandtab
-    " autocmd BufEnter *.sh setlocal tabstop=2
-    " autocmd BufEnter *.sh setlocal shiftwidth=2
-    " autocmd BufEnter *.sh setlocal softtabstop=2
-    autocmd BufEnter *.zsh-theme setlocal filetype=zsh
+    " au BufEnter *.cls setlocal filetype=java
+    " au BufEnter Makefile setlocal noexpandtab
+    " au BufEnter *.sh setlocal tabstop=2
+    " au BufEnter *.sh setlocal shiftwidth=2
+    " au BufEnter *.sh setlocal softtabstop=2
+    au BufEnter *.zsh-theme setlocal filetype=zsh
+
+    au TermEnter * setlocal scrolloff=0
+    au TermLeave * setlocal scrolloff=3
 
     " trim whitespace on save
     au BufWritePre * :%s/\s\+$//e
@@ -723,10 +732,6 @@ nnoremap <leader>bp :bp<CR>
 " buffer delete
 nnoremap <leader>bd :bd<CR>
 
-" navigate between buffers using tab and shift+tab
-nnoremap <Tab> :bnext<CR>
-nnoremap <S-Tab> :bprevious<CR>
-
 " }}}
 
 " tabs {{{
@@ -745,6 +750,10 @@ nnoremap <leader>tw :tabclose<CR>
 
 " closes all tab pages except the current one
 nnoremap <leader>to :tabo<CR>
+
+" navigate between buffers using tab and shift+tab
+nnoremap <Tab> :tabNext<CR>
+nnoremap <S-Tab> :tabprevious<CR>
 
 " }}}
 
