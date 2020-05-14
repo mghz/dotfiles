@@ -313,10 +313,9 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 Plug 'dense-analysis/ale'
 
 " fix on save
-let g:ale_fixers = {}
-let g:ale_fixers.javascript = ['eslint']
-let g:ale_fix_on_save = 1
-
+" let g:ale_fixers = {}
+" let g:ale_fixers.javascript = ['eslint']
+" let g:ale_fix_on_save = 1
 
 " }}}
 
@@ -732,6 +731,11 @@ nnoremap <leader>bp :bp<CR>
 " buffer delete
 nnoremap <leader>bd :bd<CR>
 
+" navigate between buffers using tab and shift+tab
+nnoremap <Tab> :bNext<CR>
+nnoremap <S-Tab> :bprevious<CR>
+
+
 " }}}
 
 " tabs {{{
@@ -752,8 +756,8 @@ nnoremap <leader>tw :tabclose<CR>
 nnoremap <leader>to :tabo<CR>
 
 " navigate between buffers using tab and shift+tab
-nnoremap <Tab> :tabNext<CR>
-nnoremap <S-Tab> :tabprevious<CR>
+" nnoremap <Tab> :tabNext<CR>
+" nnoremap <S-Tab> :tabprevious<CR>
 
 " }}}
 

@@ -10,6 +10,7 @@ fi
 # export PATH=/usr/local/sbin:$PATH
 export PATH=$PATH:/snap/bin
 export PATH=$HOME/.cargo/bin:$PATH
+export PATH="$PATH:$(go env GOROOT)/misc/wasm"
 
 export GREP_OPTIONS='--color=auto'
 export MANPAGER="less -X" # Don’t clear the screen after quitting a manual page
