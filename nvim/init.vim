@@ -188,9 +188,10 @@ let g:netrw_liststyle = 3
 
 " color schemes {{{
 
-Plug 'chriskempson/base16-vim'
+" Plug 'chriskempson/base16-vim'
 Plug 'morhetz/gruvbox'
 Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'larsbs/vimterial_dark'
 
 " }}}
 
@@ -226,24 +227,6 @@ let g:fzf_action = {
             \ 'ctrl-t': 'tab split',
             \ 'ctrl-i': 'split',
             \ 'ctrl-v': 'vsplit' }
-
-" }}}
-
-" vim-multiple-cursors {{{
-
-Plug 'terryma/vim-multiple-cursors'
-
-" start: <C-n> start multicursor and add a virtual cursor + selection on the match
-" next: <C-n> add a new virtual cursor + selection on the next match
-" skip: <C-x> skip the next match
-" prev: <C-p> remove current virtual cursor + selection and go back on previous match
-" select all: <A-n> start multicursor and directly select all matches
-
-" }}}
-
-" vim-easymotion {{{
-
-Plug 'easymotion/vim-easymotion'
 
 " }}}
 
@@ -331,6 +314,12 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 " }}}
 
+" vue {{{
+
+Plug 'posva/vim-vue'
+
+" }}}
+
 " nerdcommenter {{{
 
 Plug 'preservim/nerdcommenter'
@@ -409,12 +398,6 @@ Plug 'jiangmiao/auto-pairs'
 
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
-
-" }}}
-
-" prettier {{{
-
-Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 
 " }}}
 
@@ -512,6 +495,30 @@ Plug 'jvanja/vim-bootstrap4-snippets'
 " Plug 'majutsushi/tagbar'
 "
 " nmap <F8> :TagbarToggle<CR>
+
+" }}}
+
+" vim-multiple-cursors {{{
+
+" Plug 'terryma/vim-multiple-cursors'
+
+" start: <C-n> start multicursor and add a virtual cursor + selection on the match
+" next: <C-n> add a new virtual cursor + selection on the next match
+" skip: <C-x> skip the next match
+" prev: <C-p> remove current virtual cursor + selection and go back on previous match
+" select all: <A-n> start multicursor and directly select all matches
+
+" }}}
+
+" vim-easymotion {{{
+
+" Plug 'easymotion/vim-easymotion'
+
+" }}}
+
+" prettier {{{
+
+" Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 
 " }}}
 
@@ -778,8 +785,9 @@ tnoremap <Esc> <C-\><C-n>
 " let g:onedark_terminal_italics=1
 " colorscheme onedark
 
-colorscheme gruvbox
-" colorscheme dracula
+" colorscheme gruvbox
+colorscheme dracula
+" colorscheme vimterial_dark
 
 " }}}
 
