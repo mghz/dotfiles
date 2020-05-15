@@ -225,7 +225,7 @@ nnoremap <C-p> :Files<CR>
 nnoremap <C-f> :FZF<CR>
 let g:fzf_action = {
             \ 'ctrl-t': 'tab split',
-            \ 'ctrl-i': 'split',
+            \ 'ctrl-h': 'split',
             \ 'ctrl-v': 'vsplit' }
 
 " }}}
@@ -401,6 +401,12 @@ Plug 'airblade/vim-gitgutter'
 
 " }}}
 
+" prettier {{{
+
+Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+
+" }}}
+
 " }}}
 
 " disabled {{{
@@ -516,11 +522,6 @@ Plug 'jvanja/vim-bootstrap4-snippets'
 
 " }}}
 
-" prettier {{{
-
-" Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
-
-" }}}
 
 " }}}
 
