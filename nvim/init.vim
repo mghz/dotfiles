@@ -674,15 +674,6 @@ nnoremap <CR> :set hlsearch! hlsearch?<CR>
 " toggle spell check
 map <F7> :setlocal spell! spelllang=en_us<CR>
 
-" }}}
-
-" leader mappings {{{
-
-" edit, source vim file
-" nnoremap <silent> <leader>ev :vsp $MYVIMRC<cr>
-" nnoremap <silent> <leader>ez :vsp ~/.zshrc<CR>
-nnoremap <silent> <leader>ev :e $MYVIMRC<cr>
-
 " surround with double quotes
 nnoremap <leader>" viw<esc>a"<esc>bi"<esc>lel
 nnoremap <leader>' viw<esc>a'<esc>bi'<esc>lel
@@ -696,6 +687,11 @@ nnoremap <F7> :Exp<CR>
 
 " format document
 nnoremap <leader>ff gg=G<CR>
+
+" edit, source vim file
+" nnoremap <silent> <leader>ev :vsp $MYVIMRC<cr>
+" nnoremap <silent> <leader>ez :vsp ~/.zshrc<CR>
+nnoremap <silent> <leader>ev :e $MYVIMRC<cr>
 
 " }}}
 

@@ -1,0 +1,77 @@
+version: "3.7"
+
+services:
+  iris:
+    container_name: iris
+    image: gitea/gitea:latest
+    environment:
+      - USER_UID=1000
+      - USER_GID=1000
+      - APP_NAME="Iris - cup of git"
+      - DB_TYPE=postgres
+      - DB_HOST=irisdb
+      - DB_NAME=iris
+      - DB_USER=iris
+      - DB_PASSWD=db_admin
+    restart: always
+    ports:
+      - 3000:3000
+      - 222:22
+    volumes:
+      - iris:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      - zarusnet
+    depends_on:
+      - irisdb
+
+  irisdb:
+    container_name: irisdb
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_DB=iris
+      - POSTGRES_USER=iris
+      - POSTGRES_PASSWORD=db_admin
+    volumes:
+      - irisdb:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    networks:
+      - zarusnet
+
+  # mariadb:
+  #   container_name: mariadb
+  #   image: mariadb
+  #   environment:
+  #     - MYSQL_DATABASE=gitea
+  #     - MYSQL_USER=gitea
+  #     - MYSQL_PASSWORD=gitea
+  #     - MYSQL_ROOT_PASSWORD=admin
+  #   restart: always
+  #   ports:
+  #     - 3306:3306
+  #   volumes:
+  #     - mariadb/:/var/lib/mysql
+  #   networks:
+      - zarusnet
+
+  adminer:
+    container_name: adminer
+    image: adminer
+    environment:
+      - ADMINER_DEFAULT_SERVER=mariadb
+    restart: always
+    ports:
+      - 8000:8080
+    networks:
+      - zarusnet
+
+volumes:
+  iris:
+  irisdb:
+  # daisydb:
+
+networks:
+  zarusnet:

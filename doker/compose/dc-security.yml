@@ -1,0 +1,40 @@
+version: "3.7"
+
+services:
+
+  daisy:
+    container_name: daisy
+    image: jboss/keycloak:latest
+    restart: always
+    ports:
+      - "8001:8080"
+    environment:
+      - KEYCLOAK_LOGLEVEL=INFO
+      - KEYCLOAK_USER=admin
+      - KEYCLOAK_PASSWORD=admin
+      - DB_USER=daisy
+      - DB_PASSWORD=db_admin
+      - DB_VENDOR=postgres
+    depends_on:
+      - daisydb
+
+  daisydb:
+    container_name: daisydb
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_DB=daisy
+      - POSTGRES_USER=daisy
+      - POSTGRES_PASSWORD=db_admin
+    volumes:
+      - daisydb:/var/lib/postgresql/data
+    ports:
+      - 5433:5432
+    networks:
+      - zarusnet
+
+volumes:
+  daisydb:
+
+networks:
+  zarusnet:

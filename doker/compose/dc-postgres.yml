@@ -1,0 +1,24 @@
+version: "3.7"
+
+services:
+
+  postgres:
+    container_name: postgres
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=db_admin
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    networks:
+      - zarusnet
+
+volumes:
+  postgres:
+
+networks:
+  zarusnet:
