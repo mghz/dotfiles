@@ -5,14 +5,19 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
+if [ $commands[microk8s.kubectl] ]; then
+    source <(microk8s.kubectl completion zsh | sed "s/complete -o default -F __start_kubectl kubectl/complete -o default -F __start_kubectl microk8s.kubectl/g" | sed "s/complete -o default -o nospace -F __start_kubectl kubectl/complete -o default -o nospace -F __start_kubectl microk8s.kubectl/g");
+fi
+
+
 # path exports {{{
 
 # export PATH=/usr/local/sbin:$PATH
 export PATH=$PATH:/snap/bin
 export PATH=$HOME/.cargo/bin:$PATH
+export PATH=$HOME/.local/bin:$PATH
 export PATH="$PATH:$(go env GOROOT)/misc/wasm"
 
-export GREP_OPTIONS='--color=auto'
 export MANPAGER="less -X" # Don’t clear the screen after quitting a manual page
 export EDITOR="vim"
 
@@ -94,7 +99,7 @@ alias dra='docker rm -f $(docker ps -aq)'
 # kubernetes
 alias kube='microk8s kubectl'
 alias m8='microk8s'
-alias kubetoken='token=$(microk8s.kubectl -n kube-system get secret | grep default-token | cut -d " " -f1) && microk8s.kubectl -n kube-system describe secret $token'
+alias ktoken='token=$(microk8s.kubectl -n kube-system get secret | grep default-token | cut -d " " -f1 | cut -d ":" -f2) && microk8s.kubectl -n kube-system describe secret $token'
 
 # rust lang
 alias cb='cargo fmt; cargo build'

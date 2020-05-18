@@ -291,17 +291,6 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " }}}
 
-" ale {{{
-
-Plug 'dense-analysis/ale'
-
-" fix on save
-" let g:ale_fixers = {}
-" let g:ale_fixers.javascript = ['eslint']
-" let g:ale_fix_on_save = 1
-
-" }}}
-
 " polyglot {{{
 
 Plug 'sheerun/vim-polyglot'
@@ -311,6 +300,9 @@ Plug 'sheerun/vim-polyglot'
 " go {{{
 
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
 
 " }}}
 
@@ -410,6 +402,28 @@ Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 " }}}
 
 " disabled {{{
+
+" LanguageClient {{{
+
+" Plug 'autozimu/LanguageClient-neovim', {
+"             \ 'branch': 'next',
+"             \ 'do': 'bash install.sh',
+"             \ }
+"
+" let g:LanguageClient_serverCommands = {
+"             \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+"             \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
+"             \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
+"             \ 'python': ['/usr/local/bin/pyls'],
+"             \ }
+"
+" nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+" " Or map each action separately
+" nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+" nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+" nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+
+" }}}
 
 " rust {{{
 
@@ -522,6 +536,16 @@ Plug 'jvanja/vim-bootstrap4-snippets'
 
 " }}}
 
+" ale {{{
+
+" Plug 'dense-analysis/ale'
+
+" fix on save
+" let g:ale_fixers = {}
+" let g:ale_fixers.javascript = ['eslint']
+" let g:ale_fix_on_save = 1
+
+" }}}
 
 " }}}
 
@@ -561,8 +585,8 @@ augroup configgroup
     " au BufEnter *.sh setlocal softtabstop=2
     au BufEnter *.zsh-theme setlocal filetype=zsh
 
-    au TermEnter * setlocal scrolloff=0
-    au TermLeave * setlocal scrolloff=3
+    au TermEnter,TermLeave * setlocal scrolloff=0
+    " au TermLeave * setlocal scrolloff=3
 
     " trim whitespace on save
     au BufWritePre * :%s/\s\+$//e
@@ -786,8 +810,8 @@ tnoremap <Esc> <C-\><C-n>
 " let g:onedark_terminal_italics=1
 " colorscheme onedark
 
-" colorscheme gruvbox
-colorscheme dracula
+colorscheme gruvbox
+" colorscheme dracula
 " colorscheme vimterial_dark
 
 " }}}
