@@ -186,7 +186,10 @@ let g:netrw_liststyle = 3
 
 " }}}
 
-" color schemes {{{
+" colors, icons {{{
+
+" dev icons
+Plug 'ryanoasis/vim-devicons'
 
 " Plug 'chriskempson/base16-vim'
 Plug 'morhetz/gruvbox'
@@ -230,9 +233,31 @@ let g:fzf_action = {
 
 " }}}
 
-" development {{{
+" indentLine {{{
 
-Plug 'ryanoasis/vim-devicons'
+" url: https://github.com/Yggdroot/indentLine
+Plug 'Yggdroot/indentLine'
+
+" }}}
+
+" vim-commentary {{{
+
+Plug 'tpope/vim-commentary'
+
+" }}}
+
+" auto-pairs {{{
+
+Plug 'jiangmiao/auto-pairs'
+
+" }}}
+
+" git {{{
+
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+
+" }}}
 
 " coc completion {{{
 
@@ -291,6 +316,17 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " }}}
 
+" ale {{{
+
+Plug 'dense-analysis/ale'
+
+" fix on save
+" let g:ale_fixers = {}
+" let g:ale_fixers.javascript = ['eslint']
+let g:ale_fix_on_save = 1
+
+" }}}
+
 " polyglot {{{
 
 Plug 'sheerun/vim-polyglot'
@@ -301,103 +337,11 @@ Plug 'sheerun/vim-polyglot'
 
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
-let g:go_def_mode='gopls'
-let g:go_info_mode='gopls'
-
 " }}}
 
 " vue {{{
 
 Plug 'posva/vim-vue'
-
-" }}}
-
-" nerdcommenter {{{
-
-Plug 'preservim/nerdcommenter'
-
-" Add spaces after comment delimiters by default
-let g:NERDSpaceDelims = 1
-
-" Use compact syntax for prettified multi-line comments
-let g:NERDCompactSexyComs = 1
-
-" Align line-wise comment delimiters flush left instead of following code indentation
-let g:NERDDefaultAlign = 'left'
-
-" Set a language to use its alternate delimiters by default
-let g:NERDAltDelims_java = 1
-
-" Add your own custom formats or override the defaults
-"let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
-
-" Allow commenting and inverting empty lines (useful when commenting a region)
-let g:NERDCommentEmptyLines = 1
-
-" Enable trimming of trailing whitespace when uncommenting
-let g:NERDTrimTrailingWhitespace = 1
-
-" Enable NERDCommenterToggle to check all selected lines is commented or not
-let g:NERDToggleCheckAllLines = 1
-
-" mappings
-" ---------
-"Comment out the current line or text selected in visual mode.
-"[count]<leader>cc |NERDCommenterComment|
-
-"Same as cc but forces nesting.
-"[count]<leader>cn |NERDCommenterNested|
-
-"Toggles the comment state of the selected line(s). If the topmost selected line is commented, all selected lines are uncommented and vice versa.
-"[count]<leader>c<space> |NERDCommenterToggle|
-
-"Comments the given lines using only one set of multipart delimiters.
-"[count]<leader>cm |NERDCommenterMinimal|
-
-"Toggles the comment state of the selected line(s) individually.
-"[count]<leader>ci |NERDCommenterInvert|
-
-"Comments out the selected lines with a pretty block formatted layout.
-"[count]<leader>cs |NERDCommenterSexy|
-
-"Same as cc except that the commented line(s) are yanked first.
-"[count]<leader>cy |NERDCommenterYank|
-
-"Comments the current line from the cursor to the end of line.
-"<leader>c$ |NERDCommenterToEOL|
-
-"Adds comment delimiters to the end of line and goes into insert mode between them.
-"<leader>cA |NERDCommenterAppend|
-
-"Switches to the alternative set of delimiters.
-"<leader>ca |NERDCommenterAltDelims|
-
-"Same as |NERDCommenterComment| except that the delimiters are aligned down the left side (<leader>cl) or both sides (<leader>cb).
-"[count]<leader>cl |NERDCommenterAlignLeft [count]<leader>cb |NERDCommenterAlignBoth
-
-"Uncomments the selected line(s).
-"[count]<leader>cu |NERDCommenterUncomment|
-
-" }}}
-
-" auto-pairs {{{
-
-Plug 'jiangmiao/auto-pairs'
-
-" }}}
-
-" git {{{
-
-Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
-
-" }}}
-
-" prettier {{{
-
-Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
-
-" }}}
 
 " }}}
 
@@ -536,14 +480,77 @@ Plug 'jvanja/vim-bootstrap4-snippets'
 
 " }}}
 
-" ale {{{
+" prettier {{{
 
-" Plug 'dense-analysis/ale'
+" Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 
-" fix on save
-" let g:ale_fixers = {}
-" let g:ale_fixers.javascript = ['eslint']
-" let g:ale_fix_on_save = 1
+" }}}
+
+" nerdcommenter {{{
+
+" Plug 'preservim/nerdcommenter'
+"
+" " Add spaces after comment delimiters by default
+" let g:NERDSpaceDelims = 1
+"
+" " Use compact syntax for prettified multi-line comments
+" let g:NERDCompactSexyComs = 1
+"
+" " Align line-wise comment delimiters flush left instead of following code indentation
+" let g:NERDDefaultAlign = 'left'
+"
+" " Set a language to use its alternate delimiters by default
+" let g:NERDAltDelims_java = 1
+"
+" " Add your own custom formats or override the defaults
+" "let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
+"
+" " Allow commenting and inverting empty lines (useful when commenting a region)
+" let g:NERDCommentEmptyLines = 1
+"
+" " Enable trimming of trailing whitespace when uncommenting
+" let g:NERDTrimTrailingWhitespace = 1
+"
+" " Enable NERDCommenterToggle to check all selected lines is commented or not
+" let g:NERDToggleCheckAllLines = 1
+"
+" " mappings
+" " ---------
+" "Comment out the current line or text selected in visual mode.
+" "[count]<leader>cc |NERDCommenterComment|
+"
+" "Same as cc but forces nesting.
+" "[count]<leader>cn |NERDCommenterNested|
+"
+" "Toggles the comment state of the selected line(s). If the topmost selected line is commented, all selected lines are uncommented and vice versa.
+" "[count]<leader>c<space> |NERDCommenterToggle|
+"
+" "Comments the given lines using only one set of multipart delimiters.
+" "[count]<leader>cm |NERDCommenterMinimal|
+"
+" "Toggles the comment state of the selected line(s) individually.
+" "[count]<leader>ci |NERDCommenterInvert|
+"
+" "Comments out the selected lines with a pretty block formatted layout.
+" "[count]<leader>cs |NERDCommenterSexy|
+"
+" "Same as cc except that the commented line(s) are yanked first.
+" "[count]<leader>cy |NERDCommenterYank|
+"
+" "Comments the current line from the cursor to the end of line.
+" "<leader>c$ |NERDCommenterToEOL|
+"
+" "Adds comment delimiters to the end of line and goes into insert mode between them.
+" "<leader>cA |NERDCommenterAppend|
+"
+" "Switches to the alternative set of delimiters.
+" "<leader>ca |NERDCommenterAltDelims|
+"
+" "Same as |NERDCommenterComment| except that the delimiters are aligned down the left side (<leader>cl) or both sides (<leader>cb).
+" "[count]<leader>cl |NERDCommenterAlignLeft [count]<leader>cb |NERDCommenterAlignBoth
+"
+" "Uncomments the selected line(s).
+" "[count]<leader>cu |NERDCommenterUncomment|
 
 " }}}
 
