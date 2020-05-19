@@ -55,6 +55,7 @@ set updatetime=300 "bad experience for diagnostic messages when it's default 400
 set virtualedit=block "virtual cursor movements. options: block, insert or all"
 set wildmenu "wild menu
 set wildmode=list:longest,full "show list of completions, complete then iterate full
+set winbl=10 " set floating window to be slightly transparent
 
 " tab control
 set expandtab "tabs are spaces
@@ -92,8 +93,16 @@ set incsearch "set incremental search, like modern browsers
 set nolazyredraw "don't redraw while executing macros
 set smartcase "case-sensitive if expression contains a capital letter
 
-" files to ignore
-set wildignore+=.pyc,.swp,.DS_Store
+" ignore files
+set wildignore+=*.swp
+set wildignore+=.DS_Store
+set wildignore+=*.pyc
+set wildignore+=*.class
+
+" ignore directories
+set wildignore+=*/.git/*
+set wildignore+=*/node_modules/*
+set wildignore+=*/bower_components/*
 
 " nvim options
 if (has('nvim'))
@@ -153,16 +162,6 @@ if (has("termguicolors"))
     set termguicolors
 endif
 
-" netrw {{{
-
-" :help netrw-quickmap
-" let g:netrw_banner = 0
-
-" cycle thru views with i
-let g:netrw_liststyle = 3
-
-" }}}
-
 " }}}
 
 " plugins {{{
@@ -176,47 +175,88 @@ endif
 
 call plug#begin(expand('~/.config/nvim/plugged'))
 
+
+" dev icons
+Plug 'https://github.com/ryanoasis/vim-devicons'
+
+" color schemes
+Plug 'https://github.com/chriskempson/base16-vim'
+Plug 'https://github.com/morhetz/gruvbox'
+Plug 'https://github.com/dracula/vim', { 'as': 'dracula' }
+Plug 'https://github.com/larsbs/vimterial_dark'
+Plug 'https://github.com/ayu-theme/ayu-vim'
+
+" plugins
+Plug 'https://github.com/tpope/vim-commentary'
+Plug 'https://github.com/jiangmiao/auto-pairs'
+Plug 'https://github.com/Yggdroot/indentLine'
+Plug 'https://github.com/tpope/vim-surround'
+Plug 'https://github.com/mhinz/vim-startify'
+
+" language support
+Plug 'https://github.com/sheerun/vim-polyglot'
+Plug 'https://github.com/mattn/emmet-vim'
+" Plug 'https://github.com/fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+" Plug 'https://github.com/posva/vim-vue'
+
 " netrw {{{
 
 let g:netrw_banner = 0
 let g:netrw_liststyle = 3
-" let g:netrw_browse_split = 4
-" let g:netrw_altv = 1
-" let g:netrw_winsize = 20
+
+" Show line numbers in netrw/directory browser/explorer
+let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
 
 " }}}
 
-" colors, icons {{{
+" easymotion {{{
 
-" dev icons
-Plug 'ryanoasis/vim-devicons'
+Plug 'https://github.com/easymotion/vim-easymotion'
 
-" Plug 'chriskempson/base16-vim'
-Plug 'morhetz/gruvbox'
-Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'larsbs/vimterial_dark'
+" <Leader>f{char} to move to {char}
+map  <Leader>f <Plug>(easymotion-bd-f)
+nmap <Leader>f <Plug>(easymotion-overwin-f)
+
+" s{char}{char} to move to {char}{char}
+nmap s <Plug>(easymotion-overwin-f2)
+
+" Move to line
+map <Leader>L <Plug>(easymotion-bd-jk)
+nmap <Leader>L <Plug>(easymotion-overwin-line)
+
+" Move to word
+map  <Leader>w <Plug>(easymotion-bd-w)
+nmap <Leader>w <Plug>(easymotion-overwin-w)
 
 " }}}
 
-" airline {{{
+" lightline {{{
 
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'https://github.com/itchyny/lightline.vim'
 
-" enable buffers as tabs"
-" let g:airline#extensions#tabline#enabled = 1
+let g:lightline = {
+            \ 'colorscheme': 'wombat',
+            \ 'active': {
+            \   'left': [ [ 'mode', 'paste' ],
+            \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+            \ },
+            \ 'component_function': {
+            \   'gitbranch': 'FugitiveHead',
+            \   'readonly': 'LightLineReadOnly',
+            \ },
+            \ }
 
-" Show just the filename
-" let g:airline#extensions#tabline#fnamemod = ':t'
+function! LightlineReadonly()
+    return &readonly && &filetype !=# 'help' ? 'RO' : ''
+endfunction
 
-" let g:airline#extensions#tabline#formatter = 'default'
 
 " }}}
 
 " fzf {{{
 
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
+Plug 'https://github.com/junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'https://github.com/junegunn/fzf.vim'
 
 " hide statusline
 " autocmd! FileType fzf set laststatus=0 noshowmode noruler
@@ -233,145 +273,64 @@ let g:fzf_action = {
 
 " }}}
 
-" indentLine {{{
-
-" url: https://github.com/Yggdroot/indentLine
-Plug 'Yggdroot/indentLine'
-
-" }}}
-
-" vim-commentary {{{
-
-Plug 'tpope/vim-commentary'
-
-" }}}
-
-" auto-pairs {{{
-
-Plug 'jiangmiao/auto-pairs'
-
-" }}}
-
 " git {{{
 
-Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
+Plug 'https://github.com/tpope/vim-fugitive'
+Plug 'https://github.com/airblade/vim-gitgutter'
+
+" git commit browser
+Plug 'https://github.com/junegunn/gv.vim'
+
+" Commands
+" --------
+" :GV to open commit browser
+"
+" You can pass git log options to the command, e.g. :GV -S foobar.
+" :GV! will only list commits that affected the current file
+" :GV? fills the location list with the revisions of the current file
+" :GV or :GV? can be used in visual mode to track the changes in the selected lines.
+
+" Mappings
+" --------
+" o or <cr> on a commit to display the content of it
+" o or <cr> on commits to display the diff in the range
+" O opens a new tab instead
+" gb for :Gbrowse
+" ]] and [[ to move between commits
+" . to start command-line with :Git [CURSOR] SHA à la fugitive
+" q or gq to close
 
 " }}}
 
-" coc completion {{{
+" deoplete {{{
 
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'https://github.com/Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
-function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-function! s:show_documentation()
-    if (index(['vim','help'], &filetype) >= 0)
-        execute 'h '.expand('<cword>')
-    else
-        call CocAction('doHover')
-    endif
-endfunction
-
-inoremap <silent><expr> <Tab>
-            \ pumvisible() ? "\<C-n>" :
-            \ <SID>check_back_space() ? "\<Tab>" :
-            \ coc#refresh()
-
-" Use tab for trigger completion with characters ahead and navigate.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
-
-" use <Tab> and <S-Tab> to navigate the completion list
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-" use <cr> to confirm completion
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-
-" Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
-
-" Use `[g` and `]g` to navigate diagnostics
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-" GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-" Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
-" close the preview window when completion is done
-" autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+" golang
+Plug 'https://github.com/deoplete-plugins/deoplete-go', { 'do': 'make'}
 
 " }}}
 
 " ale {{{
 
-Plug 'dense-analysis/ale'
+Plug 'https://github.com/dense-analysis/ale'
 
 " fix on save
-" let g:ale_fixers = {}
-" let g:ale_fixers.javascript = ['eslint']
 let g:ale_fix_on_save = 1
 
-" }}}
+" Enable completion where available.
+let g:ale_completion_enabled = 1
 
-" polyglot {{{
-
-Plug 'sheerun/vim-polyglot'
-
-" }}}
-
-" go {{{
-
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-
-" }}}
-
-" vue {{{
-
-Plug 'posva/vim-vue'
+let g:ale_fixers = {}
+let g:ale_fixers.javascript = ['eslint']
 
 " }}}
 
 " disabled {{{
 
-" LanguageClient {{{
-
-" Plug 'autozimu/LanguageClient-neovim', {
-"             \ 'branch': 'next',
-"             \ 'do': 'bash install.sh',
-"             \ }
-"
-" let g:LanguageClient_serverCommands = {
-"             \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
-"             \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
-"             \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
-"             \ 'python': ['/usr/local/bin/pyls'],
-"             \ }
-"
-" nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-" " Or map each action separately
-" nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-" nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-" nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
-
-" }}}
-
 " rust {{{
 
-" Plug 'rust-lang/rust.vim'
+" Plug 'https://github.com/rust-lang/rust.vim'
 "
 " let g:rustfmt_autosave = 1
 "
@@ -412,31 +371,9 @@ Plug 'posva/vim-vue'
 
 " }}}
 
-" ultisnips {{{
-
-" engine and snippets
-" Plug 'SirVer/ultisnips'
-" Plug 'honza/vim-snippets'
-
-" Trigger configuration
-" let g:UltiSnipsExpandTrigger="<C-s>"
-" let g:UltiSnipsJumpForwardTrigger="<C-b>"
-" let g:UltiSnipsJumpBackwardTrigger="<C-z>"
-
-" :UltiSnipsEdit to split your window.
-" let g:UltiSnipsEditSplit="vertical"
-
-" snippets bootstrap 4 {{{
-
-Plug 'jvanja/vim-bootstrap4-snippets'
-
-" }}}
-
-" }}}
-
 " which-key {{{
 
-" Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
+" Plug 'https://github.com/liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
 "
 " let g:mapleader = "\<Space>"
 " let g:maplocalleader = ","
@@ -447,110 +384,15 @@ Plug 'jvanja/vim-bootstrap4-snippets'
 
 " }}}
 
-" vim-surround {{{
-
-" to use press cs"' to change " to '
-" Plug 'tpope/vim-surround'
-
-" }}}
-
-" tagbar {{{
-
-" Plug 'majutsushi/tagbar'
-"
-" nmap <F8> :TagbarToggle<CR>
-
-" }}}
-
 " vim-multiple-cursors {{{
 
-" Plug 'terryma/vim-multiple-cursors'
+" Plug 'https://github.com/terryma/vim-multiple-cursors'
 
 " start: <C-n> start multicursor and add a virtual cursor + selection on the match
 " next: <C-n> add a new virtual cursor + selection on the next match
 " skip: <C-x> skip the next match
 " prev: <C-p> remove current virtual cursor + selection and go back on previous match
 " select all: <A-n> start multicursor and directly select all matches
-
-" }}}
-
-" vim-easymotion {{{
-
-" Plug 'easymotion/vim-easymotion'
-
-" }}}
-
-" prettier {{{
-
-" Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
-
-" }}}
-
-" nerdcommenter {{{
-
-" Plug 'preservim/nerdcommenter'
-"
-" " Add spaces after comment delimiters by default
-" let g:NERDSpaceDelims = 1
-"
-" " Use compact syntax for prettified multi-line comments
-" let g:NERDCompactSexyComs = 1
-"
-" " Align line-wise comment delimiters flush left instead of following code indentation
-" let g:NERDDefaultAlign = 'left'
-"
-" " Set a language to use its alternate delimiters by default
-" let g:NERDAltDelims_java = 1
-"
-" " Add your own custom formats or override the defaults
-" "let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
-"
-" " Allow commenting and inverting empty lines (useful when commenting a region)
-" let g:NERDCommentEmptyLines = 1
-"
-" " Enable trimming of trailing whitespace when uncommenting
-" let g:NERDTrimTrailingWhitespace = 1
-"
-" " Enable NERDCommenterToggle to check all selected lines is commented or not
-" let g:NERDToggleCheckAllLines = 1
-"
-" " mappings
-" " ---------
-" "Comment out the current line or text selected in visual mode.
-" "[count]<leader>cc |NERDCommenterComment|
-"
-" "Same as cc but forces nesting.
-" "[count]<leader>cn |NERDCommenterNested|
-"
-" "Toggles the comment state of the selected line(s). If the topmost selected line is commented, all selected lines are uncommented and vice versa.
-" "[count]<leader>c<space> |NERDCommenterToggle|
-"
-" "Comments the given lines using only one set of multipart delimiters.
-" "[count]<leader>cm |NERDCommenterMinimal|
-"
-" "Toggles the comment state of the selected line(s) individually.
-" "[count]<leader>ci |NERDCommenterInvert|
-"
-" "Comments out the selected lines with a pretty block formatted layout.
-" "[count]<leader>cs |NERDCommenterSexy|
-"
-" "Same as cc except that the commented line(s) are yanked first.
-" "[count]<leader>cy |NERDCommenterYank|
-"
-" "Comments the current line from the cursor to the end of line.
-" "<leader>c$ |NERDCommenterToEOL|
-"
-" "Adds comment delimiters to the end of line and goes into insert mode between them.
-" "<leader>cA |NERDCommenterAppend|
-"
-" "Switches to the alternative set of delimiters.
-" "<leader>ca |NERDCommenterAltDelims|
-"
-" "Same as |NERDCommenterComment| except that the delimiters are aligned down the left side (<leader>cl) or both sides (<leader>cb).
-" "[count]<leader>cl |NERDCommenterAlignLeft [count]<leader>cb |NERDCommenterAlignBoth
-"
-" "Uncomments the selected line(s).
-" "[count]<leader>cu |NERDCommenterUncomment|
 
 " }}}
 
@@ -593,7 +435,6 @@ augroup configgroup
     au BufEnter *.zsh-theme setlocal filetype=zsh
 
     au TermEnter,TermLeave * setlocal scrolloff=0
-    " au TermLeave * setlocal scrolloff=3
 
     " trim whitespace on save
     au BufWritePre * :%s/\s\+$//e
@@ -813,9 +654,13 @@ tnoremap <Esc> <C-\><C-n>
 " let g:onedark_terminal_italics=1
 " colorscheme onedark
 
-colorscheme gruvbox
+" colorscheme gruvbox
 " colorscheme dracula
 " colorscheme vimterial_dark
+
+" options: light, mirage, dark
+let ayucolor="mirage"
+colorscheme ayu
 
 " }}}
 
