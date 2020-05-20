@@ -175,7 +175,6 @@ endif
 
 call plug#begin(expand('~/.config/nvim/plugged'))
 
-
 " dev icons
 Plug 'https://github.com/ryanoasis/vim-devicons'
 
@@ -211,22 +210,22 @@ let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
 
 " easymotion {{{
 
-Plug 'https://github.com/easymotion/vim-easymotion'
+" Plug 'https://github.com/easymotion/vim-easymotion'
 
-" <Leader>f{char} to move to {char}
-map  <Leader>f <Plug>(easymotion-bd-f)
-nmap <Leader>f <Plug>(easymotion-overwin-f)
+" " <Leader>f{char} to move to {char}
+" map  <Leader>f <Plug>(easymotion-bd-f)
+" nmap <Leader>f <Plug>(easymotion-overwin-f)
 
-" s{char}{char} to move to {char}{char}
-nmap s <Plug>(easymotion-overwin-f2)
+" " s{char}{char} to move to {char}{char}
+" nmap s <Plug>(easymotion-overwin-f2)
 
-" Move to line
-map <Leader>L <Plug>(easymotion-bd-jk)
-nmap <Leader>L <Plug>(easymotion-overwin-line)
+" " Move to line
+" map <Leader>L <Plug>(easymotion-bd-jk)
+" nmap <Leader>L <Plug>(easymotion-overwin-line)
 
-" Move to word
-map  <Leader>w <Plug>(easymotion-bd-w)
-nmap <Leader>w <Plug>(easymotion-overwin-w)
+" " Move to word
+" map  <Leader>w <Plug>(easymotion-bd-w)
+" nmap <Leader>w <Plug>(easymotion-overwin-w)
 
 " }}}
 
@@ -255,21 +254,35 @@ endfunction
 
 " fzf {{{
 
-Plug 'https://github.com/junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'https://github.com/junegunn/fzf.vim'
+" Plug 'https://github.com/junegunn/fzf', { 'do': { -> fzf#install() } }
+" Plug 'https://github.com/junegunn/fzf.vim'
 
-" hide statusline
-" autocmd! FileType fzf set laststatus=0 noshowmode noruler
-"   \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+" " hide statusline
+" " autocmd! FileType fzf set laststatus=0 noshowmode noruler
+" "   \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
-" FZF key bindings
-nnoremap <C-p> :Files<CR>
-" nnoremap <C-b> :Buffers<CR>
-nnoremap <C-f> :FZF<CR>
-let g:fzf_action = {
-            \ 'ctrl-t': 'tab split',
-            \ 'ctrl-h': 'split',
-            \ 'ctrl-v': 'vsplit' }
+" " FZF key bindings
+" nnoremap <C-p> :Files<CR>
+" " nnoremap <C-b> :Buffers<CR>
+" nnoremap <C-f> :FZF<CR>
+" let g:fzf_action = {
+"             \ 'ctrl-t': 'tab split',
+"             \ 'ctrl-h': 'split',
+"             \ 'ctrl-v': 'vsplit' }
+
+" }}}
+
+" leaderf {{{
+
+Plug 'https://github.com/Yggdroot/LeaderF', { 'do': './install.sh' }
+
+let g:Lf_ShowDevIcons = 1
+
+ " popup mode
+" let g:Lf_WindowPosition = 'popup'
+" let g:Lf_PreviewInPopup = 1
+" let g:Lf_StlSeparator = { 'left': "\ue0b0", 'right': "\ue0b2", 'font': "DejaVu Sans Mono for Powerline" }
+" let g:Lf_PreviewResult = {'Function': 0, 'BufTag': 0 }
 
 " }}}
 
@@ -534,7 +547,7 @@ nnoremap <leader>ex :Exp<CR>
 nnoremap <F7> :Exp<CR>
 
 " format document
-nnoremap <leader>ff gg=G<CR>
+" nnoremap <leader>ff gg=G<CR>
 
 " edit, source vim file
 " nnoremap <silent> <leader>ev :vsp $MYVIMRC<cr>
