@@ -38,6 +38,7 @@ set matchtime=1 " When typing a closing bracket, briefly flash the one it matche
 set modelines=1 "check end of file for folding instructions"
 set mouse=a "enable mouse mode
 set number relativenumber " show hybrid line numbers
+set path+=**
 set ruler "enable column and line numbers"
 set scrolloff=10 "screenlines to keep above and below the cursor
 set shell=$SHELL "shell
@@ -184,13 +185,14 @@ Plug 'https://github.com/morhetz/gruvbox'
 Plug 'https://github.com/dracula/vim', { 'as': 'dracula' }
 Plug 'https://github.com/larsbs/vimterial_dark'
 Plug 'https://github.com/ayu-theme/ayu-vim'
+Plug 'https://github.com/joshdick/onedark.vim'
 
 " plugins
+Plug 'https://github.com/mhinz/vim-startify'
 Plug 'https://github.com/tpope/vim-commentary'
 Plug 'https://github.com/jiangmiao/auto-pairs'
 Plug 'https://github.com/Yggdroot/indentLine'
-Plug 'https://github.com/tpope/vim-surround'
-Plug 'https://github.com/mhinz/vim-startify'
+" Plug 'https://github.com/tpope/vim-surround'
 
 " language support
 Plug 'https://github.com/sheerun/vim-polyglot'
@@ -274,15 +276,163 @@ endfunction
 
 " leaderf {{{
 
-Plug 'https://github.com/Yggdroot/LeaderF', { 'do': './install.sh' }
+" Plug 'https://github.com/Yggdroot/LeaderF', { 'do': './install.sh' }
 
-let g:Lf_ShowDevIcons = 1
+" let g:Lf_ShowDevIcons = 1
 
  " popup mode
 " let g:Lf_WindowPosition = 'popup'
 " let g:Lf_PreviewInPopup = 1
 " let g:Lf_StlSeparator = { 'left': "\ue0b0", 'right': "\ue0b2", 'font': "DejaVu Sans Mono for Powerline" }
 " let g:Lf_PreviewResult = {'Function': 0, 'BufTag': 0 }
+
+" }}}
+
+" coc.nvim {{{
+
+Plug 'https://github.com/neoclide/coc.nvim', {'branch': 'release'}
+
+" extensions
+Plug 'https://github.com/iamcco/coc-actions', {'do': 'yarn install --frozen-lockfile'}
+Plug 'https://github.com/voldikss/coc-bookmark', {'do': 'yarn install --frozen-lockfile'}
+Plug 'https://github.com/clangd/coc-clangd', {'do': 'yarn install --frozen-lockfile'}
+Plug 'https://github.com/voldikss/coc-cmake', {'do': 'yarn install --frozen-lockfile'}
+Plug 'https://github.com/neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
+Plug 'https://github.com/antonk52/coc-cssmodules', {'do': 'yarn install --frozen-lockfile'}
+Plug 'https://github.com/neoclide/coc-emmet', {'do': 'yarn install --frozen-lockfile'}
+Plug 'https://github.com/neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
+Plug 'https://github.com/neoclide/coc-git', {'do': 'yarn install --frozen-lockfile'}
+" Plug 'https://github.com/josa42/coc-go', {'do': 'yarn install --frozen-lockfile'}
+Plug 'https://github.com/neoclide/coc-highlight', {'do': 'yarn install --frozen-lockfile'}
+Plug 'https://github.com/neoclide/coc-html', {'do': 'yarn install --frozen-lockfile'}
+Plug 'https://github.com/neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
+Plug 'https://github.com/neoclide/coc-lists', {'do': 'yarn install --frozen-lockfile'}
+Plug 'https://github.com/fannheyward/coc-markdownlint', {'do': 'yarn install --frozen-lockfile'}
+Plug 'https://github.com/neoclide/coc-rls', {'do': 'yarn install --frozen-lockfile'}
+Plug 'https://github.com/neoclide/coc-snippets', {'do': 'yarn install --frozen-lockfile'}
+Plug 'https://github.com/voldikss/coc-todolist', {'do': 'yarn install --frozen-lockfile'}
+Plug 'https://github.com/neoclide/coc-vetur', {'do': 'yarn install --frozen-lockfile'}
+Plug 'https://github.com/fannheyward/coc-xml', {'do': 'yarn install --frozen-lockfile'}
+" Plug 'https://github.com/neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile'}
+Plug 'https://github.com/neoclide/coc-yank', {'do': 'yarn install --frozen-lockfile'}
+
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Formatting selected code.
+xmap <leader>p  <Plug>(coc-format-selected)
+nmap <leader>p  <Plug>(coc-format-selected)
+
+" Applying codeAction to the selected region.
+" Example: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap keys for applying codeAction to the current line.
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Map function and class text objects
+" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+" xmap if <Plug>(coc-funcobj-i)
+" omap if <Plug>(coc-funcobj-i)
+" xmap af <Plug>(coc-funcobj-a)
+" omap af <Plug>(coc-funcobj-a)
+" xmap ic <Plug>(coc-classobj-i)
+" omap ic <Plug>(coc-classobj-i)
+" xmap ac <Plug>(coc-classobj-a)
+" omap ac <Plug>(coc-classobj-a)
+
+" Use CTRL-S for selections ranges.
+" Requires 'textDocument/selectionRange' support of LS, ex: coc-tsserver
+nmap <silent> <C-s> <Plug>(coc-range-select)
+xmap <silent> <C-s> <Plug>(coc-range-select)
+
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocAction('format')
+
+" Add `:Fold` command to fold current buffer.
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" Add `:OR` command for organize imports of the current buffer.
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" Add (Neo)Vim's native statusline support.
+" NOTE: Please see `:h coc-status` for integrations with external plugins that
+" provide custom statusline: lightline.vim, vim-airline.
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+" Mappings using CoCList:
+" Show all diagnostics.
+nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions.
+nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" Show commands.
+nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document.
+nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols.
+nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list.
+nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
+" auto commands
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+
+  " Update signature help on jump placeholder.
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+
+" functions
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
 
 " }}}
 
@@ -315,15 +465,6 @@ Plug 'https://github.com/junegunn/gv.vim'
 
 " }}}
 
-" deoplete {{{
-
-Plug 'https://github.com/Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-
-" golang
-Plug 'https://github.com/deoplete-plugins/deoplete-go', { 'do': 'make'}
-
-" }}}
-
 " ale {{{
 
 Plug 'https://github.com/dense-analysis/ale'
@@ -336,6 +477,23 @@ let g:ale_completion_enabled = 1
 
 let g:ale_fixers = {}
 let g:ale_fixers.javascript = ['eslint']
+
+" }}}
+
+" taglist {{{
+
+Plug 'https://github.com/yegappan/taglist'
+
+let Tlist_Close_On_Select=1
+let Tlist_Exit_OnlyWindow=1
+let Tlist_GainFocus_On_ToggleOpen=1
+let Tlist_Use_Right_Window=1
+let Tlist_Process_File_Always=1
+" let Tlist_Compact_Format=1
+" let Tlist_Use_Horiz_Window=1
+
+" show tags for only open file
+let Tlist_Show_One_File=1
 
 " }}}
 
@@ -439,6 +597,9 @@ augroup configgroup
     au FileType netrw set nolist
     au FileType zsh set foldmethod=marker foldlevel=0 foldenable
     au FileType vim set foldmethod=marker foldlevel=0 foldenable
+    " au FileType html set omnifunc=htmlcomplete#CompleteTags
+    " au FileType css set omnifunc=csscomplete#CompleteCSS
+    " au FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 
     " au BufEnter *.cls setlocal filetype=java
     " au BufEnter Makefile setlocal noexpandtab
@@ -447,16 +608,20 @@ augroup configgroup
     " au BufEnter *.sh setlocal softtabstop=2
     au BufEnter *.zsh-theme setlocal filetype=zsh
 
-    au TermEnter,TermLeave * setlocal scrolloff=0
+    " show startify after last buffer close
+    au BufDelete * if empty(filter(tabpagebuflist(), '!buflisted(v:val)')) | Startify | endif
 
     " trim whitespace on save
     au BufWritePre * :%s/\s\+$//e
 
     " enter insert mode any time focus is put on a terminal
-    autocmd BufWinEnter,WinEnter term://* startinsert
+    au BufWinEnter,WinEnter term://* startinsert
 
     " remove cursor line on insert
-    autocmd InsertEnter,InsertLeave * set cul!
+    au InsertEnter,InsertLeave * set cul!
+
+    " remove scrolloff in terminal
+    au TermEnter,TermLeave * setlocal scrolloff=0
 augroup END
 
 " }}}
@@ -521,37 +686,26 @@ vmap > >gv
 nnoremap gV `[v`]
 
 " folding
-" nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 nnoremap <Space> za
 vnoremap <Space> za
-
-" Use space to jump down a page (like browsers do)...
-" nnoremap <Space> <PageDown>
-" xnoremap <Space> <PageDown>
 
 " return turns off search highlighting
 nnoremap <CR> :set hlsearch! hlsearch?<CR>
 
 " toggle spell check
-map <F7> :setlocal spell! spelllang=en_us<CR>
-
-" surround with double quotes
-nnoremap <leader>" viw<esc>a"<esc>bi"<esc>lel
-nnoremap <leader>' viw<esc>a'<esc>bi'<esc>lel
+map <F4> :setlocal spell! spelllang=en_us<CR>
 
 " switch between current and last buffer
 nmap <leader>. <c-^>
 
 " show netrw
 nnoremap <leader>ex :Exp<CR>
-nnoremap <F7> :Exp<CR>
+nnoremap <F4> :Exp<CR>
 
 " format document
 " nnoremap <leader>ff gg=G<CR>
 
 " edit, source vim file
-" nnoremap <silent> <leader>ev :vsp $MYVIMRC<cr>
-" nnoremap <silent> <leader>ez :vsp ~/.zshrc<CR>
 nnoremap <silent> <leader>ev :e $MYVIMRC<cr>
 
 " }}}
@@ -577,6 +731,9 @@ nnoremap <leader>wh <C-w>s
 " close all but current
 nnoremap <leader>wo <C-w>o
 
+" close window
+nnoremap <leader>wc <C-w>c
+
 " quit window
 nnoremap <leader>wq <C-w>q
 
@@ -601,15 +758,12 @@ map <down>  <c-w>-
 " edit file in sudo if protected
 cmap w!! w !sudo tee % >/dev/null
 
+" show taglist
+nnoremap <silent> <F8> :TlistToggle<CR>
+
 " }}}
 
 " buffers {{{
-
-" switch to buffer by number
-nnoremap <leader>gb :ls<CR>:b<Space>
-
-" switch to buffer by name [partial]
-nnoremap <leader>bb :buffer *
 
 " buffer next
 nnoremap <leader>bn :bn<CR>
@@ -617,13 +771,9 @@ nnoremap <leader>bn :bn<CR>
 " buffer previous
 nnoremap <leader>bp :bp<CR>
 
-" buffer delete
-nnoremap <leader>bd :bd<CR>
-
 " navigate between buffers using tab and shift+tab
-nnoremap <Tab> :bNext<CR>
-nnoremap <S-Tab> :bprevious<CR>
-
+" nnoremap <Tab> :bNext<CR>
+" nnoremap <S-Tab> :bprevious<CR>
 
 " }}}
 
@@ -670,6 +820,7 @@ tnoremap <Esc> <C-\><C-n>
 " colorscheme gruvbox
 " colorscheme dracula
 " colorscheme vimterial_dark
+" colorscheme onedark
 
 " options: light, mirage, dark
 let ayucolor="mirage"
