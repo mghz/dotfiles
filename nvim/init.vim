@@ -1,7 +1,8 @@
-" vim/nvim configuration
+set encoding=utf-8
+scriptencoding utf-8
 
 " define leader
-let mapleader = ","
+let mapleader = ','
 
 " settings {{{
 
@@ -21,16 +22,16 @@ if has('clipboard')
 endif
 
 " backup
-set dir=~/.cache/vim           " swap directory"
-set backupdir=~/.cache/vim     " backup directory"
+set directory=~/.cache/vim " swap directory"
+set backupdir=~/.cache/vim " backup directory"
+set backupcopy=yes         " enable safe writes
 
 " functionality
 set autoread                   " auto read files that have changed outside of vim "
 set autowrite                  " auto write buffer on certain conditions "
 set backspace=indent,eol,start " OSX stupid backspace fix "
-set bsdir=last                 " open last directory"
+set browsedir=last             " open last directory"
 set diffopt+=vertical          " show diff vertically"
-set encoding=utf-8             " use an encoding that supports unicode "
 set hidden                     " disable warning of hidden buffers "
 set history=10000              " show history
 set mouse=a                    " enable mouse mode "
@@ -44,7 +45,10 @@ set background=dark            " vim background color "
 set cursorline                 " enable cursor line "
 set linebreak                  " avoid wrapping a line in the middle of a word "
 set list                       " show invisibles
-set listchars=tab:--,trail:.,extends:#,nbsp:.
+set listchars=tab:--,
+            \trail:.,
+            \extends:#,
+            \nbsp:.
 " set listchars=tab:→→,eol:¬,space:.,trail:.,extends:#
 set matchtime=1                " When typing a closing bracket, briefly flash the one it matches "
 set number relativenumber      " show hybrid line numbers "
@@ -118,38 +122,9 @@ set wildignore+=**/node_modules/**
 " nvim options
 if (has('nvim'))
 
-    " show results of substition as they're happening
-    " but don't open a split
+    " show results of substition without a split
     set inccommand=nosplit
-
-    " better terminal colors
-    " https://github.com/neovim/neovim/issues/2897#issuecomment-115464516
-    let g:terminal_color_0 = '#4e4e4e'
-    let g:terminal_color_1 = '#d68787'
-    let g:terminal_color_2 = '#5f865f'
-    let g:terminal_color_3 = '#d8af5f'
-    let g:terminal_color_4 = '#85add4'
-    let g:terminal_color_5 = '#d7afaf'
-    let g:terminal_color_6 = '#87afaf'
-    let g:terminal_color_7 = '#d0d0d0'
-    let g:terminal_color_8 = '#626262'
-    let g:terminal_color_9 = '#d75f87'
-    let g:terminal_color_10 = '#87af87'
-    let g:terminal_color_11 = '#ffd787'
-    let g:terminal_color_12 = '#add4fb'
-    let g:terminal_color_13 = '#ffafaf'
-    let g:terminal_color_14 = '#87d7d7'
-    let g:terminal_color_15 = '#e4e4e4'
-
     set fillchars=vert:\|,fold:-
-    autocmd BufReadPost *
-                \ if line("'\"") >= 1 && line("'\"") <= line("$") |
-                \ exe "normal! g`\"" |
-                \ endif
-
-    " Escape inside a FZF terminal window should exit the terminal window
-    " rather than going into the terminal's normal mode.
-    autocmd FileType fzf tnoremap <buffer> <Esc> <Esc>
 
 endif
 
@@ -159,13 +134,13 @@ if has('macunix') " options: unix, win32, win32unix
     set noerrorbells
     set visualbell
     set t_vb=
-    set tm=500
+    set timeoutlen=500
 
 endif
 
 " enable 24 bit color support if supported
-if (has("termguicolors"))
-    if (!(has("nvim")))
+if (has('termguicolors'))
+    if (!(has('nvim')))
         let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
         let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
     endif
@@ -183,7 +158,9 @@ if empty(glob('~/.config/nvim/autoload/plug.vim'))
     silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
                 \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     "autocmd VimEnter * PlugInstall
-    autocmd VimEnter * PlugInstall | source $MYVIMRC
+    augroup nvinstall
+        autocmd VimEnter * PlugInstall | source $MYVIMRC
+    augroup end
 endif
 
 call plug#begin(expand('~/.config/nvim/plugged'))
@@ -210,9 +187,9 @@ Plug 'https://github.com/alvan/vim-closetag'
 Plug 'https://github.com/zxqfl/tabnine-vim'
 Plug 'https://github.com/sheerun/vim-polyglot'
 " Plug 'https://github.com/fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-Plug 'https://github.com/posva/vim-vue'
+" Plug 'https://github.com/posva/vim-vue'
 Plug 'https://github.com/prettier/vim-prettier', { 'do': 'yarn install' }
-" Plug 'https://github.com/mattn/emmet-vim'
+" Plug 'https://github.com/mattn/emmet-vi
 
 " fzf {{{
 
@@ -221,13 +198,14 @@ Plug 'https://github.com/junegunn/fzf.vim'
 
 " FZF key bindings
 nnoremap <M-f> :FZF<CR>
-nnoremap <leader>f :Files<CR>
-nnoremap <leader>b :Buffers<CR>
-nnoremap <leader>g :Rg<CR>
-nnoremap <leader>t :Tags<CR>
-nnoremap <leader>T :Tags<CR>
-nnoremap <leader>m :Marks<CR>
-nnoremap <leader>h :History<CR>
+nnoremap <silent> <leader>f :Files<CR>
+nnoremap <silent> <leader>b :Buffers<CR>
+nnoremap <silent> <leader>g :Rg<CR>
+nnoremap <silent> <leader>o :All<cr>
+nnoremap <silent> <leader>t :Tags<CR>
+nnoremap <silent> <leader>T :Tags<CR>
+nnoremap <silent> <leader>m :Marks<CR>
+nnoremap <silent> <leader>h :History<CR>
 
 let g:fzf_action = {
             \ 'ctrl-t': 'tab split',
@@ -237,7 +215,15 @@ let g:fzf_action = {
 " let g:fzf_default_command = 'rg -p --files --ignore-case -g ''node_modules/**'' -g ''.git/**'''
 let g:fzf_default_command = 'rg -g node_modules'
 
-let g:fzf_tags_command = 'ctags -R --exclude=node_modules .'
+let g:fzf_tags_command = 'ctags -R --exclude="node_modules/*" --exclude=".git" --exclude="dist/*" --exclude="build/*" --exclude="tests" .'
+
+command! -bang -nargs=*  All
+            \ call fzf#run(fzf#wrap({
+            \ 'source': 'rg --files --hidden --no-ignore-vcs --glob "!{node_modules/*,.git/*,.cache/*,dist/*,*.lock}"',
+            \ 'down': '40%',
+            \ 'options': '--expect=ctrl-t,ctrl-x,ctrl-v --multi --reverse'
+            \ }))
+
 
 " }}}
 
@@ -284,9 +270,9 @@ hi clear ALEWarningSign
 Plug 'https://github.com/SirVer/ultisnips'
 Plug 'https://github.com/honza/vim-snippets'
 
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<c-b>"
+let g:UltiSnipsExpandTrigger='<tab>'
+let g:UltiSnipsJumpForwardTrigger='<tab>'
+let g:UltiSnipsJumpBackwardTrigger='<c-b>'
 let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/UltiSnips']
 
 " }}}
@@ -438,6 +424,16 @@ augroup configgroup
 
     " quit readonly files with q instead of :q
     au FileType help noremap <buffer> q :bd<cr>
+
+    " Escape inside a FZF terminal window should exit the terminal window
+    " rather than going into the terminal's normal mode.
+    au! FileType fzf tnoremap <buffer> <Esc> <Esc>
+
+    " todo: add comment for this command
+    autocmd BufReadPost *
+                \ if line("'\"") >= 1 && line("'\"") <= line("$") |
+                \ exe "normal! g`\"" |
+                \ endif
 
     " au BufEnter Makefile setlocal noexpandtab
     " au BufEnter *.cls setlocal filetype=java
