@@ -181,7 +181,6 @@ Plug 'https://github.com/mhartington/oceanic-next'
 Plug 'https://github.com/tpope/vim-surround'
 Plug 'https://github.com/tpope/vim-commentary'
 Plug 'https://github.com/Yggdroot/indentLine'
-Plug 'https://github.com/alvan/vim-closetag'
 
 " language support
 Plug 'https://github.com/zxqfl/tabnine-vim'
@@ -212,9 +211,7 @@ let g:fzf_action = {
             \ 'ctrl-x': 'split',
             \ 'ctrl-v': 'vsplit' }
 
-" let g:fzf_default_command = 'rg -p --files --ignore-case -g ''node_modules/**'' -g ''.git/**'''
-let g:fzf_default_command = 'rg -g node_modules'
-
+let g:fzf_default_command = 'rg -p --files --ignore-case -g ''node_modules/**'' -g ''.git/**'''
 let g:fzf_tags_command = 'ctags -R --exclude="node_modules/*" --exclude=".git" --exclude="dist/*" --exclude="build/*" --exclude="tests" .'
 
 command! -bang -nargs=*  All
@@ -224,6 +221,16 @@ command! -bang -nargs=*  All
             \ 'options': '--expect=ctrl-t,ctrl-x,ctrl-v --multi --reverse'
             \ }))
 
+
+" }}}
+
+" deoplete {{{
+
+Plug 'https://github.com/Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'wokalski/autocomplete-flow'
+
+" For func argument completion
+let g:deoplete#enable_at_startup = 1
 
 " }}}
 
@@ -267,13 +274,10 @@ hi clear ALEWarningSign
 
 " snippets {{{
 
-Plug 'https://github.com/SirVer/ultisnips'
-Plug 'https://github.com/honza/vim-snippets'
+Plug 'https://github.com/Shougo/neosnippet'
+Plug 'https://github.com/Shougo/neosnippet-snippets'
 
-let g:UltiSnipsExpandTrigger='<tab>'
-let g:UltiSnipsJumpForwardTrigger='<tab>'
-let g:UltiSnipsJumpBackwardTrigger='<c-b>'
-let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/UltiSnips']
+let g:neosnippet#enable_completed_snippet = 1
 
 " }}}
 
@@ -342,6 +346,45 @@ xmap ga <Plug>(EasyAlign)
 
 " start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
+
+" }}}
+
+" closetag {{{
+
+Plug 'https://github.com/alvan/vim-closetag'
+
+" filenames like *.xml, *.html, *.xhtml, ...
+" These are the file extensions where this plugin is enabled.
+let g:closetag_filenames = '*.html,*.xhtml,*.phtml'
+
+" filenames like *.xml, *.xhtml, ...
+" This will make the list of non-closing tags self-closing in the specified files.
+let g:closetag_xhtml_filenames = '*.xhtml,*.jsx'
+
+" filetypes like xml, html, xhtml, ...
+" These are the file types where this plugin is enabled.
+let g:closetag_filetypes = 'html,xhtml,phtml'
+
+" filetypes like xml, xhtml, ...
+" This will make the list of non-closing tags self-closing in the specified files.
+let g:closetag_xhtml_filetypes = 'xhtml,jsx'
+
+" integer value [0|1]
+" This will make the list of non-closing tags case-sensitive (e.g. `<Link>` will be closed while `<link>` won't.)
+let g:closetag_emptyTags_caseSensitive = 1
+
+" dict
+" Disables auto-close if not in a "valid" region (based on filetype)
+let g:closetag_regions = {
+    \ 'typescript.tsx': 'jsxRegion,tsxRegion',
+    \ 'javascript.jsx': 'jsxRegion',
+    \ }
+
+" Shortcut for closing tags, default is '>'
+let g:closetag_shortcut = '>'
+
+" Add > at current position without closing the current tag, default is ''
+let g:closetag_close_shortcut = '<leader>>'
 
 " }}}
 
