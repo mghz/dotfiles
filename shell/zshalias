@@ -1,0 +1,84 @@
+# directories
+alias ....='cd ../../..'
+alias ...='cd ../..'
+alias ..='cd ..'
+alias cd3='cd ../../..'
+alias cd4='cd ../../../..'
+
+# commands
+alias c='clear'
+alias x='exit'
+alias lg='ls -la1 --group-directories-first'
+alias cpi='cp -iv'
+alias h='history'
+alias j='jobs -l'
+alias mk='mkdir -p'
+alias mv='mv -iv'
+alias path='echo -e ${PATH//:/\\n}'
+alias rm='rm -i'
+alias rmf='rm -rf'
+alias which='type -a'
+
+# vim
+alias vim='nvim'
+alias neorc='vim ~/.config/nvim/init.vim'
+alias vimrc='vim ~/.vimrc'
+
+# config files
+alias rel='source ~/.zshrc'
+alias relb='source ~/.bashrc'
+alias zrc='vim ~/dotfiles/shell/zshrc'
+alias bashrc='vim ~/.bashrc'
+alias bashp='vim ~/.bash_profile'
+alias als='vim ~/dotfiles/shell/zshalias'
+alias gitrc='vim ~/.gitconfig'
+alias tagrc='vim ~/.ctags'
+alias epath='vim /etc/paths.d'
+alias path='echo "${PATH//:/\n}"'
+
+# networking
+alias ping='ping -c 4'
+alias zt='zerotier-cli'
+
+# common
+alias grep='grep -n'
+alias pre='open -a Preview'
+alias text='open -a TextEdit'
+alias mup='brew update && brew upgrade && brew cleanup && brew doctor'
+alias lup='sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && sudo apt autoclean && snap refresh'
+
+# containers
+alias dk='docker'
+alias dke='docker exec'
+alias dc='docker-compose'
+alias dra='docker rm -f $(docker ps -aq)'
+
+# kubernetes
+alias kube='microk8s kubectl'
+alias m8='microk8s'
+alias ktoken='token=$(microk8s.kubectl -n kube-system get secret | grep default-token | cut -d " " -f1 | cut -d ":" -f2) && microk8s.kubectl -n kube-system describe secret $token'
+
+# multipass
+alias mp='multipass'
+
+# rust
+alias cb='cargo fmt; cargo build'
+alias cf='cargo fmt'
+alias co='cargo'
+alias cr='cargo run'
+alias ct='cargo test'
+alias cw='cargo watch -x run'
+alias ru='rustup'
+alias cwatch='cargo watch -i .gitignore -i "pkg/*" -s "wasm-pack build"'
+
+# python
+alias python='python3'
+alias pip='pip3'
+
+# web assembly
+alias wp='wasm-pack'
+
+# functions
+function vhelp() {
+    vim -u NONE -c "help $1 | only | syntax enable";
+}

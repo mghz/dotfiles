@@ -1,0 +1,62 @@
+# Executes commands at the start of an interactive session.
+
+# Source Prezto.
+if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+fi
+
+# source aliases
+if [ -f ~/dotfiles/shell/zshalias ]; then
+    source ~/dotfiles/shell/zshalias
+else
+    print "404: ~/dotfiles/shell/zshalias not found."
+fi
+
+# path exports {{{
+
+export PATH=/usr/local/sbin:$PATH
+export PATH=$HOME/.cargo/bin:$PATH
+export PATH=$HOME/.local/bin:$PATH
+export PATH=$HOME/.npm/bin:$PATH
+export PATH=$PATH:/snap/bin
+
+# don’t clear the screen after quitting a manual page
+export MANPAGER="less -X"
+
+# default editor
+export EDITOR="vim"
+
+# }}}
+
+# fzf configuration {{{
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# binding
+# bindkey -M viins '^R' history-incremental-search-backward
+# bindkey -M vicmd '^R' history-incremental-search-backward
+
+# fzf command
+export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --no-ignore-vcs -g "!{node_modules,.git,.cache}" | fzf'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
+# fzf completion and options
+# export FZF_COMPLETION_TRIGGER=''
+# export FZF_COMPLETION_OPTS='+c -x'
+
+# Using highlight (http://www.andre-simon.de/doku/highlight/en/highlight.html)
+# export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
+
+# automatically selects the item if there's only one
+# export FZF_CTRL_T_OPTS="--select-1 --exit-0"
+
+# enable sorting
+# export FZF_CTRL_R_OPTS='--sort --exact'
+
+# use tree command to show directory entries
+# export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
+
+# alias fzfi='rg --files --hidden --follow --no-ignore-vcs -g "!{node_modules,.git}" | fzf'
+alias fzfa='rg --files --hidden --follow --no-ignore-vcs | fzf'
+
+# }}}

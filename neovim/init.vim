@@ -226,11 +226,11 @@ command! -bang -nargs=*  All
 
 " deoplete {{{
 
-Plug 'https://github.com/Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'wokalski/autocomplete-flow'
+" Plug 'https://github.com/Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'wokalski/autocomplete-flow'
 
-" For func argument completion
-let g:deoplete#enable_at_startup = 1
+" " For func argument completion
+" let g:deoplete#enable_at_startup = 1
 
 " }}}
 
@@ -319,21 +319,21 @@ endfunction
 
 " taglist {{{
 
-Plug 'https://github.com/yegappan/taglist'
+" Plug 'https://github.com/yegappan/taglist'
 
-let Tlist_Close_On_Select = 1
-let Tlist_Exit_OnlyWindow = 1
-let Tlist_GainFocus_On_ToggleOpen = 1
-let Tlist_Use_Right_Window = 1
-let Tlist_Process_File_Always = 1
-" let Tlist_Compact_Format = 1
-" let Tlist_Use_Horiz_Window = 1
+" let Tlist_Close_On_Select = 1
+" let Tlist_Exit_OnlyWindow = 1
+" let Tlist_GainFocus_On_ToggleOpen = 1
+" let Tlist_Use_Right_Window = 1
+" let Tlist_Process_File_Always = 1
+" " let Tlist_Compact_Format = 1
+" " let Tlist_Use_Horiz_Window = 1
 
-" show tags for only open file
-let Tlist_Show_One_File = 1
+" " show tags for only open file
+" let Tlist_Show_One_File = 1
 
-" show taglist
-nnoremap <silent> <F12> :TlistToggle<CR>
+" " show taglist
+" nnoremap <silent> <F12> :TlistToggle<CR>
 
 " }}}
 

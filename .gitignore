@@ -184,3 +184,6 @@ zsdoc/data
 # custom ...
 .nvimlog
 *.log
+
+# neovim plugin dir
+plugged

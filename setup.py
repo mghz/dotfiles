@@ -70,22 +70,6 @@ def install_req():
     os.system('sudo apt install -y curl')
     os.system('sudo apt install -y file')
 
-def install_brew():
-    print("\n=> installing linuxbrew ...")
-    os.system("/bin/bash -c \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)\" < /dev/null")
-    print("\n=> configuring linuxbrew ...")
-    os.system("test -d $HOME/.linuxbrew && eval $($HOME/.linuxbrew/bin/brew shellenv)")
-    os.system("test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)")
-    print("\n=> updating path ...")
-    homedir = str(Path.home())
-    with open(f'{homedir}/.bash_profile') as profile:
-        if 'eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)' not in profile.read():
-            os.system("test -r $HOME/.bash_profile && echo \"eval \$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)\" >> $HOME/.bash_profile")
-
-def install_brew_bundle():
-    print(f'\n=> installing brew bundle file in {os.getcwd()}/nix/Brewfile ...')
-    os.system(str(f'brew bundle --file {os.getcwd()}/nix/Brewfile'))
-
 def install_apt_apps():
     os.system('sudo apt install -y apt-transport-https')
     os.system('curl -s https://brave-browser-apt-release.s3.brave.com/brave-core.asc | sudo apt-key --keyring /etc/apt/trusted.gpg.d/brave-browser-release.gpg add -')
@@ -98,13 +82,6 @@ def clone_github():
     cwd = os.getcwd()
     os.chdir(str(Path.home()))
     os.system('git clone https://github.com/mghz/dotfiles.git')
-    os.chdir(cwd)
-
-def clone_bitbucket():
-    print(f'=> cloning bitbucket dotcont into {os.getcwd()}')
-    cwd = os.getcwd()
-    os.chdir(str(Path.home()))
-    os.system('git clone https://m1ghz@bitbucket.org/excitesoft/dotcont.git')
     os.chdir(cwd)
 
 def setup_links():
@@ -161,11 +138,8 @@ def setup():
     #create_dir()
     #install_updates()
     #install_req()
-    #install_brew()
-    #install_brew_bundle()
     #install_apt_apps()
     #clone_github()
-    #clone_bitbucket()
     #setup_links()
     #setup_zprezto()
     #setup_neovim()
