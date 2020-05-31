@@ -14,11 +14,13 @@ fi
 
 # path exports {{{
 
-export PATH=/usr/local/sbin:$PATH
-export PATH=$HOME/.cargo/bin:$PATH
+export PATH=$PATH:/snap/bin
+export PATH=$PATH:/usr/local/sbin
+export PATH=$PATH:/usr/local/go/bin
+
 export PATH=$HOME/.local/bin:$PATH
 export PATH=$HOME/.npm/bin:$PATH
-export PATH=$PATH:/snap/bin
+export PATH=$HOME/.cargo/bin:$PATH
 
 # don’t clear the screen after quitting a manual page
 export MANPAGER="less -X"
@@ -37,8 +39,8 @@ export EDITOR="vim"
 # bindkey -M vicmd '^R' history-incremental-search-backward
 
 # fzf command
-export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --no-ignore-vcs -g "!{node_modules,.git,.cache}" | fzf'
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_DEFAULT_COMMAND='rg --files --hidden --follow -g "!{node_modules,.git,.cache}" | fzf'
+# export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 # fzf completion and options
 # export FZF_COMPLETION_TRIGGER=''
