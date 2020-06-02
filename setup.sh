@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # vim/nvim
-# ln -sfv ~/dotfiles/neovim $HOME/.config/nvim
+ln -sfv ~/dotfiles/neovim $HOME/.config/nvim
 
 # zsh
 # ln -sfv ~/dotfiles/shell/zprezto/zshrc $HOME/.zshrc
@@ -12,4 +12,4 @@ ln -sfv ~/dotfiles/shell/zshalias $HOME/.bash_aliases
 # ln -sfv ~/dotfiles/shell/bashrc $HOME/.bashrc
 
 # git
-# ln -sfv ~/dotfiles/git/gitconfig $HOME/.gitconfig
+ln -sfv ~/dotfiles/git/gitconfig $HOME/.gitconfig

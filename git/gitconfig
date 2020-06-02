@@ -22,3 +22,5 @@
     cm = "!f() { git add -A && git commit -m \"$@\"; }; f"
     commits = "!f() { git log --branches --not --remotes --decorate --oneline; }; f"
     amend = "commit --amend"
+[pull]
+	ff = only
