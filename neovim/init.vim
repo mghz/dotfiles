@@ -180,14 +180,14 @@ Plug 'https://github.com/mhartington/oceanic-next'
 " plugins
 Plug 'https://github.com/tpope/vim-surround'
 Plug 'https://github.com/tpope/vim-commentary'
-Plug 'https://github.com/Yggdroot/indentLine'
+" Plug 'https://github.com/Yggdroot/indentLine'
 
 " language support
-Plug 'https://github.com/zxqfl/tabnine-vim'
-Plug 'https://github.com/sheerun/vim-polyglot'
+" Plug 'https://github.com/zxqfl/tabnine-vim'
+" Plug 'https://github.com/sheerun/vim-polyglot'
 " Plug 'https://github.com/fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 " Plug 'https://github.com/posva/vim-vue'
-Plug 'https://github.com/prettier/vim-prettier', { 'do': 'yarn install' }
+" Plug 'https://github.com/prettier/vim-prettier', { 'do': 'yarn install' }
 " Plug 'https://github.com/mattn/emmet-vi
 
 " fzf {{{
@@ -224,60 +224,50 @@ command! -bang -nargs=*  All
 
 " }}}
 
-" deoplete {{{
-
-" Plug 'https://github.com/Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-" Plug 'wokalski/autocomplete-flow'
-
-" " For func argument completion
-" let g:deoplete#enable_at_startup = 1
-
-" }}}
-
 " ale {{{
 
-Plug 'https://github.com/dense-analysis/ale'
+" Plug 'https://github.com/dense-analysis/ale'
 
-" options
-let g:ale_linter_aliases = {'vue': ['vue', 'javascript']}
-let g:ale_linters = {'vue': ['eslint', 'vls']}
-let g:ale_fixers = ['prettier', 'eslint']
-let g:ale_fix_on_save = 1
-let g:ale_completion_enabled = 1
-let g:ale_completion_tsserver_autoimport = 1
+" " options
+" let g:ale_linter_aliases = {'vue': ['vue', 'javascript']}
+" let g:ale_linters = {'vue': ['eslint', 'vls']}
+" let g:ale_fixers = ['prettier', 'eslint']
+" let g:ale_fix_on_save = 1
+" let g:ale_completion_enabled = 1
+" let g:ale_completion_tsserver_autoimport = 1
 
-" use quickfix instead of loclist
-let g:ale_set_loclist = 0
-let g:ale_set_quickfix = 1
+" " use quickfix instead of loclist
+" let g:ale_set_loclist = 0
+" let g:ale_set_quickfix = 1
 
-" change signs
-let g:ale_sign_error = '❌'
-let g:ale_sign_warning = '⚠️'
+" " change signs
+" let g:ale_sign_error = '❌'
+" let g:ale_sign_warning = '⚠️'
 
-" turn off running on text change and insert
-" let g:ale_lint_on_text_changed = 'never'
-" let g:ale_lint_on_insert_leave = 0
+" " turn off running on text change and insert
+" " let g:ale_lint_on_text_changed = 'never'
+" " let g:ale_lint_on_insert_leave = 0
 
-" don't run on opening a file
-" let g:ale_lint_on_enter = 0
+" " don't run on opening a file
+" " let g:ale_lint_on_enter = 0
 
-" highlight
-hi ALEWarning ctermbg=DarkMagenta
-hi clear ALEErrorSign
-hi clear ALEWarningSign
+" " highlight
+" hi ALEWarning ctermbg=DarkMagenta
+" hi clear ALEErrorSign
+" hi clear ALEWarningSign
 
-" mappings
-" nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-" nmap <silent> <C-j> <Plug>(ale_next_wrap)
+" " mappings
+" " nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+" " nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 " }}}
 
 " snippets {{{
 
-Plug 'https://github.com/Shougo/neosnippet'
-Plug 'https://github.com/Shougo/neosnippet-snippets'
+" Plug 'https://github.com/Shougo/neosnippet'
+" Plug 'https://github.com/Shougo/neosnippet-snippets'
 
-let g:neosnippet#enable_completed_snippet = 1
+" let g:neosnippet#enable_completed_snippet = 1
 
 " }}}
 
@@ -349,45 +339,6 @@ nmap ga <Plug>(EasyAlign)
 
 " }}}
 
-" closetag {{{
-
-Plug 'https://github.com/alvan/vim-closetag'
-
-" filenames like *.xml, *.html, *.xhtml, ...
-" These are the file extensions where this plugin is enabled.
-let g:closetag_filenames = '*.html,*.xhtml,*.phtml'
-
-" filenames like *.xml, *.xhtml, ...
-" This will make the list of non-closing tags self-closing in the specified files.
-let g:closetag_xhtml_filenames = '*.xhtml,*.jsx'
-
-" filetypes like xml, html, xhtml, ...
-" These are the file types where this plugin is enabled.
-let g:closetag_filetypes = 'html,xhtml,phtml'
-
-" filetypes like xml, xhtml, ...
-" This will make the list of non-closing tags self-closing in the specified files.
-let g:closetag_xhtml_filetypes = 'xhtml,jsx'
-
-" integer value [0|1]
-" This will make the list of non-closing tags case-sensitive (e.g. `<Link>` will be closed while `<link>` won't.)
-let g:closetag_emptyTags_caseSensitive = 1
-
-" dict
-" Disables auto-close if not in a "valid" region (based on filetype)
-let g:closetag_regions = {
-    \ 'typescript.tsx': 'jsxRegion,tsxRegion',
-    \ 'javascript.jsx': 'jsxRegion',
-    \ }
-
-" Shortcut for closing tags, default is '>'
-let g:closetag_shortcut = '>'
-
-" Add > at current position without closing the current tag, default is ''
-let g:closetag_close_shortcut = '<leader>>'
-
-" }}}
-
 " vim-signature {{{
 
 Plug 'https://github.com/kshenoy/vim-signature'
@@ -420,6 +371,21 @@ Plug 'https://github.com/kshenoy/vim-signature'
 
 " }}}
 
+" syntastic {{{
+
+Plug 'https://github.com/vim-syntastic/syntastic'
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+" }}}
+
 " git {{{
 
 Plug 'https://github.com/tpope/vim-fugitive'
@@ -429,9 +395,9 @@ Plug 'https://github.com/airblade/vim-gitgutter'
 
 " rust {{{
 
-" Plug 'https://github.com/rust-lang/rust.vim'
+Plug 'https://github.com/rust-lang/rust.vim'
 
-" let g:rustfmt_autosave = 1
+let g:rustfmt_autosave = 1
 
 " " "macunix                 Macintosh version of Vim, using Unix files (OS-X).
 " " "unix                    Unix version of Vim.
@@ -466,10 +432,6 @@ Plug 'https://github.com/airblade/vim-gitgutter'
 " augroup END
 
 " }}}
-
-" }}}
-
-" disabled {{{
 
 " }}}
 
