@@ -1,0 +1,5 @@
+init.author.name=mghz
+init.author.email=m1gharzed@gmail.com
+init.license=MIT
+init.version=0.0.1
+prefix=~/.npm
