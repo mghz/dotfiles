@@ -7,7 +7,7 @@ let mapleader = ','
 " settings {{{
 
 " disable netrw
-let loaded_netrwPlugin=1
+" let loaded_netrwPlugin=1
 
 syntax on
 filetype plugin indent on
@@ -42,7 +42,7 @@ set ttyfast                    " faster redrawing "
 
 " display
 set background=dark            " vim background color "
-set cursorline                 " enable cursor line "
+" set cursorline                 " enable cursor line, may slow vim "
 set linebreak                  " avoid wrapping a line in the middle of a word "
 set list                       " show invisibles
 set listchars=tab:--,
@@ -105,7 +105,7 @@ set hlsearch                   " highlight search results "
 set ignorecase                 " case insensitive searching "
 set incsearch                  " set incremental search, like modern browsers "
 set magic                      " set magic on, for regex "
-set nolazyredraw               " don't redraw while executing macros "
+set lazyredraw                 " don't redraw while executing macros, option: nolazyredraw "
 set smartcase                  " case-sensitive if expression contains a capital letter "
 
 " ignore files
@@ -121,7 +121,6 @@ set wildignore+=**/node_modules/**
 
 " nvim options
 if (has('nvim'))
-
     " show results of substition without a split
     set inccommand=nosplit
     set fillchars=vert:\|,fold:-
@@ -183,11 +182,10 @@ Plug 'https://github.com/tpope/vim-commentary'
 " Plug 'https://github.com/Yggdroot/indentLine'
 
 " language support
+Plug 'https://github.com/sheerun/vim-polyglot'
 " Plug 'https://github.com/zxqfl/tabnine-vim'
-" Plug 'https://github.com/sheerun/vim-polyglot'
 " Plug 'https://github.com/fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 " Plug 'https://github.com/posva/vim-vue'
-" Plug 'https://github.com/prettier/vim-prettier', { 'do': 'yarn install' }
 " Plug 'https://github.com/mattn/emmet-vi
 
 " fzf {{{
@@ -226,39 +224,48 @@ command! -bang -nargs=*  All
 
 " ale {{{
 
-" Plug 'https://github.com/dense-analysis/ale'
+Plug 'https://github.com/dense-analysis/ale'
 
-" " options
+" options
 " let g:ale_linter_aliases = {'vue': ['vue', 'javascript']}
 " let g:ale_linters = {'vue': ['eslint', 'vls']}
 " let g:ale_fixers = ['prettier', 'eslint']
-" let g:ale_fix_on_save = 1
-" let g:ale_completion_enabled = 1
-" let g:ale_completion_tsserver_autoimport = 1
+let g:ale_fix_on_save = 1
+let g:ale_completion_enabled = 1
+let g:ale_completion_tsserver_autoimport = 1
 
-" " use quickfix instead of loclist
-" let g:ale_set_loclist = 0
-" let g:ale_set_quickfix = 1
+" use quickfix instead of loclist
+let g:ale_set_loclist = 0
+let g:ale_set_quickfix = 1
 
-" " change signs
-" let g:ale_sign_error = '❌'
-" let g:ale_sign_warning = '⚠️'
+" change signs
+let g:ale_sign_error = '❌'
+let g:ale_sign_warning = '⚠️'
 
-" " turn off running on text change and insert
-" " let g:ale_lint_on_text_changed = 'never'
-" " let g:ale_lint_on_insert_leave = 0
+" turn off running on text change and insert
+" let g:ale_lint_on_text_changed = 'never'
+" let g:ale_lint_on_insert_leave = 0
 
-" " don't run on opening a file
-" " let g:ale_lint_on_enter = 0
+" don't run on opening a file
+" let g:ale_lint_on_enter = 0
 
-" " highlight
-" hi ALEWarning ctermbg=DarkMagenta
-" hi clear ALEErrorSign
-" hi clear ALEWarningSign
+" highlight
+hi ALEWarning ctermbg=DarkMagenta
+hi clear ALEErrorSign
+hi clear ALEWarningSign
 
-" " mappings
-" " nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-" " nmap <silent> <C-j> <Plug>(ale_next_wrap)
+" mappings
+" nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+" nmap <silent> <C-j> <Plug>(ale_next_wrap)
+
+" }}}
+
+" vim-prettier {{{
+
+Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+
+" change default mapping
+nmap <Leader>py <Plug>(Prettier)
 
 " }}}
 
@@ -327,18 +334,6 @@ endfunction
 
 " }}}
 
-" easy align {{{
-
-Plug 'https://github.com/junegunn/vim-easy-align'
-
-" start interactive EasyAlign in visual mode (e.g. vipga)
-xmap ga <Plug>(EasyAlign)
-
-" start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap ga <Plug>(EasyAlign)
-
-" }}}
-
 " vim-signature {{{
 
 Plug 'https://github.com/kshenoy/vim-signature'
@@ -368,21 +363,6 @@ Plug 'https://github.com/kshenoy/vim-signature'
 " [=           Jump to prev line having a marker of any type
 " m?           Open location list and display markers from current buffer
 " m<BS>        Remove all markers
-
-" }}}
-
-" syntastic {{{
-
-Plug 'https://github.com/vim-syntastic/syntastic'
-
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
 
 " }}}
 
@@ -604,8 +584,8 @@ cmap w!! w !sudo tee %
 " colorscheme gruvbox
 " colorscheme dracula
 " colorscheme vimterial_dark
-colorscheme onedark
-" colorscheme OceanicNext
+" colorscheme onedark
+colorscheme OceanicNext
 
 " options: light, mirage, dark
 " let ayucolor="mirage"
