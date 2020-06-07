@@ -12,13 +12,16 @@ fi
 
 # path exports {{{
 
-export PATH=$PATH:/snap/bin
-export PATH=$PATH:/usr/local/sbin
-export PATH=$PATH:/usr/local/go/bin
+export PATH=/snap/bin:$PATH
+export PATH=/usr/local/bin:/usr/local/sbin:$PATH
+export PATH=/usr/local/go/bin:$PATH
 
 export PATH=$HOME/.local/bin:$PATH
 export PATH=$HOME/.npm/bin:$PATH
 export PATH=$HOME/.cargo/bin:$PATH
+
+# python
+export PATH=$HOME/Library/Python/3.7/bin:$PATH
 
 # don’t clear the screen after quitting a manual page
 export MANPAGER="less -X"
