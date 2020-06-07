@@ -42,6 +42,7 @@ set ttyfast                    " faster redrawing "
 
 " display
 set background=dark            " vim background color "
+set foldcolumn=2               " display sidebar for folds "
 " set cursorline                 " enable cursor line, may slow vim "
 set linebreak                  " avoid wrapping a line in the middle of a word "
 set list                       " show invisibles
@@ -59,6 +60,7 @@ set showmatch                  " highlight matching [{()}] "
 set signcolumn=auto            " show sign column "
 set splitbelow                 " split below by default "
 set splitright                 " split right by default "
+" set textwidth=80
 set title                      " set title of window to file "
 set virtualedit=block          " virtual cursor movements. options: block, insert or all "
 set wildmenu                   " wild menu "
@@ -179,21 +181,55 @@ Plug 'https://github.com/mhartington/oceanic-next'
 " plugins
 Plug 'https://github.com/tpope/vim-surround'
 Plug 'https://github.com/tpope/vim-commentary'
-" Plug 'https://github.com/Yggdroot/indentLine'
+Plug 'https://github.com/Yggdroot/indentLine'
 
 " language support
 Plug 'https://github.com/sheerun/vim-polyglot'
-" Plug 'https://github.com/zxqfl/tabnine-vim'
-" Plug 'https://github.com/fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-" Plug 'https://github.com/posva/vim-vue'
-" Plug 'https://github.com/mattn/emmet-vi
+
+" vim-chalk {{{
+
+Plug 'https://github.com/dbmrq/vim-chalk'
+
+" used as padding when aligning markers
+let g:chalk_char = "."
+
+au! BufRead,BufNewFile *.vim let b:chalk_space_before = 1
+
+" Create fold at visual selection
+vmap zf <Plug>Chalk
+
+" Create fold at operator movement
+nmap zf <Plug>Chalk
+
+" Create fold for specified number of lines
+nmap zF <Plug>ChalkRange
+
+" Create single (opening) fold marker at current level or specified count
+nmap Zf <Plug>SingleChalk
+
+" Create single (opening) fold marker at next levelor specified count
+nmap ZF <Plug>SingleChalkUp
+
+" Increment current fold level
+nmap =z <Plug>ChalkUp
+
+" Decrement current fold level
+nmap -z <Plug>ChalkDown
+
+" Increment levels in selection
+vmap =z <Plug>ChalkUp
+
+" Decrement levels in selection
+vmap -z <Plug>ChalkDown "
+
+" ------------------------------------------------------------------------ }}}
 
 " fzf {{{
 
 Plug 'https://github.com/junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'https://github.com/junegunn/fzf.vim'
 
-" FZF key bindings
+" key bindings
 nnoremap <M-f> :FZF<CR>
 nnoremap <silent> <leader>f :Files<CR>
 nnoremap <silent> <leader>b :Buffers<CR>
@@ -219,44 +255,181 @@ command! -bang -nargs=*  All
             \ 'options': '--expect=ctrl-t,ctrl-x,ctrl-v --multi --reverse'
             \ }))
 
+" }}}
+
+" coc.nvim {{{
+
+Plug 'https://github.com/neoclide/coc.nvim', {'branch': 'release'}
+
+" extensions
+Plug 'https://github.com/fannheyward/coc-marketplace', {'do': 'yarn install --frozen-lockfile'}
+Plug 'https://github.com/neoclide/coc-git', {'do': 'yarn install --frozen-lockfile'}
+Plug 'https://github.com/neoclide/coc-yank', {'do': 'yarn install --frozen-lockfile'}
+Plug 'https://github.com/voldikss/coc-bookmark', {'do': 'yarn install --frozen-lockfile'}
+
+" Plug 'https://github.com/neoclide/coc-vetur', {'do': 'yarn install --frozen-lockfile'}
+Plug 'https://github.com/neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
+Plug 'https://github.com/neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
+Plug 'https://github.com/neoclide/coc-html', {'do': 'yarn install --frozen-lockfile'}
+Plug 'https://github.com/neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
+Plug 'https://github.com/neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile'}
+Plug 'https://github.com/fannheyward/coc-markdownlint', {'do': 'yarn install --frozen-lockfile'}
+Plug 'https://github.com/clangd/coc-clangd', {'do': 'yarn install --frozen-lockfile'}
+Plug 'https://github.com/voldikss/coc-cmake', {'do': 'yarn install --frozen-lockfile'}
+Plug 'https://github.com/josa42/coc-go', {'do': 'yarn install --frozen-lockfile'}
+Plug 'https://github.com/neoclide/coc-python', {'do': 'yarn install --frozen-lockfile'}
+Plug 'https://github.com/fannheyward/coc-rust-analyzer', {'do': 'yarn install --frozen-lockfile'}
+
+" " extension: explorer {{{
+
+Plug 'https://github.com/weirongxu/coc-explorer', {'do': 'yarn install --frozen-lockfile'}
+nmap <leader>e :CocCommand explorer
+
+" " }}}
+
+" " extension: snippets {{{
+
+Plug 'https://github.com/neoclide/coc-snippets', {'do': 'yarn install --frozen-lockfile'}
 
 " }}}
 
-" ale {{{
+" mappings {{{
 
-Plug 'https://github.com/dense-analysis/ale'
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
 
-" options
-" let g:ale_linter_aliases = {'vue': ['vue', 'javascript']}
-" let g:ale_linters = {'vue': ['eslint', 'vls']}
-" let g:ale_fixers = ['prettier', 'eslint']
-let g:ale_fix_on_save = 1
-let g:ale_completion_enabled = 1
-let g:ale_completion_tsserver_autoimport = 1
+" use tabs to navigate completion list
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-" use quickfix instead of loclist
-let g:ale_set_loclist = 0
-let g:ale_set_quickfix = 1
+" navigate snippet placeholders using tab
+let g:coc_snippet_next = '<Tab>'
+let g:coc_snippet_prev = '<S-Tab>'
 
-" change signs
-let g:ale_sign_error = '❌'
-let g:ale_sign_warning = '⚠️'
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
 
-" turn off running on text change and insert
-" let g:ale_lint_on_text_changed = 'never'
-" let g:ale_lint_on_insert_leave = 0
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
+" position. Coc only does snippet and additional edit on confirm.
+" <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
+if exists('*complete_info')
+  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+else
+  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+endif
 
-" don't run on opening a file
-" let g:ale_lint_on_enter = 0
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
-" highlight
-hi ALEWarning ctermbg=DarkMagenta
-hi clear ALEErrorSign
-hi clear ALEWarningSign
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
 
-" mappings
-" nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-" nmap <silent> <C-j> <Plug>(ale_next_wrap)
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Formatting selected code.
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder.
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Applying codeAction to the selected region.
+" Example: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap keys for applying codeAction to the current buffer.
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Map function and class text objects
+" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+xmap if <Plug>(coc-funcobj-i)
+omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
+
+" Use CTRL-S for selections ranges.
+" Requires 'textDocument/selectionRange' support of LS, ex: coc-tsserver
+nmap <silent> <C-s> <Plug>(coc-range-select)
+xmap <silent> <C-s> <Plug>(coc-range-select)
+
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocAction('format')
+
+" Add `:Fold` command to fold current buffer.
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" Add `:OR` command for organize imports of the current buffer.
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" Add (Neo)Vim's native statusline support.
+" NOTE: Please see `:h coc-status` for integrations with external plugins that
+" provide custom statusline: lightline.vim, vim-airline.
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+" " Mappings using CoCList:
+" " Show all diagnostics.
+" nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" " Manage extensions.
+" nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" " Show commands.
+" nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+" " Find symbol of current document.
+" nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" " Search workspace symbols.
+" nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" " Do default action for next item.
+" nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" " Do default action for previous item.
+" nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" " Resume latest coc list.
+" nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+" }}}
+
+" functions {{{
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" }}}
 
 " }}}
 
@@ -267,16 +440,25 @@ Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 " change default mapping
 nmap <Leader>py <Plug>(Prettier)
 
-" }}}
+" ------------------------------------------------------------------------ }}}
 
 " snippets {{{
 
-" Plug 'https://github.com/Shougo/neosnippet'
-" Plug 'https://github.com/Shougo/neosnippet-snippets'
+" Plug 'https://github.com/SirVer/ultisnips'
 
-" let g:neosnippet#enable_completed_snippet = 1
+" " Options
+" " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+" let g:UltiSnipsExpandTrigger="<tab>"
+" let g:UltiSnipsJumpForwardTrigger="<c-b>"
+" let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
-" }}}
+" " If you want :UltiSnipsEdit to split your window.
+" " let g:UltiSnipsEditSplit="vertical"
+
+" " snippets
+" Plug 'https://github.com/honza/vim-snippets'
+
+" " }}}
 
 " startify {{{
 
@@ -310,7 +492,6 @@ let g:lightline = {
 function! LightlineReadonly()
     return &readonly && &filetype !=# 'help' ? 'RO' : ''
 endfunction
-
 
 " }}}
 
@@ -364,7 +545,7 @@ Plug 'https://github.com/kshenoy/vim-signature'
 " m?           Open location list and display markers from current buffer
 " m<BS>        Remove all markers
 
-" }}}
+" ------------------------------------------------------------------------ }}}
 
 " git {{{
 
@@ -411,7 +592,50 @@ let g:rustfmt_autosave = 1
 "   autocmd FileType rust nmap <buffer> <leader>gd <Plug>(rust-doc)
 " augroup END
 
+" ------------------------------------------------------------------------ }}}
+
 " }}}
+
+" go {{{
+
+Plug 'https://github.com/fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
+let g:go_def_mode = "gopls"
+let g:go_info_mode = "gopls"
+let g:go_fmt_command = "goimports"
+let g:go_def_mapping_enabled = 0
+
+" gofmt shows any errors during parsing the file in quickfix
+let g:go_fmt_fail_silently = 1
+
+map <C-n> :cnext<CR>
+map <C-m> :cprevious<CR>
+nnoremap <leader>a :cclose<CR>
+
+" au! FileType go nmap <Leader>i <Plug>(go-info)
+" au! FileType go nmap <leader>r  <Plug>(go-run)
+" au! FileType go nmap <leader>t  <Plug>(go-test)
+" au! FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
+" au! FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
+au! BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
+
+" functions
+" run :GoBuild or :GoTestCompile based on the go file
+function! s:build_go_files()
+  let l:file = expand('%')
+  if l:file =~# '^\f\+_test\.go$'
+    call go#test#Test(0, 1)
+  elseif l:file =~# '^\f\+\.go$'
+    call go#cmd#Build(0)
+  endif
+endfunction
+
+" }}}
+
+" web {{{
+
+" Plug 'https://github.com/posva/vim-vue'
+" Plug 'https://github.com/mattn/emmet-vi
 
 " }}}
 
@@ -420,8 +644,6 @@ call plug#end()
 " }}}
 
 " auto commands {{{
-
-" syntax region htmlFold start="<\z(\<\(area\|base\|br\|col\|command\|embed\|hr\|img\|input\|keygen\|link\|meta\|para\|source\|track\|wbr\>\)\@![a-z-]\+\>\)\%(\_s*\_[^/]\?>\|\_s\_[^>]*\_[^>/]>\)" end="</\z1\_s*>" fold transparent keepend extend containedin=htmlHead,htmlH\d
 
 augroup configgroup
     au!
@@ -432,7 +654,7 @@ augroup configgroup
     au VimEnter * highlight clear SignColumn
 
     " automatically install missing plugins on startup
-    autocmd VimEnter *
+    au VimEnter *
                 \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
                 \|   PlugUpdate --sync | q
                 \| endif
@@ -446,10 +668,10 @@ augroup configgroup
 
     " Escape inside a FZF terminal window should exit the terminal window
     " rather than going into the terminal's normal mode.
-    au! FileType fzf tnoremap <buffer> <Esc> <Esc>
+    au FileType fzf tnoremap <buffer> <Esc> <Esc>
 
     " todo: add comment for this command
-    autocmd BufReadPost *
+    au BufReadPost *
                 \ if line("'\"") >= 1 && line("'\"") <= line("$") |
                 \ exe "normal! g`\"" |
                 \ endif
@@ -539,9 +761,6 @@ vnoremap <Space> za
 nnoremap <silent> <leader>ev :e $MYVIMRC<cr>
 nnoremap <silent> <leader>sv :source $MYVIMRC<cr>
 
-" tab completion
-inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-
 " " resize =
 " nnoremap <M-=> <C-w>=
 
@@ -563,10 +782,6 @@ nnoremap <M-k> :resize +2<CR>
 nnoremap <M-h> :vertical resize -2<CR>
 nnoremap <M-l> :vertical resize +2<CR>
 
-" tab in normal mode switches buffers
-"nnoremap <TAB> :bnext<CR>
-"nnoremap <S-TAB> :bprevious<CR>
-
 " remap exit
 tnoremap <Esc> <C-\><C-n>
 
@@ -585,11 +800,11 @@ cmap w!! w !sudo tee %
 " colorscheme dracula
 " colorscheme vimterial_dark
 " colorscheme onedark
-colorscheme OceanicNext
+" colorscheme OceanicNext
 
 " options: light, mirage, dark
-" let ayucolor="mirage"
-" colorscheme ayu
+let ayucolor="mirage"
+colorscheme ayu
 
 " }}}
 
