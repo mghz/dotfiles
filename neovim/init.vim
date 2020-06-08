@@ -7,7 +7,7 @@ let mapleader = ','
 " settings {{{
 
 " disable netrw
-" let loaded_netrwPlugin=1
+let loaded_netrwPlugin=1
 
 syntax on
 filetype plugin indent on

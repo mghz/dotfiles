@@ -11,5 +11,9 @@
   },
   "explorer.position": "floating",
   "explorer.quitOnOpen": true,
-  "explorer.icon.enableVimDevicons": true
+  "explorer.icon.enableVimDevicons": true,
+  "yaml.format.enable": true,
+  "yaml.schemas": {
+      "kubernetes": "https://github.com/garethr/kubernetes-json-schema/blob/master/v1.14.0-standalone/deployment.json"
+  }
 }
