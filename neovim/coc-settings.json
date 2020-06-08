@@ -8,5 +8,8 @@
         "usePlaceholders": true
       }
     }
-  }
+  },
+  "explorer.position": "floating",
+  "explorer.quitOnOpen": true,
+  "explorer.icon.enableVimDevicons": true
 }

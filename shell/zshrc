@@ -5,28 +5,7 @@ else
     print "404: ~/dotfiles/shell/zshalias not found."
 fi
 
-# path exports {{{
-
-export PATH=/snap/bin:$PATH
-export PATH=/usr/local/bin:/usr/local/sbin:$PATH
-export PATH=/usr/local/go/bin:$PATH
-
-export PATH=$HOME/.local/bin:$PATH
-export PATH=$HOME/.npm/bin:$PATH
-export PATH=$HOME/.cargo/bin:$PATH
-
-# python
-export PATH=$HOME/Library/Python/3.7/bin:$PATH
-
-# don’t clear the screen after quitting a manual page
-export MANPAGER="less -X"
-
-# default editor
-export EDITOR="vim"
-
-# }}}
-
-# fzf configuration {{{
+# fzf {{{
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -35,7 +14,8 @@ bindkey -M viins '^R' history-incremental-search-backward
 bindkey -M vicmd '^R' history-incremental-search-backward
 
 # fzf command
-export FZF_DEFAULT_COMMAND='rg --files --hidden --follow -g "!{node_modules,.git,.cache}" | fzf'
+# export FZF_DEFAULT_COMMAND='rg --files --hidden --follow -g "!{node_modules,.git,.cache}" | fzf'
+export FZF_DEFAULT_COMMAND='rg --files --hidden -g "!{node_modules,.git,.cache}" | fzf'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 # fzf completion and options
@@ -46,15 +26,37 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
 
 # automatically selects the item if there's only one
-export FZF_CTRL_T_OPTS="--select-1 --exit-0"
+# export FZF_CTRL_T_OPTS="--select-1 --exit-0"
 
 # enable sorting
 # export FZF_CTRL_R_OPTS='--sort --exact'
 
 # use tree command to show directory entries
-export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
+# export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
 
 # alias fzfi='rg --files --hidden --follow --no-ignore-vcs -g "!{node_modules,.git}" | fzf'
 alias fzfa='rg --files --hidden --follow --no-ignore-vcs | fzf'
+
+export FZF_BASE="$HOME/.fzf"
+
+# }}}
+
+# exports {{{
+
+export PATH=/usr/local/bin:/usr/local/sbin:$PATH
+export PATH=/snap/bin:$PATH
+export GOPATH=$HOME/go
+export PATH=$GOPATH/bin:/usr/local/go/bin:$PATH
+
+export PATH=$HOME/.local/bin:$PATH
+
+# python
+export PATH=$HOME/Library/Python/3.7/bin:$PATH
+
+# don’t clear the screen after quitting a manual page
+export MANPAGER="less -X"
+
+# default editor
+export EDITOR="vim"
 
 # }}}

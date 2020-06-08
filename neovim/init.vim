@@ -45,16 +45,12 @@ set background=dark            " vim background color "
 set foldcolumn=2               " display sidebar for folds "
 " set cursorline                 " enable cursor line, may slow vim "
 set linebreak                  " avoid wrapping a line in the middle of a word "
-set list                       " show invisibles
-set listchars=tab:--,
-            \trail:.,
-            \extends:#,
-            \nbsp:.
-" set listchars=tab:→→,eol:¬,space:.,trail:.,extends:#
+" set list                       " show invisibles
+" set listchars=tab:→→,eol:¬,space:.,trail:.,extends:#,nbsp:.
 set matchtime=1                " When typing a closing bracket, briefly flash the one it matches "
 set number relativenumber      " show hybrid line numbers "
 set ruler                      " enable column and line numbers "
-set showbreak=↪                " show break char "
+" set showbreak=↪                " show break char "
 set showcmd                    " show imcomplete commands "
 set showmatch                  " highlight matching [{()}] "
 set signcolumn=auto            " show sign column "
@@ -67,11 +63,11 @@ set wildmenu                   " wild menu "
 set wildoptions=pum            " display menu in popup "
 
 " scroll
-set scrolloff=10               " screenlines to keep above and below the cursor "
-set sidescrolloff=5            " col to keep to the left and right of the cursor "
+set scrolloff=15               " screenlines to keep above and below the cursor "
+set sidescrolloff=15            " col to keep to the left and right of the cursor "
 
 " popup
-set winbl=20                   " floating window transparency "
+set winbl=10                   " floating window transparency "
 
 " tab control
 set autoindent                 " auto indent on new lines set autoread "
@@ -181,48 +177,18 @@ Plug 'https://github.com/mhartington/oceanic-next'
 " plugins
 Plug 'https://github.com/tpope/vim-surround'
 Plug 'https://github.com/tpope/vim-commentary'
-Plug 'https://github.com/Yggdroot/indentLine'
 
 " language support
 Plug 'https://github.com/sheerun/vim-polyglot'
 
-" vim-chalk {{{
+" indentLine {{{
 
-Plug 'https://github.com/dbmrq/vim-chalk'
+Plug 'https://github.com/Yggdroot/indentLine'
 
-" used as padding when aligning markers
-let g:chalk_char = "."
+let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+let g:indentLine_enabled = 1
 
-au! BufRead,BufNewFile *.vim let b:chalk_space_before = 1
-
-" Create fold at visual selection
-vmap zf <Plug>Chalk
-
-" Create fold at operator movement
-nmap zf <Plug>Chalk
-
-" Create fold for specified number of lines
-nmap zF <Plug>ChalkRange
-
-" Create single (opening) fold marker at current level or specified count
-nmap Zf <Plug>SingleChalk
-
-" Create single (opening) fold marker at next levelor specified count
-nmap ZF <Plug>SingleChalkUp
-
-" Increment current fold level
-nmap =z <Plug>ChalkUp
-
-" Decrement current fold level
-nmap -z <Plug>ChalkDown
-
-" Increment levels in selection
-vmap =z <Plug>ChalkUp
-
-" Decrement levels in selection
-vmap -z <Plug>ChalkDown "
-
-" ------------------------------------------------------------------------ }}}
+" }}}
 
 " fzf {{{
 
@@ -283,7 +249,7 @@ Plug 'https://github.com/fannheyward/coc-rust-analyzer', {'do': 'yarn install --
 " " extension: explorer {{{
 
 Plug 'https://github.com/weirongxu/coc-explorer', {'do': 'yarn install --frozen-lockfile'}
-nmap <leader>e :CocCommand explorer
+nnoremap <F8> :CocCommand explorer<CR>
 
 " " }}}
 
