@@ -7,7 +7,7 @@ let mapleader = ','
 " settings {{{
 
 " disable netrw
-let loaded_netrwPlugin=1
+" let loaded_netrwPlugin=1
 
 syntax on
 filetype plugin indent on
@@ -49,6 +49,7 @@ set linebreak                  " avoid wrapping a line in the middle of a word "
 " set listchars=tab:→→,eol:¬,space:.,trail:.,extends:#,nbsp:.
 set matchtime=1                " When typing a closing bracket, briefly flash the one it matches "
 set number relativenumber      " show hybrid line numbers "
+set noshowmode                 " don't show mode "
 set ruler                      " enable column and line numbers "
 " set showbreak=↪                " show break char "
 set showcmd                    " show imcomplete commands "
@@ -166,13 +167,15 @@ call plug#begin(expand('~/.config/nvim/plugged'))
 Plug 'https://github.com/ryanoasis/vim-devicons'
 
 " color schemes
-Plug 'https://github.com/chriskempson/base16-vim'
 Plug 'https://github.com/ayu-theme/ayu-vim'
+Plug 'https://github.com/chriskempson/base16-vim'
 Plug 'https://github.com/dracula/vim', { 'as': 'dracula' }
+Plug 'https://github.com/drewtempelmeyer/palenight.vim'
 Plug 'https://github.com/joshdick/onedark.vim'
 Plug 'https://github.com/larsbs/vimterial_dark'
-Plug 'https://github.com/morhetz/gruvbox'
 Plug 'https://github.com/mhartington/oceanic-next'
+Plug 'https://github.com/morhetz/gruvbox'
+Plug 'https://github.com/rakr/vim-one'
 
 " plugins
 Plug 'https://github.com/tpope/vim-surround'
@@ -442,9 +445,9 @@ augroup END
 
 Plug 'https://github.com/itchyny/lightline.vim'
 
-" schemes: wombat
+" schemes: wombat, onedark, palenight
 let g:lightline = {
-            \ 'colorscheme': 'onedark',
+            \ 'colorscheme': 'palenight',
             \ 'active': {
             \   'left': [ [ 'mode', 'paste' ],
             \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
@@ -758,19 +761,20 @@ cmap w!! w !sudo tee %
 
 " color schemes {{{
 
-" let g:onedark_termcolors=16
-" let g:onedark_terminal_italics=1
-" colorscheme onedark
+let g:onedark_termcolors=16
+let g:onedark_terminal_italics=1
+let g:palenight_terminal_italics=1
+let ayucolor="mirage" " options: light, mirage, dark
 
-" colorscheme gruvbox
-" colorscheme dracula
-" colorscheme vimterial_dark
-" colorscheme onedark
 " colorscheme OceanicNext
-
-" options: light, mirage, dark
-let ayucolor="mirage"
-colorscheme ayu
+" colorscheme ayu
+" colorscheme dracula
+" colorscheme gruvbox
+" colorscheme one
+" colorscheme onedark
+" colorscheme onedark
+" colorscheme vimterial_dark
+colorscheme palenight
 
 " }}}
 
