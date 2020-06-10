@@ -5,6 +5,9 @@ else
     print "404: ~/dotfiles/shell/zshalias not found."
 fi
 
+ source <(kubectl completion zsh)
+ complete -F __start_kubectl k
+
 # fzf {{{
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
