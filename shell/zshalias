@@ -45,7 +45,7 @@ alias grep='grep -n'
 alias pre='open -a Preview'
 alias text='open -a TextEdit'
 alias mup='brew update && brew cask outdated && brew upgrade && brew cleanup && brew doctor'
-alias lup='sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && sudo apt autoclean && snap refresh'
+alias lup='sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && sudo apt autoclean && sudo snap refresh'
 
 # containers
 alias dk='docker'
