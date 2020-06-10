@@ -63,3 +63,5 @@ export MANPAGER="less -X"
 export EDITOR="vim"
 
 # }}}
+
+source <(microk8s.kubectl completion zsh)
