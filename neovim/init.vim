@@ -64,8 +64,8 @@ set wildmenu                   " wild menu "
 set wildoptions=pum            " display menu in popup "
 
 " scroll
-set scrolloff=15               " screenlines to keep above and below the cursor "
-set sidescrolloff=15            " col to keep to the left and right of the cursor "
+set scrolloff=5                " screenlines to keep above and below the cursor "
+set sidescrolloff=5            " col to keep to the left and right of the cursor "
 
 " popup
 set winbl=10                   " floating window transparency "
@@ -692,6 +692,14 @@ tnoremap kj <C-\><C-n>
 " remap command toggle
 nnoremap ; :
 nnoremap : ;
+
+" remap movement keys
+nnoremap e <S-e>
+nnoremap w <S-w>
+nnoremap b <S-b>
+nnoremap <S-e> e
+nnoremap <S-w> w
+nnoremap <S-b> b
 
 " moving up and down work as you would expect
 nnoremap <silent> j gj

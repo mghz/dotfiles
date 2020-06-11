@@ -53,11 +53,6 @@ alias dke='docker exec'
 alias dc='docker-compose'
 alias dra='docker rm -f $(docker ps -aq)'
 
-# kubernetes
-alias k='kubectl'
-alias kube='microk8s kubectl'
-alias m8='microk8s'
-alias ktoken='token=$(microk8s.kubectl -n kube-system get secret | grep default-token | cut -d " " -f1 | cut -d ":" -f2) && microk8s.kubectl -n kube-system describe secret $token'
 
 # multipass
 alias mp='multipass'
@@ -78,6 +73,21 @@ alias py3='python3'
 
 # web assembly
 alias wp='wasm-pack'
+
+
+case `uname` in
+    Darwin)
+        # kubernetes
+        alias k='kube'
+        alias token=''
+        ;;
+    Linux)
+        # kubernetes
+        alias k='microk8s kubectl'
+        alias m8='microk8s'
+        alias token='token=$(microk8s.kubectl -n kube-system get secret | grep default-token | cut -d " " -f1 | cut -d ":" -f2) && microk8s.kubectl -n kube-system describe secret $token'
+        ;;
+esac
 
 # functions
 function vhelp() {

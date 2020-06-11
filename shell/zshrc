@@ -10,10 +10,12 @@ case `uname` in
     Darwin)
         # commands for OS X go here
         source <(kubectl completion zsh)
-        complete -F __start_kubectl k ;;
+        complete -F __start_kubectl k
+        ;;
     Linux)
         # commands for Linux go here
-        source <(microk8s.kubectl completion zsh) ;;
+        source <(microk8s.kubectl completion zsh)
+        ;;
 esac
 
 # fzf {{{
