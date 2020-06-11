@@ -721,11 +721,11 @@ nnoremap <silent> <C-y> 3<C-y>
 vnoremap . :normal .<cr>
 
 " keep visual selection when indenting/outdenting
-vmap < <gv
-vmap > >gv
+vmap <silent> < <gv
+vmap <silent> > >gv
 
 " highlight last inserted text
-nnoremap gV `[v`]
+nnoremap <silent> gV `[v`]
 
 " folding
 nnoremap <Space> za
@@ -742,10 +742,10 @@ nnoremap <silent> <leader>sv :source $MYVIMRC<cr>
 " nnoremap <M-=> <C-w>=
 
 " move to window
-map <C-h> <C-w>h
-map <C-j> <C-w>j
-map <C-k> <C-w>k
-map <C-l> <C-w>l
+map <silent> <C-h> <C-w>h
+map <silent> <C-j> <C-w>j
+map <silent> <C-k> <C-w>k
+map <silent> <C-l> <C-w>l
 
 " use arrows to resize windows
 " map <right> <c-w><
@@ -754,13 +754,13 @@ map <C-l> <C-w>l
 " map <down>  <c-w>-
 
 " use alt to resize windows
-nnoremap <M-j> :resize -2<CR>
-nnoremap <M-k> :resize +2<CR>
-nnoremap <M-h> :vertical resize -2<CR>
-nnoremap <M-l> :vertical resize +2<CR>
+nnoremap <silent> <M-j> :resize -2<CR>
+nnoremap <silent> <M-k> :resize +2<CR>
+nnoremap <silent> <M-h> :vertical resize -2<CR>
+nnoremap <silent> <M-l> :vertical resize +2<CR>
 
 " remap exit
-tnoremap <Esc> <C-\><C-n>
+tnoremap <silent> <Esc> <C-\><C-n>
 
 " save with sudo
 cmap w!! w !sudo tee %
