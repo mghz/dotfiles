@@ -30,7 +30,7 @@ alias relb='source ~/.bashrc'
 alias zrc='vim ~/dotfiles/shell/zshrc'
 alias bashrc='vim ~/.bashrc'
 alias bashp='vim ~/.bash_profile'
-alias als='vim ~/dotfiles/shell/zshalias'
+alias alrc='vim ~/dotfiles/shell/zshalias'
 alias gitrc='vim ~/.gitconfig'
 alias tagrc='vim ~/.ctags'
 alias epath='vim /etc/paths.d'
@@ -74,18 +74,22 @@ alias py3='python3'
 # web assembly
 alias wp='wasm-pack'
 
-
+# OS dependent
 case `uname` in
     Darwin)
-        # kubernetes
+        # kubernetes - docker desktop
         alias k='kube'
         alias token=''
+        # source <(k completion zsh)
+        # complete -F __start_kubectl k
         ;;
     Linux)
-        # kubernetes
-        alias k='microk8s kubectl'
+        # kubernetes - microk8s
+        alias k='kube'
         alias m8='microk8s'
-        alias token='token=$(microk8s.kubectl -n kube-system get secret | grep default-token | cut -d " " -f1 | cut -d ":" -f2) && microk8s.kubectl -n kube-system describe secret $token'
+        # source <(kube completion zsh)
+        # complete -F __start_kubectl k
+        # alias token='token=$(microk8s.kubectl -n kube-system get secret | grep default-token | cut -d " " -f1 | cut -d ":" -f2) && microk8s.kubectl -n kube-system describe secret $token'
         ;;
 esac
 

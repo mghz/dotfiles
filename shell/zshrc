@@ -1,22 +1,12 @@
+autoload -Uz compinit
+compinit
+
 # source aliases
 if [ -f ~/dotfiles/shell/zshalias ]; then
     source ~/dotfiles/shell/zshalias
 else
     print "404: ~/dotfiles/shell/zshalias not found."
 fi
-
-
-case `uname` in
-    Darwin)
-        # commands for OS X go here
-        source <(kubectl completion zsh)
-        complete -F __start_kubectl k
-        ;;
-    Linux)
-        # commands for Linux go here
-        source <(microk8s.kubectl completion zsh)
-        ;;
-esac
 
 # fzf {{{
 
@@ -74,4 +64,3 @@ export MANPAGER="less -X"
 export EDITOR="vim"
 
 # }}}
-
