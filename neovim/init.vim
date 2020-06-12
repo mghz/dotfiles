@@ -202,12 +202,16 @@ Plug 'https://github.com/junegunn/fzf.vim'
 nnoremap <M-f> :FZF<CR>
 nnoremap <silent> <leader>f :Files<CR>
 nnoremap <silent> <leader>b :Buffers<CR>
+nnoremap <silent> <leader>l :Lines<CR>
 nnoremap <silent> <leader>g :Rg<CR>
 nnoremap <silent> <leader>o :All<cr>
 nnoremap <silent> <leader>t :Tags<CR>
 nnoremap <silent> <leader>T :Tags<CR>
 nnoremap <silent> <leader>m :Marks<CR>
 nnoremap <silent> <leader>h :History<CR>
+
+" change layout
+" let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
 
 let g:fzf_action = {
             \ 'ctrl-t': 'tab split',
@@ -234,9 +238,12 @@ Plug 'https://github.com/neoclide/coc.nvim', {'branch': 'release'}
 Plug 'https://github.com/fannheyward/coc-marketplace', {'do': 'yarn install --frozen-lockfile'}
 Plug 'https://github.com/neoclide/coc-git', {'do': 'yarn install --frozen-lockfile'}
 Plug 'https://github.com/neoclide/coc-yank', {'do': 'yarn install --frozen-lockfile'}
+Plug 'https://github.com/neoclide/coc-pairs', {'do': 'yarn install --frozen-lockfile'}
 Plug 'https://github.com/voldikss/coc-bookmark', {'do': 'yarn install --frozen-lockfile'}
+Plug 'https://github.com/neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
+Plug 'https://github.com/neoclide/coc-emmet', {'do': 'yarn install --frozen-lockfile'}
 
-" Plug 'https://github.com/neoclide/coc-vetur', {'do': 'yarn install --frozen-lockfile'}
+Plug 'https://github.com/neoclide/coc-vetur', {'do': 'yarn install --frozen-lockfile'}
 Plug 'https://github.com/neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
 Plug 'https://github.com/neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
 Plug 'https://github.com/neoclide/coc-html', {'do': 'yarn install --frozen-lockfile'}
@@ -249,16 +256,53 @@ Plug 'https://github.com/josa42/coc-go', {'do': 'yarn install --frozen-lockfile'
 Plug 'https://github.com/neoclide/coc-python', {'do': 'yarn install --frozen-lockfile'}
 Plug 'https://github.com/fannheyward/coc-rust-analyzer', {'do': 'yarn install --frozen-lockfile'}
 
-" " extension: explorer {{{
+" ext: fzf {{{
+
+Plug 'https://github.com/antoinemadec/coc-fzf', {'do': 'yarn install --frozen-lockfile'}
+
+nnoremap <silent> <leader><leader>a  :<C-u>CocFzfList diagnostics<CR>
+nnoremap <silent> <leader><leader>b  :<C-u>CocFzfList diagnostics --current-buf<CR>
+nnoremap <silent> <leader><leader>c  :<C-u>CocFzfList commands<CR>
+nnoremap <silent> <leader><leader>e  :<C-u>CocFzfList extensions<CR>
+nnoremap <silent> <leader><leader>l  :<C-u>CocFzfList location<CR>
+nnoremap <silent> <leader><leader>o  :<C-u>CocFzfList outline<CR>
+nnoremap <silent> <leader><leader>s  :<C-u>CocFzfList symbols<CR>
+nnoremap <silent> <leader><leader>S  :<C-u>CocFzfList services<CR>
+nnoremap <silent> <leader><leader>p  :<C-u>CocFzfListResume<CR>
+
+" }}}
+
+" ext: explorer {{{
 
 Plug 'https://github.com/weirongxu/coc-explorer', {'do': 'yarn install --frozen-lockfile'}
-nnoremap <F8> :CocCommand explorer<CR>
+nnoremap <silent> <F8> :CocCommand explorer<CR>
 
 " " }}}
 
-" " extension: snippets {{{
+" ext: snippets {{{
 
 Plug 'https://github.com/neoclide/coc-snippets', {'do': 'yarn install --frozen-lockfile'}
+
+" }}}
+
+" ext: lists {{{
+
+Plug 'https://github.com/neoclide/coc-lists', {'do': 'yarn install --frozen-lockfile'}
+
+" grep current word in current buffer
+nnoremap <silent> <leader>w  :exe 'CocList -I --normal --input='.expand('<cword>').' words'<CR>
+
+" grep word under cursor
+command! -nargs=+ -complete=custom,s:GrepArgs Rg exe 'CocList grep '.<q-args>
+
+" Keymapping for grep word under cursor with interactive mode
+nnoremap <silent> <Leader>cf :exe 'CocList -I --input='.expand('<cword>').' grep'<CR>
+
+function! s:GrepArgs(...)
+  let list = ['-S', '-smartcase', '-i', '-ignorecase', '-w', '-word',
+        \ '-e', '-regex', '-u', '-skip-vcs-ignores', '-t', '-extension']
+  return join(list, "\n")
+endfunction
 
 " }}}
 

@@ -9,7 +9,29 @@
       }
     }
   },
-  "explorer.position": "floating",
+  "emmet.includeLanguages": {
+      "vue-html": "html"
+  },
+  "eslint.packageManager": "yarn",
+  "eslint.autoFixOnSave": true,
+  "html.autoClosingTags": true,
+  "list.source.mru.ignoreGitIgnore": true,
+  "list.source.mru.excludePatterns": [
+      "**/.git/*",
+      "/tmp/*",
+      "**/node_modules/*",
+      "**/bower_components/*"
+  ],
+  "list.source.grep.command": "rg",
+  "list.source.tags.command": "ctags -R .",
+  "list.source.grep.excludePatterns": [
+      ".gitignore",
+      ".ignore"
+  ],
+  "list.source.files.args": [
+      "--hidden",
+      "--files"
+  ],
   "explorer.quitOnOpen": true,
   "explorer.icon.enableVimDevicons": true,
   "yaml.format.enable": true,
