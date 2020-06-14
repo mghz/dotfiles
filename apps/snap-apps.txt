@@ -1,9 +1,0 @@
-Name                             Version                         Rev   Tracking       Publisher    Notes
-core                             16-2.44.3                       9066  latest/stable  canonical*   core
-core18                           20200427                        1754  latest/stable  canonical*   base
-kde-frameworks-5-qt-5-14-core18  5.68.0                          4     latest/stable  kde*         -
-microk8s                         v1.18.2                         1378  latest/stable  canonical*   classic
-node                             14.3.0                          2752  14/stable      nodesource*  classic
-ruby                             2.7.1                           181   latest/stable  rubylang*    classic
-umbrello                         19.12.3                         41    latest/stable  kde*         -
-universal-ctags                  0.2019-12-16+17:58:20+e0a976d7  16    latest/stable  tartley      -

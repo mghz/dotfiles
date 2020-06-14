@@ -1,1 +1,0 @@
-" nvim/vim configuration file

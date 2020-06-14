@@ -19,12 +19,10 @@ alias rm='rm -i'
 alias rmf='rm -rf'
 alias which='type -a'
 
-# vim
-alias vim='nvim'
-alias neorc='vim ~/.config/nvim/init.vim'
-alias vimrc='vim ~/.vimrc'
-
 # config files
+alias vim='nvim'
+alias vimrc='vim ~/.vimrc'
+alias neorc='vim ~/.config/nvim/init.vim'
 alias rel='source ~/.zshrc'
 alias relb='source ~/.bashrc'
 alias zrc='vim ~/dotfiles/shell/zshrc'
@@ -38,7 +36,6 @@ alias path='echo "${PATH//:/\n}"'
 
 # networking
 alias ping='ping -c 4'
-alias zt='zerotier-cli'
 
 # common
 alias grep='grep -n'
@@ -52,10 +49,6 @@ alias dk='docker'
 alias dke='docker exec'
 alias dc='docker-compose'
 alias dra='docker rm -f $(docker ps -aq)'
-
-
-# multipass
-alias mp='multipass'
 
 # rust
 alias cb='cargo fmt; cargo build'
@@ -78,18 +71,14 @@ alias wp='wasm-pack'
 case `uname` in
     Darwin)
         # kubernetes - docker desktop
-        alias k='kube'
+        alias k='kubectl'
+        alias mk='minikube'
         alias token=''
-        # source <(k completion zsh)
-        # complete -F __start_kubectl k
         ;;
     Linux)
         # kubernetes - microk8s
-        alias k='kube'
+        alias k='microk8s.kubectl'
         alias m8='microk8s'
-        # source <(kube completion zsh)
-        # complete -F __start_kubectl k
-        # alias token='token=$(microk8s.kubectl -n kube-system get secret | grep default-token | cut -d " " -f1 | cut -d ":" -f2) && microk8s.kubectl -n kube-system describe secret $token'
         ;;
 esac
 
