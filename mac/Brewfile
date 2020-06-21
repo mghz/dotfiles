@@ -6,7 +6,7 @@ tap "homebrew/cask-drivers"
 tap "homebrew/cask-fonts"
 tap "homebrew/core"
 tap "homebrew/services"
-tap "adoptopenjdk/openjdk"
+# tap "adoptopenjdk/openjdk"
 
 # }}}
 
@@ -31,6 +31,10 @@ tap "adoptopenjdk/openjdk"
 # brew "coreutils"
 # brew "nodejs"
 # brew "htop"
+# brew "ffmpeg" # convert between different video formact
+
+## kubernetes
+# brew "kubectx"
 
 # completions {{{
 
@@ -66,18 +70,18 @@ tap "adoptopenjdk/openjdk"
 
 # fonts {{{
 
-cask "font-anonymous-pro"
-cask "font-awesome-terminal-fonts"
-cask "font-clear-sans"
-cask "font-hack-nerd-font"
-cask "font-inconsolata"
-cask "font-input"
-cask "font-meslo-lg"
-cask "font-nixie-one"
-cask "font-office-code-pro"
-cask "font-source-code-pro"
-cask "font-source-sans-pro"
-cask "font-ubuntu"
+# cask "font-anonymous-pro"
+# cask "font-awesome-terminal-fonts"
+# cask "font-clear-sans"
+# cask "font-hack-nerd-font"
+# cask "font-inconsolata"
+# cask "font-input"
+# cask "font-meslo-lg"
+# cask "font-nixie-one"
+# cask "font-office-code-pro"
+# cask "font-source-code-pro"
+# cask "font-source-sans-pro"
+# cask "font-ubuntu"
 
 # }}}
 

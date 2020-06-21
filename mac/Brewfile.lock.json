@@ -2,22 +2,22 @@
   "entries": {
     "tap": {
       "homebrew/bundle": {
-        "revision": "e96cb8ba2f8876089dae27efe3200f2ba0ef587f"
+        "revision": "4b9a95355a4784a6839821ec58467f8e1ed96ad7"
       },
       "homebrew/cask": {
-        "revision": "352a18d9744088c73a97bcbed9f6fc11235c2f2c"
+        "revision": "8c0fc5e7a80d11d7ebfe5f4b4d2cea80b90b8d14"
       },
       "homebrew/cask-drivers": {
-        "revision": "e1b161b83a1b24e4e4e33b7b128b99f27d7f0c2a"
+        "revision": "0068be4d240b2ee82afeb9a0aa13dfd41128cf2a"
       },
       "homebrew/cask-fonts": {
-        "revision": "43bb18005c1698e89ce6498351b012f7a1d803b0"
+        "revision": "4002bfa454011d0bb83f8897637055bbe5f9550a"
       },
       "homebrew/core": {
-        "revision": "402507bfc1e418c7ec3c842f3b5d7342594c6880"
+        "revision": "be6a6e4adf8dd6a76ad0fcc669361d73462d33a1"
       },
       "homebrew/services": {
-        "revision": "d2df55c36f67d10cd78bc58c84ac03e0c574d437"
+        "revision": "d5b4a6b1db4920354bf6dc7285fd431d5cb565e7"
       },
       "adoptopenjdk/openjdk": {
         "revision": "8b57564cc0fe84bffb0104078636df4ed34d0d8a"
@@ -95,6 +95,45 @@
         "options": {
           "full_name": "font-ubuntu"
         }
+      },
+      "transmission": {
+        "version": "3.00",
+        "options": {
+          "full_name": "transmission"
+        }
+      },
+      "adoptopenjdk": {
+        "version": "14.0.1,7",
+        "options": {
+          "full_name": "adoptopenjdk"
+        }
+      }
+    },
+    "brew": {
+      "ffmpeg": {
+        "version": "4.3_1",
+        "bottle": {
+          "cellar": "/usr/local/Cellar",
+          "prefix": "/usr/local",
+          "files": {
+            "catalina": {
+              "url": "https://homebrew.bintray.com/bottles/ffmpeg-4.3_1.catalina.bottle.tar.gz",
+              "sha256": "5dccea5f0d7ff92fc94e8564d8717f59766ee0db5b8df8a60996e27c57ef3dfc"
+            },
+            "mojave": {
+              "url": "https://homebrew.bintray.com/bottles/ffmpeg-4.3_1.mojave.bottle.tar.gz",
+              "sha256": "75b4d5c0639f24f4a49226e7d3d49be35f80ec3680a6d0fdd7d2da4544d366b2"
+            },
+            "high_sierra": {
+              "url": "https://homebrew.bintray.com/bottles/ffmpeg-4.3_1.high_sierra.bottle.tar.gz",
+              "sha256": "f4817a0d1cc8675d8785c13a5ea055ff296b241fb1d8a8a1eb301f6a075565b3"
+            }
+          }
+        }
+      },
+      "kubectx": {
+        "version": "0.9.0",
+        "bottle": false
       }
     }
   },
@@ -103,7 +142,7 @@
       "catalina": {
         "HOMEBREW_VERSION": "2.4.0",
         "HOMEBREW_PREFIX": "/usr/local",
-        "Homebrew/homebrew-core": "402507bfc1e418c7ec3c842f3b5d7342594c6880",
+        "Homebrew/homebrew-core": "be6a6e4adf8dd6a76ad0fcc669361d73462d33a1",
         "CLT": "1103.0.32.62",
         "Xcode": "11.4.1",
         "macOS": "10.15.5"

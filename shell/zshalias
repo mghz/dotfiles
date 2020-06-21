@@ -74,6 +74,13 @@ case `uname` in
         alias k='kubectl'
         alias mk='minikube'
         alias token=''
+
+        # setup autocomplete in zsh into the current shell
+        source <(kubectl completion zsh)
+
+        # add autocomplete permanently to your zsh shell
+        echo "[[ $commands[kubectl] ]] && source <(kubectl completion zsh)" >> ~/.zshrc
+
         ;;
     Linux)
         # kubernetes - microk8s

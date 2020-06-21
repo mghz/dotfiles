@@ -63,4 +63,7 @@ export MANPAGER="less -X"
 # default editor
 export EDITOR="vim"
 
+# apps
+export PULSAR_HOME='~/wspace/projects/kubez/apache-pulsar-2.5.2'
+
 # }}}
