@@ -33,6 +33,7 @@
       "--files"
   ],
   "explorer.quitOnOpen": true,
+  "explorer.icon.enableNerdfont": true,
   "explorer.icon.enableVimDevicons": true,
   "yaml.format.enable": true,
   "yaml.schemas": {

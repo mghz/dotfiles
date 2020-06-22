@@ -2,19 +2,19 @@
   "entries": {
     "tap": {
       "homebrew/bundle": {
-        "revision": "4b9a95355a4784a6839821ec58467f8e1ed96ad7"
+        "revision": "a4236840079d4d9ad29c553bb02910b90cc93d50"
       },
       "homebrew/cask": {
-        "revision": "8c0fc5e7a80d11d7ebfe5f4b4d2cea80b90b8d14"
+        "revision": "65a45288abdfcef67693b4de2e0d182213388ad8"
       },
       "homebrew/cask-drivers": {
-        "revision": "0068be4d240b2ee82afeb9a0aa13dfd41128cf2a"
+        "revision": "731b920aa27b6c078380c98f3fe83322c11f1546"
       },
       "homebrew/cask-fonts": {
-        "revision": "4002bfa454011d0bb83f8897637055bbe5f9550a"
+        "revision": "cb633ccb21c8de3456461fc59bcb85104576da0e"
       },
       "homebrew/core": {
-        "revision": "be6a6e4adf8dd6a76ad0fcc669361d73462d33a1"
+        "revision": "118bb4978142dab8c20548156b16d747597856c8"
       },
       "homebrew/services": {
         "revision": "d5b4a6b1db4920354bf6dc7285fd431d5cb565e7"
@@ -85,7 +85,7 @@
         }
       },
       "font-source-sans-pro": {
-        "version": "2.045R-ro-1.095R-it",
+        "version": "3.006R",
         "options": {
           "full_name": "font-source-sans-pro"
         }
@@ -142,7 +142,7 @@
       "catalina": {
         "HOMEBREW_VERSION": "2.4.0",
         "HOMEBREW_PREFIX": "/usr/local",
-        "Homebrew/homebrew-core": "be6a6e4adf8dd6a76ad0fcc669361d73462d33a1",
+        "Homebrew/homebrew-core": "118bb4978142dab8c20548156b16d747597856c8",
         "CLT": "1103.0.32.62",
         "Xcode": "11.4.1",
         "macOS": "10.15.5"
