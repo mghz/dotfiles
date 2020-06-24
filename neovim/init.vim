@@ -39,7 +39,7 @@ set history=10000              " show history
 set mouse=a                    " enable mouse mode "
 set path+=**                   " enable recursive dir paths "
 set shell=$SHELL               " use os shell "
-set shortmess+=c               " don't pass messages to |ins-completion-menu| "
+set shortmess+=aFc             " don't pass messages to |ins-completion-menu| "
 set ttyfast                    " faster redrawing "
 
 " display
@@ -183,7 +183,7 @@ Plug 'https://github.com/rakr/vim-one'
 Plug 'https://github.com/tpope/vim-surround'
 Plug 'https://github.com/tpope/vim-commentary'
 
-" language support
+" development
 Plug 'https://github.com/sheerun/vim-polyglot'
 
 " indentLine {{{
@@ -242,7 +242,6 @@ Plug 'https://github.com/neoclide/coc-git', {'do': 'yarn install --frozen-lockfi
 Plug 'https://github.com/neoclide/coc-yank', {'do': 'yarn install --frozen-lockfile'}
 Plug 'https://github.com/neoclide/coc-pairs', {'do': 'yarn install --frozen-lockfile'}
 Plug 'https://github.com/voldikss/coc-bookmark', {'do': 'yarn install --frozen-lockfile'}
-Plug 'https://github.com/neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
 Plug 'https://github.com/neoclide/coc-emmet', {'do': 'yarn install --frozen-lockfile'}
 
 Plug 'https://github.com/neoclide/coc-vetur', {'do': 'yarn install --frozen-lockfile'}
@@ -305,6 +304,15 @@ function! s:GrepArgs(...)
         \ '-e', '-regex', '-u', '-skip-vcs-ignores', '-t', '-extension']
   return join(list, "\n")
 endfunction
+
+" }}}
+
+" ext: prettier {{{
+
+Plug 'https://github.com/neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
+
+vmap <leader>ff  <Plug>(coc-format-selected)
+nmap <leader>ff  <Plug>(coc-format-selected)
 
 " }}}
 
@@ -447,15 +455,6 @@ endfunction
 " }}}
 
 " }}}
-
-" vim-prettier {{{
-
-Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
-
-" change default mapping
-nmap <Leader>py <Plug>(Prettier)
-
-" ------------------------------------------------------------------------ }}}
 
 " snippets {{{
 

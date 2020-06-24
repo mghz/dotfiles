@@ -12,9 +12,14 @@
   "emmet.includeLanguages": {
       "vue-html": "html"
   },
+  "coc.preferences.formatOnSaveFiletypes": ["css", "markdown", "vue", "js", "go", "rust"],
+  "coc.preferences.useQuickfixForLocations": true,
   "eslint.packageManager": "yarn",
   "eslint.autoFixOnSave": true,
   "html.autoClosingTags": true,
+  "prettier.formatterPriority": -1,
+  "prettier.eslintIntegration": true,
+  "prettier.disableLanguages": [],
   "list.source.mru.ignoreGitIgnore": true,
   "list.source.mru.excludePatterns": [
       "**/.git/*",
@@ -33,8 +38,6 @@
       "--files"
   ],
   "explorer.quitOnOpen": true,
-  "explorer.icon.enableNerdfont": true,
-  "explorer.icon.enableVimDevicons": true,
   "yaml.format.enable": true,
   "yaml.schemas": {
       "kubernetes": "/*.yaml"
