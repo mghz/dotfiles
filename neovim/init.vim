@@ -311,8 +311,8 @@ endfunction
 
 Plug 'https://github.com/neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
 
-vmap <leader>ff  <Plug>(coc-format-selected)
-nmap <leader>ff  <Plug>(coc-format-selected)
+vmap <leader>y  <Plug>(coc-format-selected)
+nmap <leader>y  <Plug>(coc-format-selected)
 
 " }}}
 

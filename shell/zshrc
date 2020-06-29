@@ -61,9 +61,6 @@ export PATH=$HOME/Library/Python/3.7/bin:$PATH
 export MANPAGER="less -X"
 
 # default editor
-export EDITOR="vim"
-
-# apps
-export PULSAR_HOME='~/wspace/projects/kubez/apache-pulsar-2.5.2'
+export EDITOR="nvim"
 
 # }}}
