@@ -195,6 +195,12 @@ let g:indentLine_enabled = 1
 
 " }}}
 
+" vim-prettier {{{
+
+Plug 'https://github.com/prettier/vim-prettier'
+
+" }}}
+
 " fzf {{{
 
 Plug 'https://github.com/junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -367,8 +373,8 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 nmap <leader>rn <Plug>(coc-rename)
 
 " Formatting selected code.
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
+xmap <leader><leader>f  <Plug>(coc-format-selected)
+nmap <leader><leader>f  <Plug>(coc-format-selected)
 
 augroup mygroup
   autocmd!
@@ -775,9 +781,6 @@ nnoremap <silent> gV `[v`]
 " folding
 nnoremap <Space> za
 vnoremap <Space> za
-
-" format document
-" nnoremap <leader>ff gg=G<CR>
 
 " edit, source vim file
 nnoremap <silent> <leader>ev :e $MYVIMRC<cr>
