@@ -495,6 +495,69 @@
       "yarn-completion": {
         "version": "0.8.0",
         "bottle": false
+      },
+      "hyperkit": {
+        "version": "0.20200224",
+        "bottle": {
+          "cellar": ":any_skip_relocation",
+          "prefix": "/usr/local",
+          "files": {
+            "catalina": {
+              "url": "https://homebrew.bintray.com/bottles/hyperkit-0.20200224.catalina.bottle.tar.gz",
+              "sha256": "ba8679cca5d4532aa1afd0f5e6558b38f673e66c48b274dbf73228c632478c3c"
+            },
+            "mojave": {
+              "url": "https://homebrew.bintray.com/bottles/hyperkit-0.20200224.mojave.bottle.tar.gz",
+              "sha256": "6e658f44e70586cd209fee359e1f303e3f4c8ed24f2ae1f53d845557fa420ee2"
+            },
+            "high_sierra": {
+              "url": "https://homebrew.bintray.com/bottles/hyperkit-0.20200224.high_sierra.bottle.tar.gz",
+              "sha256": "e9d9fda51a2c05a37d0d872a80b6dbf26f56b5842c5dc03ad7be13fd1224d5c1"
+            }
+          }
+        }
+      },
+      "ripgrep": {
+        "version": "12.1.1",
+        "bottle": {
+          "cellar": ":any",
+          "prefix": "/usr/local",
+          "files": {
+            "catalina": {
+              "url": "https://homebrew.bintray.com/bottles/ripgrep-12.1.1.catalina.bottle.tar.gz",
+              "sha256": "60460d422253113af3ed60332104f309638942821c655332211a6bc2213c472c"
+            },
+            "mojave": {
+              "url": "https://homebrew.bintray.com/bottles/ripgrep-12.1.1.mojave.bottle.tar.gz",
+              "sha256": "de4b18789f5d9bc4aaa4d906501200ae4ece7a1971dd1b86e2b2d0a2c8e0d764"
+            },
+            "high_sierra": {
+              "url": "https://homebrew.bintray.com/bottles/ripgrep-12.1.1.high_sierra.bottle.tar.gz",
+              "sha256": "cfea5335bf4eccfb7cd1d93bec234d96bd49dce8d593ea966687f777909ba291"
+            }
+          }
+        }
+      },
+      "ruby": {
+        "version": "2.7.1_2",
+        "bottle": {
+          "cellar": "/usr/local/Cellar",
+          "prefix": "/usr/local",
+          "files": {
+            "catalina": {
+              "url": "https://homebrew.bintray.com/bottles/ruby-2.7.1_2.catalina.bottle.tar.gz",
+              "sha256": "c9ee36823a8dfe2686c6d7a3faf5061a032ed0b8e08d484f3ff2cda72d210a08"
+            },
+            "mojave": {
+              "url": "https://homebrew.bintray.com/bottles/ruby-2.7.1_2.mojave.bottle.tar.gz",
+              "sha256": "d597bee751f9419ea7b40d8125e4f58b2c1eb675b929fe85d8463a6e008b2250"
+            },
+            "high_sierra": {
+              "url": "https://homebrew.bintray.com/bottles/ruby-2.7.1_2.high_sierra.bottle.tar.gz",
+              "sha256": "345677b922e40e7324bbab0d68593a2bbef7aa3e8f636fd850295f3414758ed7"
+            }
+          }
+        }
       }
     }
   },

@@ -63,6 +63,8 @@ alias cwatch='cargo watch -i .gitignore -i "pkg/*" -s "wasm-pack build"'
 # python
 alias py2='python2'
 alias py3='python3'
+alias python='python3'
+alias pip='pip3'
 
 # web assembly
 alias wp='wasm-pack'
@@ -71,15 +73,15 @@ alias wp='wasm-pack'
 case `uname` in
     Darwin)
         # kubernetes - docker desktop
-        alias k='kubectl'
-        alias mk='minikube'
-        alias token=''
+        #alias k='kubectl'
+        #alias mk='minikube'
+        #alias token=''
 
         # setup autocomplete in zsh into the current shell
-        source <(kubectl completion zsh)
+        #source <(kubectl completion zsh)
 
         # add autocomplete permanently to your zsh shell
-        echo "[[ $commands[kubectl] ]] && source <(kubectl completion zsh)" >> ~/.zshrc
+        #echo "[[ $commands[kubectl] ]] && source <(kubectl completion zsh)" >> ~/.zshrc
 
         ;;
     Linux)

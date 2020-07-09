@@ -155,8 +155,10 @@ if ask "-> Update symbolic links?" Y; then
 
     echo
     if ask "-> link zsh config?" Y; then
-        echo "skipped"
+        echo "sourcing zsh configuration files"
         #ln -sfv ~/dotfiles/shell/zprezto/zshrc ~/.zshrc
+        echo "source ~/dotfiles/shell/zshrc" >> ~/.zshrc
+        echo "source ~/dotfiles/shell/zshalias" >> ~/.zshrc
     fi
 
     echo
