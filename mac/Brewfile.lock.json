@@ -5,7 +5,7 @@
         "revision": "f56efde2425c278b127cb10be2844a9e00237139"
       },
       "homebrew/cask": {
-        "revision": "7bce60cdb5145095af70a534622b381403f84410"
+        "revision": "b99fcbff2d35bdbd82556fd4386b7e1b7de13309"
       },
       "homebrew/cask-drivers": {
         "revision": "bb1d338a2da01b4d8a9e652cec3e5aed020d2755"
@@ -14,7 +14,7 @@
         "revision": "f0177f59ec25a75a9e0acba1c44d12b752a53ebf"
       },
       "homebrew/core": {
-        "revision": "aed956a84e2ece259c1971fa232a45ad26cfd17a"
+        "revision": "9783dede8d1f5fde0366d045f62c5a3bf4ce6aa3"
       },
       "homebrew/services": {
         "revision": "a379971f8cbca1875f625a47a93efeafc6512091"
@@ -558,7 +558,29 @@
             }
           }
         }
-      }
+      },
+      "minikube": {
+        "version": "1.11.0",
+        "bottle": {
+          "cellar": ":any_skip_relocation",
+          "prefix": "/usr/local",
+          "files": {
+            "catalina": {
+              "url": "https://homebrew.bintray.com/bottles/minikube-1.11.0.catalina.bottle.1.tar.gz",
+              "sha256": "b1725719ff2a2973f20e5583021584302bb29d9dd23448709e016a19c101ba4f"
+            },
+            "mojave": {
+              "url": "https://homebrew.bintray.com/bottles/minikube-1.11.0.mojave.bottle.1.tar.gz",
+              "sha256": "6d825680b695c127d29ad63a50ad3d8dd1c129d35fa90ce623f878eb7fe7dd32"
+            },
+            "high_sierra": {
+              "url": "https://homebrew.bintray.com/bottles/minikube-1.11.0.high_sierra.bottle.1.tar.gz",
+              "sha256": "7ff75886b7fb884af278652c63e715afadeb940e1a66d491637a59aa95980165"
+            }
+          }
+        }
+      },
+      "python": null
     }
   },
   "system": {
@@ -566,7 +588,7 @@
       "catalina": {
         "HOMEBREW_VERSION": "2.4.4",
         "HOMEBREW_PREFIX": "/usr/local",
-        "Homebrew/homebrew-core": "aed956a84e2ece259c1971fa232a45ad26cfd17a",
+        "Homebrew/homebrew-core": "9783dede8d1f5fde0366d045f62c5a3bf4ce6aa3",
         "CLT": "11.5.0.0.1.1588476445",
         "Xcode": "11.5",
         "macOS": "10.15.5"

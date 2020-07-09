@@ -84,18 +84,18 @@ if ask "-> Clone dotfiles repo?" N; then
 fi
 
 echo
-if ask "-> Install brew?" N; then    
+if ask "-> Install brew?" N; then
     echo
     echo "-> installing xcode-tools"
     xcode-select --install
 
     echo
     echo "-> installing homebrew"
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"    
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 fi
 
 echo
-if ask "-> Install brew packages?" N; then    
+if ask "-> Install brew packages?" N; then
     echo
     echo "-> installing brew bundle"
     cd ~/dotfiles/mac
@@ -107,35 +107,67 @@ echo
 if ask "-> Check updates?" N; then
     echo
     echo "-> Updating brew packages"
-    brew update 
-    brew cask outdated 
-    brew upgrade 
-    brew cleanup 
-    brew doctor    
+    brew update
+    brew cask outdated
+    brew upgrade
+    brew cleanup
+    brew doctor
 fi
 
 echo
-if ask "-> Install zprezto?" N; then      
+if ask "-> Install zprezto?" N; then
     echo
     if [ -d "~/.prezto" ]; then
         echo "-> installing zprezto"
         git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
-        
+
         # change shell
         chsh -s /bin/zsh
 
-        # setup links    
+        # setup links
         setopt EXTENDED_GLOB
         for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
             ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
-        done    
-    else 
+        done
+    else
         echo "-> updating zprezto"
         cd "$ZPREZTODIR"
         git pull
         git submodule update --init --recursive
         cd ~/dotfiles
     fi
+fi
+
+echo
+if ask "-> install python packages?" N; then
+    echo
+    echo "installing pynvim"
+    python3 -m pip install pynvim --user
+    python2.7 ensure pip
+    python2.7 -m pip install pynvim --user
+
+    echo "installing pylint"
+    python3 -m pip install pylint --user
+
+    echo "installing pyx"
+    python3 -m pip install pyx --user
+
+    echo "installing python neovim"
+    python3 -m pip install neovim --user
+fi
+
+echo
+if ask "-> install ruby packages?" N; then
+    echo
+    echo "installing ruby neovim"
+    sudo gem install neovim
+fi
+
+echo
+if ask "-> install yarn packages?" N; then
+    echo
+    echo "-> installing yarn neovim"
+    yarn global add neovim
 fi
 
 echo
@@ -175,7 +207,7 @@ if ask "-> Update symbolic links?" Y; then
     fi
 
     echo
-    if ask "-> link and configure npm?" Y; then                
+    if ask "-> link and configure npm?" Y; then
         npm config set init.author.name "mghz"
         npm config set init.author.email "m1gharzed@gmail.com"
         npm config set init.license "MIT"
@@ -183,7 +215,7 @@ if ask "-> Update symbolic links?" Y; then
 
         [ -d ~/.npm ] && mkdir ~/.npm
         npm config set prefix "~/.npm"
-        
+
         ln -sfv ~/dotfiles/nodejs/npmrc ~/.npmrc
     fi
 fi
