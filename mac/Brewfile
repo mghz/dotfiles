@@ -6,91 +6,75 @@ tap "homebrew/cask-drivers"
 tap "homebrew/cask-fonts"
 tap "homebrew/core"
 tap "homebrew/services"
-# tap "adoptopenjdk/openjdk"
+tap "adoptopenjdk/openjdk"
 
 # }}}
 
 # formulaes {{{
 
-# brew "bash"
-# brew "curl"
-# brew "git"
-# brew "gpg"
-# brew "neovim"
-# brew "tmux"
-# brew "tree"
-# brew "unrar"
-# brew "vim"
-# brew "zsh"
-# brew "fzf"
-# brew "findutils"
-# brew "youtube-dl"
-# brew "gnu-tar"
-# brew "jq"
-# brew "freetype"
+brew "bash"
+brew "bash-completion@2"
+brew "brew-cask-completion"
+brew "curl"
+brew "ffmpeg"
+brew "freetype"
+brew "fzf"
+brew "git"
+brew "gnu-tar"
+brew "golang"
+brew "gpg"
+brew "htop"
+brew "neovim"
+brew "nodejs"
+brew "ripgrep"
+brew "tmux"
+brew "tree"
+brew "unrar"
+brew "vim"
+brew "yarn"
+brew "yarn-completion"
+brew "youtube-dl"
+brew "zsh"
+brew "zsh-completions"
+
 # brew "coreutils"
-# brew "nodejs"
-# brew "htop"
-# brew "ffmpeg" # convert between different video formact
+# brew "findutils"
 
 ## kubernetes
 # brew "kubectx"
-
-# completions {{{
-
-#brew "brew-cask-completion"
-#brew "cargo-completion"
-#brew "rustc-completion"
-#brew "zsh-completions"
-
-# }}}
 
 # }}}
 
 # casks {{{
 
+cask "adoptopenjdk"
+cask "appcleaner"
+cask "brave-browser"
+cask "iterm2"
+cask "jaxx-liberty"
+cask "kodi"
+cask "transmission"
+cask "visual-studio-code"
+
 # cask "adobe-acrobat-reader"
-# cask "appcleaner"
-# cask "brave-browser"
-# cask "iterm2"
-# cask "transmission"
-# cask "adoptopenjdk"
-# cask "multipass"
-# cask "virtualbox"
-# cask "virtualbox-extension-pack"
-# cask "emacs"
-# cask "spectacle"
-# cask "vlc"
-# cask "visual-studio-code"
 # cask "balenaetcher"
-# cask "kodi"
-# cask "jaxx-liberty"
-# cask "docker"
-# cask "mpv"
+# cask "multipass"
+# cask "spectacle"
 
 # fonts {{{
 
-# cask "font-anonymous-pro"
-# cask "font-awesome-terminal-fonts"
-# cask "font-clear-sans"
-# cask "font-hack-nerd-font"
-# cask "font-inconsolata"
-# cask "font-input"
-# cask "font-meslo-lg"
-# cask "font-nixie-one"
-# cask "font-office-code-pro"
-# cask "font-source-code-pro"
-# cask "font-source-sans-pro"
-# cask "font-ubuntu"
-
-# powerline fonts
-# cask "font-consolas-for-powerline"
-# cask "font-inconsolata-dz-for-powerline"
-# cask "font-inconsolata-for-powerline"
-# cask "font-inconsolata-for-powerline-bold"
-# cask "font-menlo-for-powerline"
-# cask "font-meslo-for-powerline"
-# cask "font-powerline-symbols"
+cask "font-anonymous-pro"
+cask "font-awesome-terminal-fonts"
+cask "font-clear-sans"
+cask "font-hack-nerd-font"
+cask "font-inconsolata"
+cask "font-input"
+cask "font-meslo-lg"
+cask "font-nixie-one"
+cask "font-office-code-pro"
+cask "font-source-code-pro"
+cask "font-source-sans-pro"
+cask "font-ubuntu"
 
 # }}}
 
