@@ -197,7 +197,7 @@ let g:indentLine_enabled = 1
 
 " vim-prettier {{{
 
-Plug 'https://github.com/prettier/vim-prettier'
+" Plug 'https://github.com/prettier/vim-prettier'
 
 " }}}
 
@@ -319,6 +319,9 @@ Plug 'https://github.com/neoclide/coc-prettier', {'do': 'yarn install --frozen-l
 
 vmap <leader>y  <Plug>(coc-format-selected)
 nmap <leader>y  <Plug>(coc-format-selected)
+
+" format on save
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
 " }}}
 
@@ -484,11 +487,11 @@ endfunction
 
 Plug 'https://github.com/mhinz/vim-startify'
 
-augroup group-startify
-    autocmd!
-    " show startify after last buffer close
-    au BufDelete * if empty(filter(tabpagebuflist(), '!buflisted(v:val)')) | Startify | endif
-augroup END
+" augroup group-startify
+"     autocmd!
+"     " show startify after last buffer close
+"     au BufDelete * if empty(filter(tabpagebuflist(), '!buflisted(v:val)')) | Startify | endif
+" augroup END
 
 " }}}
 

@@ -12,12 +12,11 @@
   "emmet.includeLanguages": {
       "vue-html": "html"
   },
-  "coc.preferences.formatOnSaveFiletypes": ["css", "markdown", "vue", "js", "go", "rust"],
+  "explorer.previewAction.onHover": false,
+  "coc.preferences.formatOnSaveFiletypes": ["css", "markdown", "html", "js", "vue"],
   "coc.preferences.useQuickfixForLocations": true,
   "eslint.packageManager": "yarn",
-  "eslint.autoFixOnSave": true,
   "html.autoClosingTags": true,
-  "prettier.formatterPriority": -1,
   "prettier.eslintIntegration": true,
   "prettier.disableLanguages": [],
   "list.source.mru.ignoreGitIgnore": true,

@@ -73,9 +73,8 @@ alias wp='wasm-pack'
 case `uname` in
     Darwin)
         # kubernetes - docker desktop
-        #alias k='kubectl'
-        #alias mk='minikube'
-        #alias token=''
+        alias kc='kubectl'
+        alias kube='minikube'
 
         # setup autocomplete in zsh into the current shell
         #source <(kubectl completion zsh)
@@ -86,7 +85,7 @@ case `uname` in
         ;;
     Linux)
         # kubernetes - microk8s
-        alias k='microk8s.kubectl'
+        alias kc='microk8s.kubectl'
         alias m8='microk8s'
         ;;
 esac
