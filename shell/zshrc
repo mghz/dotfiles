@@ -55,17 +55,26 @@ export PATH=$HOME/.local/bin:$PATH
 export PATH="$(yarn global bin):$PATH"
 
 # java
-# export JAVA_HOME=/Library/Java/JavaVirtualMachines/adoptopenjdk-14.jdk/Contents/Home
-# export PATH=$PATH:$JAVA_HOME/bin
-export PATH="/usr/local/opt/openjdk/bin:$PATH"
+export JAVA_HOME=`/usr/libexec/java_home`
+export PATH=$PATH:$JAVA_HOME/bin
 
 # python
-export PATH=$HOME/Library/Python/3.7/bin:$PATH
+export PATH=$HOME/Library/Python/3.8/bin:$PATH
 
 # don’t clear the screen after quitting a manual page
 export MANPAGER="less -X"
 
 # default editor
 export EDITOR="nvim"
+
+# }}}
+
+# functions {{{
+
+jdk() {
+    version=$1
+    export JAVA_HOME=$(/usr/libexec/java_home -v"$version");
+    java -version
+ }
 
 # }}}

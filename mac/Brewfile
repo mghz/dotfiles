@@ -4,9 +4,9 @@ tap "homebrew/bundle"
 tap "homebrew/cask"
 tap "homebrew/cask-drivers"
 tap "homebrew/cask-fonts"
+tap "homebrew/cask-versions"
 tap "homebrew/core"
 tap "homebrew/services"
-tap "adoptopenjdk/openjdk"
 
 # }}}
 
@@ -25,6 +25,7 @@ brew "golang"
 brew "gpg"
 brew "htop"
 brew "hyperkit"
+brew "jenv"
 brew "minikube"
 brew "neovim"
 brew "nodejs"

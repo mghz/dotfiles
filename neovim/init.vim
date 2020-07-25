@@ -799,16 +799,16 @@ map <silent> <C-k> <C-w>k
 map <silent> <C-l> <C-w>l
 
 " use arrows to resize windows
-" map <right> <c-w><
-" map <left>  <c-w>>
-" map <up>    <c-w>+
-" map <down>  <c-w>-
+map <right> <c-w><
+map <left>  <c-w>>
+map <up>    <c-w>+
+map <down>  <c-w>-
 
 " use alt to resize windows
-nnoremap <silent> <M-j> :resize -2<CR>
-nnoremap <silent> <M-k> :resize +2<CR>
-nnoremap <silent> <M-h> :vertical resize -2<CR>
-nnoremap <silent> <M-l> :vertical resize +2<CR>
+" nnoremap <silent> <M-j> :resize -2<CR>
+" nnoremap <silent> <M-k> :resize +2<CR>
+" nnoremap <silent> <M-h> :vertical resize -2<CR>
+" nnoremap <silent> <M-l> :vertical resize +2<CR>
 
 " remap exit
 tnoremap <silent> <Esc> <C-\><C-n>
