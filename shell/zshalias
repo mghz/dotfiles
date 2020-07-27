@@ -46,6 +46,7 @@ alias lup='sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && s
 
 # containers
 alias dk='docker'
+alias dm='docker-machine'
 alias dke='docker exec'
 alias dc='docker-compose'
 alias dra='docker rm -f $(docker ps -aq)'
