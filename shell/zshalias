@@ -46,10 +46,10 @@ alias lup='sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && s
 
 # containers
 alias dk='docker'
-alias dm='docker-machine'
 alias dke='docker exec'
+alias dkrm='docker rm -f $(docker ps -aq)'
+alias dm='docker-machine'
 alias dc='docker-compose'
-alias dra='docker rm -f $(docker ps -aq)'
 
 # rust
 alias cb='cargo fmt; cargo build'

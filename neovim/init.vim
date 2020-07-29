@@ -280,6 +280,7 @@ nnoremap <silent> <leader><leader>p  :<C-u>CocFzfListResume<CR>
 
 Plug 'https://github.com/weirongxu/coc-explorer', {'do': 'yarn install --frozen-lockfile'}
 nnoremap <silent> <F8> :CocCommand explorer<CR>
+nnoremap <silent> <leader>x :CocCommand explorer<CR>
 
 " " }}}
 

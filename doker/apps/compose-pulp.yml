@@ -1,0 +1,42 @@
+version: "3.7"
+services:
+  pulp:
+    image: pulp/pulp-fedora31
+    # restart: always
+    volumes:
+      - pulp:/var/lib/pulp:Z
+      - pulp-setting:/etc/pulp:Z
+      - pulp-pgsql:/var/lib/pgsql:Z
+      - pulp-containers:/var/lib/containers:Z
+    ports:
+      - "8080:80"
+    depends_on:
+      - mariadb
+    networks:
+      - zarusnet
+  postgres:
+    container_name: postgres
+    image: postgres
+    restart: always
+    # environment:
+    #   - POSTGRES_DB=postgres
+    #   - POSTGRES_USER=postgres
+    #   - POSTGRES_PASSWORD=db_admin
+    env_file:
+      - config/postgres.env
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    networks:
+      - zarusnet
+
+volumes:
+  pulp:
+  pulp-settings:
+  pulp-pgsql:
+  pulp-containers:
+  postgres:
+
+networks:
+  zarusnet:

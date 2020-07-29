@@ -1,0 +1,5 @@
+my: "localhost:7080"
+zero: "localhost:5080"
+lru_mb: 4096
+postings: "/path/to/p"
+wal: "/path/to/w"
