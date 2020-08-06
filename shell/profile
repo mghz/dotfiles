@@ -19,3 +19,5 @@ fi
 if [ -d "$HOME/.npm" ] ; then
     export PATH=~/.npm/bin:$PATH
 fi
+
+export PATH="$HOME/.cargo/bin:$PATH"
