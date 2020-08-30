@@ -13,6 +13,7 @@
     quotepath = false
     editor = vim
     excludesfile = .gitignore
+	commitGraph = true
 [merge]
     tool = vimdiff
 [mergetool]
@@ -24,3 +25,5 @@
     amend = "commit --amend"
 [pull]
 	ff = only
+[gc]
+	writeCommitGraph = true
