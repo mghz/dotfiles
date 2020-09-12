@@ -1,4 +1,5 @@
 version: "3.7"
+
 services:
   mysql:
     container_name: mysql
@@ -10,7 +11,20 @@ services:
     ports:
       - 3306:3306
     environment:
-      MYSQL_ROOT_PASSWORD: '5ecur3'
+      MYSQL_ROOT_PASSWORD: 'root'
+    networks:
+      - zarusnet
+  phpmyadmin:
+    container_name: phpmyadmin
+    depends_on:
+      - mysql
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    ports:
+      - '9000:80'
+    environment:
+      PMA_HOST: mysql
+      MYSQL_ROOT_PASSWORD: root
     networks:
       - zarusnet
 

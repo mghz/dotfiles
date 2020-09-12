@@ -4,7 +4,14 @@ export PS1="\[\033[32m\]\w\[\033[33m\]\$(parse_git_branch)\[\033[00m\] -> "
 export PAGER=less
 
 export PATH=/usr/local/sbin:$PATH
-export PATH=$HOME/.cargo/bin:$PATH
+
+if [ -x "$(command -v cargo)" ]; then
+    export PATH=$HOME/.cargo/bin:$PATH
+fi
+
+if [ -x "$(command -v yarn)" ]; then
+    export PATH="$PATH:`yarn global bin`"
+fi
 
 # }}}
 
@@ -191,3 +198,4 @@ function manp() { man -t "$@" | open -f -a "Preview" ;}
 # }}}
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+

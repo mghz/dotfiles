@@ -41,15 +41,19 @@ alias ping='ping -c 4'
 alias grep='grep -n'
 alias pre='open -a Preview'
 alias text='open -a TextEdit'
-alias mup='brew update && brew cask outdated && brew upgrade && brew cleanup && brew doctor'
+alias mup='brew update && brew outdated --cask && brew upgrade && brew cleanup && brew doctor'
 alias lup='sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && sudo apt autoclean && sudo snap refresh'
 
-# containers
+# docker
 alias dk='docker'
+alias dki='docker image'
 alias dke='docker exec'
 alias dkrm='docker rm -f $(docker ps -aq)'
 alias dm='docker-machine'
 alias dc='docker-compose'
+
+# multipass
+alias mp='multipass'
 
 # rust
 alias cb='cargo fmt; cargo build'
