@@ -19,6 +19,9 @@ alias rm='rm -i'
 alias rmf='rm -rf'
 alias which='type -a'
 
+# audio
+alias yta='youtube-dl --audio-format best -x'
+
 # config files
 alias vim='nvim'
 alias vimrc='vim ~/.vimrc'
@@ -73,6 +76,11 @@ alias py3='python3'
 
 # web assembly
 alias wp='wasm-pack'
+
+# jpmc
+# s and p to select from multiple accounts if provisioned
+alias pclauth='pcl aws --sandbox-user --domain <domain> --sid i698053 -s -p adfs'
+
 
 # OS dependent
 case `uname` in

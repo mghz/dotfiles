@@ -1,32 +1,103 @@
 version: "3.7"
 
 services:
-  zero:
-    image: dgraph/dgraph:latest
+
+  pulsar:
+    container_name: pulsar
+    image: apachepulsar/pulsar:2.6.1
+    command: bin/pulsar standalone
     volumes:
-      - dgraph:/dgraph
+      - pulsardata:/pulsar/data
+      - pulsarconf:/pulsar/conf
     ports:
-      - 5080:5080
-      - 6080:6080
-    restart: on-failure
-    command: dgraph zero --my=zero:5080
-  alpha:
-    image: dgraph/dgraph:latest
-    volumes:
-      - dgraph:/dgraph
-    ports:
+      - 6650:6650
       - 8080:8080
-      - 9080:9080
-    restart: on-failure
-    command: dgraph alpha --my=alpha:7080 --lru_mb=2048 --zero=zero:5080
-  ratel:
-    image: dgraph/dgraph:latest
+    networks:
+      - zarusnet
+
+  pulsar-manager:
+    container_name: pulsar-manager
+    image: apachepulsar/pulsar-manager:v0.2.0
+    command: bin/pulsar standalone
+    environment:
+      - SPRING_CONFIGURATION_FILE=/pulsar-manager/pulsar-manager/application.properties apachepulsar/pulsar-manager:v0.2.0
     ports:
-      - 8000:8000
-    command: dgraph-ratel
+      - 9527:9527
+      - 7750:7750
+    networks:
+      - zarusnet
+
+  # zero:
+  #   image: dgraph/dgraph:latest
+  #   volumes:
+  #     - dgraph:/dgraph
+  #   ports:
+  #     - 5080:5080
+  #     - 6080:6080
+  #   restart: on-failure
+  #   command: dgraph zero --my=zero:5080
+  # alpha:
+  #   image: dgraph/dgraph:latest
+  #   volumes:
+  #     - dgraph:/dgraph
+  #   ports:
+  #     - 8080:8080
+  #     - 9080:9080
+  #   restart: on-failure
+  #   command: dgraph alpha --my=alpha:7080 --lru_mb=2048 --zero=zero:5080
+  # ratel:
+  #   image: dgraph/dgraph:latest
+  #   ports:
+  #     - 8000:8000
+  #   command: dgraph-ratel
+
+  # mysql:
+  #   container_name: mysql
+  #   image: mysql
+  #   command: --default-authentication-plugin=mysql_native_password
+  #   restart: always
+  #   volumes:
+  #     - mysql:/var/lib/mysql
+  #   ports:
+  #     - 3306:3306
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: 'root'
+  #   networks:
+  #     - zarusnet
+
+  # phpmyadmin:
+  #   container_name: phpmyadmin
+  #   depends_on:
+  #     - mysql
+  #   image: phpmyadmin/phpmyadmin
+  #   restart: always
+  #   ports:
+  #     - '9000:80'
+  #   environment:
+  #     PMA_HOST: mysql
+  #     MYSQL_ROOT_PASSWORD: root
+  #   networks:
+  #     - zarusnet
+
+  # reqheap:
+  #   container_name: reqhea
+  #   image: reqheap
+  #   depends_on:
+  #     - mysql
+  #   ports:
+  #     - '9001:80'
+  #   volumes:
+  #     - $PWD:/app
+  #   networks:
+  #     - zarusnet
 
 volumes:
+  mysql:
+  pulsardata:
+  pulsarconf:
   dgraph:
 
 networks:
   zarusnet:
+
+
