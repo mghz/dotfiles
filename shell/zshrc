@@ -8,8 +8,6 @@ else
     print "404: ~/dotfiles/shell/zshalias not found."
 fi
 
-
-
 # fzf {{{
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -49,10 +47,11 @@ export FZF_BASE="$HOME/.fzf"
 # exports {{{
 
 export PATH=/usr/local/bin:/usr/local/sbin:$PATH
-export PATH=/snap/bin:$PATH
+# export PATH=/snap/bin:$PATH
 export PATH=$PATH:~/Applications
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:/usr/local/go/bin:$PATH
+export PATH="/usr/local/opt/ruby/bin:$PATH"
 
 export PATH=$HOME/.local/bin:$PATH
 export PATH="$(yarn global bin):$PATH"
@@ -64,6 +63,8 @@ export PATH=$PATH:$JAVA_HOME/bin
 # python
 export PATH="/usr/local/opt/python@3.9/bin:$PATH"
 
+# ruby
+export GEM_HOME="$HOME/.gem"
 
 # don’t clear the screen after quitting a manual page
 export MANPAGER="less -X"
@@ -71,14 +72,26 @@ export MANPAGER="less -X"
 # default editor
 export EDITOR="nvim"
 
+# node
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+
 # }}}
 
 # functions {{{
 
-jdk() {
+function jdk() {
     version=$1
     export JAVA_HOME=$(/usr/libexec/java_home -v"$version");
     java -version
- }
+}
+
+function renpic() {
+
+    for file in *; do NEW_FILENAME=$(stat "$file" --format %y); echo mv "$file" "$NEW_FILENAME"; done
+    # for f in *.*; do
+    #     mv "$f" "$(mdls -name kMDItemContentCreationDate "$f" | sed s/kMDItemContentCreationDate...// | sed s/.+0000// | sed s/:/-/g | sed s/\ /_/g).${f##*.}";
+    # done
+}
 
 # }}}

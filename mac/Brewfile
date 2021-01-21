@@ -14,39 +14,36 @@ tap "homebrew/services"
 
 brew "bash"
 brew "bash-completion@2"
-brew "brew-cask-completion"
 brew "curl"
 brew "ffmpeg"
 brew "freetype"
-brew "fzf"
 brew "git"
 brew "gnu-tar"
-brew "golang"
 brew "gpg"
 brew "htop"
-brew "hyperkit"
-brew "jenv"
-brew "minikube"
+#brew "ripgrep"
+brew "vim"
 brew "neovim"
-brew "nodejs"
-brew "python"
-brew "ripgrep"
-brew "ruby"
+#brew "fzf"
 brew "tmux"
 brew "tree"
 brew "unrar"
-brew "vim"
-brew "yarn"
-brew "yarn-completion"
-brew "youtube-dl"
 brew "zsh"
-brew "zsh-completions"
-
 # brew "coreutils"
 # brew "findutils"
 
-## kubernetes
-# brew "kubectx"
+## development
+brew "golang"
+brew "nodejs"
+brew "yarn"
+brew "yarn-completion"
+brew "python"
+brew "ruby"
+
+## containers
+#brew "kubectx"
+#brew "hyperkit"
+#brew "minikube"
 
 # }}}
 
@@ -80,7 +77,6 @@ cask "font-nixie-one"
 cask "font-office-code-pro"
 cask "font-source-code-pro"
 cask "font-source-sans-pro"
-cask "font-ubuntu"
 
 # }}}
 

@@ -2,30 +2,43 @@ version: "3.7"
 
 services:
 
-  pulsar:
-    container_name: pulsar
-    image: apachepulsar/pulsar:2.6.1
-    command: bin/pulsar standalone
-    volumes:
-      - pulsardata:/pulsar/data
-      - pulsarconf:/pulsar/conf
-    ports:
-      - 6650:6650
-      - 8080:8080
-    networks:
-      - zarusnet
+  # kong:
+  #   container_name: kong
+  #   image: kong;latest
+  #   ports:
+  #   - 8000:8000
+  #   - 8443:8443
+  #   - 8001:8001
+  #   - 8444:8444
+  #   env-file:
+  #     - ./keys.env
+  #   networks:
+  #     - zarusnet
 
-  pulsar-manager:
-    container_name: pulsar-manager
-    image: apachepulsar/pulsar-manager:v0.2.0
-    command: bin/pulsar standalone
-    environment:
-      - SPRING_CONFIGURATION_FILE=/pulsar-manager/pulsar-manager/application.properties apachepulsar/pulsar-manager:v0.2.0
-    ports:
-      - 9527:9527
-      - 7750:7750
-    networks:
-      - zarusnet
+  # pulsar:
+  #   container_name: pulsar
+  #   image: apachepulsar/pulsar:2.6.1
+  #   command: bin/pulsar standalone
+  #   volumes:
+  #     - pulsardata:/pulsar/data
+  #     - pulsarconf:/pulsar/conf
+  #   ports:
+  #     - 6650:6650
+  #     - 8080:8080
+  #   networks:
+  #     - zarusnet
+
+  # pulsar-manager:
+  #   container_name: pulsar-manager
+  #   image: apachepulsar/pulsar-manager:v0.2.0
+  #   command: bin/pulsar standalone
+  #   environment:
+  #     - SPRING_CONFIGURATION_FILE=/pulsar-manager/pulsar-manager/application.properties apachepulsar/pulsar-manager:v0.2.0
+  #   ports:
+  #     - 9527:9527
+  #     - 7750:7750
+  #   networks:
+  #     - zarusnet
 
   # zero:
   #   image: dgraph/dgraph:latest

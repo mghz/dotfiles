@@ -117,7 +117,7 @@ fi
 echo
 if ask "-> Install zprezto?" N; then
     echo
-    if [ -d "~/.prezto" ]; then
+    if [ ! -d "~/.prezto" ]; then
         echo "-> installing zprezto"
         git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
 
@@ -172,42 +172,52 @@ fi
 
 echo
 if ask "-> Create directories?" N; then
-    [ -d "~/wspace/projects" ] && mkdir -p wspace/projects
-    [ -d "~/wspace/sandbox" ] && mkdir -p wspace/sandbox
-    [ -d "~/wspace/open-source" ] && mkdir -p wspace/open-source
+    [ -d "~/space/projects" ] && mkdir -p ~/space/projects
+    [ -d "~/space/sandbox" ] && mkdir -p ~/space/sandbox
+    [ -d "~/space/oss" ] && mkdir -p ~/space/oss
 fi
 
 echo
-if ask "-> Update symbolic links?" Y; then
+if ask "-> Update symbolic links?" N; then
 
     echo
-    if ask "-> link neovim?" Y; then
+    if ask "-> link neovim?" N; then
+	    test -d ~/.config || mkdir -p ~/.config
         ln -sfv ~/dotfiles/neovim ~/.config/nvim
     fi
 
     echo
-    if ask "-> link zsh config?" Y; then
+    if ask "-> link zsh config?" N; then
         echo "sourcing zsh configuration files"
-        #ln -sfv ~/dotfiles/shell/zprezto/zshrc ~/.zshrc
-        echo "source ~/dotfiles/shell/zshrc" >> ~/.zshrc
-        echo "source ~/dotfiles/shell/zshalias" >> ~/.zshrc
+       	#ln -sfv ~/dotfiles/shell/zprezto/zshrc ~/.zshrc
+        echo "source ~/dotfiles/shell/zshrc" >> ~/.zprezto/runcoms/zshrc
     fi
 
     echo
-    if ask "-> link bash configs?" Y; then
-        ln -sfv ~/dotfiles/shell/bash_profile ~/.bash_profile
-        ln -sfv ~/dotfiles/shell/profile ~/.profile
-        ln -sfv ~/dotfiles/shell/zshalias ~/.bash_aliases
-        ln -sfv ~/dotfiles/shell/bashrc ~/.bashrc
+    if ask "-> link bash configs?" N; then
+	test -f ~/.bashrc || touch ~/.bashrc
+	test -f ~/.bash_profile || touch ~/.bash_profile
+	# test -f ~/.profile || touch ~/.profile
+
+	# source scripts
+	echo -e "source ~/dotfiles/shell/bashrc\n" >> ~/.bashrc
+	echo -e "source ~/dotfiles/shell/bashprofile\n" >> ~/.bash_profile
+	# echo -e "source ~/dotfiles/shell/profile\n" >> ~/.profile
+
+	# create links
+        #ln -sfv ~/dotfiles/shell/bash_profile ~/.bash_profile
+        #ln -sfv ~/dotfiles/shell/profile ~/.profile
+        #ln -sfv ~/dotfiles/shell/zshalias ~/.bash_aliases
+        #ln -sfv ~/dotfiles/shell/bashrc ~/.bashrc
     fi
 
     echo
-    if ask "-> link git config?" Y; then
+    if ask "-> link git config?" N; then
         ln -sfv ~/dotfiles/git/gitconfig ~/.gitconfig
     fi
 
     echo
-    if ask "-> link and configure npm?" Y; then
+    if ask "-> link and configure npm?" N; then
         npm config set init.author.name "mghz"
         npm config set init.author.email "m1gharzed@gmail.com"
         npm config set init.license "MIT"
