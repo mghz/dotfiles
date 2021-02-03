@@ -22,10 +22,13 @@
   "diagnostic.warningSign": "⚠",
   "diagnostic.errorSign": "✖",
   "diagnostic.enable": true,
-  "diagnostic.signOffset": 9999999,
   "diagnostic.highlightOffset": 9999999,
   "diagnostic.refreshOnInsertMode": true,
 
+  "eslint.enable": true,
+  "eslint.run": "onSave",
+  "eslint.autoFix": true,
+  "eslint.autoFixOnSave": true,
   "eslint.packageManager": "yarn",
 
   "explorer.previewAction.onHover": false,

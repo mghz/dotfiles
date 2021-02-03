@@ -81,7 +81,6 @@ alias wp='wasm-pack'
 # s and p to select from multiple accounts if provisioned
 alias pclauth='pcl aws --sandbox-user --domain <domain> --sid i698053 -s -p adfs'
 
-
 # OS dependent
 case `uname` in
     Darwin)

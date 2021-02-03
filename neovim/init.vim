@@ -1,12 +1,12 @@
 " nvim configuration
 
+" settings {{{
+
 set encoding=utf-8
 scriptencoding utf-8
 
 " define leader
 let mapleader = ','
-
-" settings {{{
 
 " disable netrw
 let loaded_netrwPlugin=1
@@ -92,7 +92,7 @@ set nofoldenable               " no fold by default (foldenable) "
 
 " status
 set cmdheight=1                " better display for message "
-set laststatus=2               " always display the status bar "
+" set laststatus=2               " always display the status bar "
 
 " backup, swap, spelling
 set nobackup                   " don't create backup files "
@@ -466,7 +466,7 @@ endfunction
 
 " vim-signature {{{
 
-" Plug 'https://github.com/kshenoy/vim-signature'
+Plug 'https://github.com/kshenoy/vim-signature'
 
 " mx           Toggle mark 'x' and display it in the leftmost column
 " dmx          Remove mark 'x' where x is a-zA-Z
@@ -496,6 +496,12 @@ endfunction
 
 " ------------------------------------------------------------------------ }}}
 
+" kotlin {{{
+
+Plug 'https://github.com/udalov/kotlin-vim'
+
+" }}}
+
 " git {{{
 
 Plug 'https://github.com/tpope/vim-fugitive'
@@ -505,86 +511,7 @@ Plug 'https://github.com/airblade/vim-gitgutter'
 
 " rust {{{
 
-" Plug 'https://github.com/rust-lang/rust.vim'
-
-" let g:rustfmt_autosave = 1
-
-" " "macunix                 Macintosh version of Vim, using Unix files (OS-X).
-" " "unix                    Unix version of Vim.
-" " "win32                   Win32 version of Vim (MS-Windows 95 and later, 32 or 64 bits)
-" " "win32unix               Win32 version of Vim, using Unix files (Cygwin)
-" if has('macunix')
-"   let g:rust_clip_command = 'pbcopy'
-" elseif has('unix')
-"   let g:rust_clip_command = 'xclip -selection clipboard'
-" endif
-
-" au! BufNewFile,BufReadPost *.{rs} set foldmethod=syntax
-
-" rust-racer {{{
-
-" Plug 'racer-rust/vim-racer'
-"
-" " racer path
-" let g:racer_cmd = "$HOME/.cargo/bin/racer"
-"
-" " insert parentheses
-" let g:racer_insert_paren = 1
-"
-" " auto commands
-" augroup Racer
-"   autocmd!
-"   autocmd FileType rust nmap <buffer> gd         <Plug>(rust-def)
-"   autocmd FileType rust nmap <buffer> gs         <Plug>(rust-def-split)
-"   autocmd FileType rust nmap <buffer> gx         <Plug>(rust-def-vertical)
-"   autocmd FileType rust nmap <buffer> gt         <Plug>(rust-def-tab)
-"   autocmd FileType rust nmap <buffer> <leader>gd <Plug>(rust-doc)
-" augroup END
-
-" ------------------------------------------------------------------------ }}}
-
-" }}}
-
-" go {{{
-
-" Plug 'https://github.com/fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-
-" let g:go_def_mode = "gopls"
-" let g:go_info_mode = "gopls"
-" let g:go_fmt_command = "goimports"
-" let g:go_def_mapping_enabled = 0
-
-" " gofmt shows any errors during parsing the file in quickfix
-" let g:go_fmt_fail_silently = 1
-
-" map <C-n> :cnext<CR>
-" map <C-m> :cprevious<CR>
-" nnoremap <leader>a :cclose<CR>
-
-" " au! FileType go nmap <Leader>i <Plug>(go-info)
-" " au! FileType go nmap <leader>r  <Plug>(go-run)
-" " au! FileType go nmap <leader>t  <Plug>(go-test)
-" " au! FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
-" " au! FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
-" au! BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
-
-" " functions
-" " run :GoBuild or :GoTestCompile based on the go file
-" function! s:build_go_files()
-"   let l:file = expand('%')
-"   if l:file =~# '^\f\+_test\.go$'
-"     call go#test#Test(0, 1)
-"   elseif l:file =~# '^\f\+\.go$'
-"     call go#cmd#Build(0)
-"   endif
-" endfunction
-
-" }}}
-
-" web {{{
-
-" Plug 'https://github.com/posva/vim-vue'
-" Plug 'https://github.com/mattn/emmet-vi
+let g:rustfmt_autosave = 1
 
 " }}}
 
@@ -741,6 +668,24 @@ tnoremap <silent> <Esc> <C-\><C-n>
 
 " save with sudo
 cmap w!! w !sudo tee %
+
+" terminal mappings
+" To simulate |i_CTRL-R|
+tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
+
+" To use `ALT+{h,j,k,l}` to navigate windows from any mode:
+tnoremap <A-h> <C-\><C-N><C-w>h
+tnoremap <A-j> <C-\><C-N><C-w>j
+tnoremap <A-k> <C-\><C-N><C-w>k
+tnoremap <A-l> <C-\><C-N><C-w>l
+inoremap <A-h> <C-\><C-N><C-w>h
+inoremap <A-j> <C-\><C-N><C-w>j
+inoremap <A-k> <C-\><C-N><C-w>k
+inoremap <A-l> <C-\><C-N><C-w>l
+nnoremap <A-h> <C-w>h
+nnoremap <A-j> <C-w>j
+nnoremap <A-k> <C-w>k
+nnoremap <A-l> <C-w>l
 
 " }}}
 
