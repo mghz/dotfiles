@@ -1,12 +1,12 @@
 " nvim configuration
 
+" settings {{{
+
 set encoding=utf-8
 scriptencoding utf-8
 
 " define leader
 let mapleader = ','
-
-" settings {{{
 
 " disable netrw
 let loaded_netrwPlugin=1
@@ -92,7 +92,7 @@ set nofoldenable               " no fold by default (foldenable) "
 
 " status
 set cmdheight=1                " better display for message "
-set laststatus=2               " always display the status bar "
+" set laststatus=2               " always display the status bar "
 
 " backup, swap, spelling
 set nobackup                   " don't create backup files "
@@ -163,6 +163,7 @@ if empty(glob('~/.config/nvim/autoload/plug.vim'))
     augroup end
 endif
 
+
 call plug#begin(expand('~/.config/nvim/plugged'))
 
 " color schemes
@@ -189,12 +190,6 @@ Plug 'https://github.com/Yggdroot/indentLine'
 
 let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 let g:indentLine_enabled = 1
-
-" }}}
-
-" vim-prettier {{{
-
-" Plug 'https://github.com/prettier/vim-prettier'
 
 " }}}
 
@@ -239,31 +234,42 @@ command! -bang -nargs=*  All
 
 Plug 'https://github.com/neoclide/coc.nvim', {'branch': 'release'}
 
-" extensions
-Plug 'https://github.com/fannheyward/coc-marketplace', {'do': 'yarn install --frozen-lockfile'}
-Plug 'https://github.com/neoclide/coc-git', {'do': 'yarn install --frozen-lockfile'}
-Plug 'https://github.com/neoclide/coc-yank', {'do': 'yarn install --frozen-lockfile'}
-Plug 'https://github.com/neoclide/coc-pairs', {'do': 'yarn install --frozen-lockfile'}
-Plug 'https://github.com/voldikss/coc-bookmark', {'do': 'yarn install --frozen-lockfile'}
-Plug 'https://github.com/neoclide/coc-emmet', {'do': 'yarn install --frozen-lockfile'}
+" extensions {{{
 
-Plug 'https://github.com/neoclide/coc-vetur', {'do': 'yarn install --frozen-lockfile'}
-Plug 'https://github.com/neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
-Plug 'https://github.com/neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
-Plug 'https://github.com/neoclide/coc-html', {'do': 'yarn install --frozen-lockfile'}
-Plug 'https://github.com/neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
-Plug 'https://github.com/neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile'}
-Plug 'https://github.com/fannheyward/coc-markdownlint', {'do': 'yarn install --frozen-lockfile'}
-Plug 'https://github.com/clangd/coc-clangd', {'do': 'yarn install --frozen-lockfile'}
-Plug 'https://github.com/voldikss/coc-cmake', {'do': 'yarn install --frozen-lockfile'}
-Plug 'https://github.com/josa42/coc-go', {'do': 'yarn install --frozen-lockfile'}
-Plug 'https://github.com/neoclide/coc-python', {'do': 'yarn install --frozen-lockfile'}
-Plug 'https://github.com/fannheyward/coc-rust-analyzer', {'do': 'yarn install --frozen-lockfile'}
+let g:coc_global_extensions = [
+    \ 'coc-actions',
+    \ 'coc-bookmark',
+    \ 'coc-clangd',
+    \ 'coc-cmake',
+    \ 'coc-css',
+    \ 'coc-emmet',
+    \ 'coc-eslint',
+    \ 'coc-explorer',
+    \ 'coc-fzf-preview',
+    \ 'coc-git',
+    \ 'coc-go',
+    \ 'coc-highlight',
+    \ 'coc-html',
+    \ 'coc-json',
+    \ 'coc-lists',
+    \ 'coc-markdownlint',
+    \ 'coc-marketplace',
+    \ 'coc-pairs',
+    \ 'coc-prettier',
+    \ 'coc-python',
+    \ 'coc-rust-analyzer',
+    \ 'coc-stylelint',
+    \ 'coc-vetur',
+    \ 'coc-xml',
+    \ 'coc-yaml',
+    \ 'coc-yank'
+    \]
 
-" ext: fzf {{{
+" }}}
 
-Plug 'https://github.com/antoinemadec/coc-fzf', {'do': 'yarn install --frozen-lockfile'}
+" mappings {{{
 
+" fzf
 nnoremap <silent> <leader><leader>a  :<C-u>CocFzfList diagnostics<CR>
 nnoremap <silent> <leader><leader>b  :<C-u>CocFzfList diagnostics --current-buf<CR>
 nnoremap <silent> <leader><leader>c  :<C-u>CocFzfList commands<CR>
@@ -274,56 +280,16 @@ nnoremap <silent> <leader><leader>s  :<C-u>CocFzfList symbols<CR>
 nnoremap <silent> <leader><leader>S  :<C-u>CocFzfList services<CR>
 nnoremap <silent> <leader><leader>p  :<C-u>CocFzfListResume<CR>
 
-" }}}
-
-" ext: explorer {{{
-
-Plug 'https://github.com/weirongxu/coc-explorer', {'do': 'yarn install --frozen-lockfile'}
+" explorer
 nnoremap <silent> <F8> :CocCommand explorer<CR>
 nnoremap <silent> <leader>x :CocCommand explorer<CR>
 
-" " }}}
-
-" ext: snippets {{{
-
-Plug 'https://github.com/neoclide/coc-snippets', {'do': 'yarn install --frozen-lockfile'}
-
-" }}}
-
-" ext: lists {{{
-
-Plug 'https://github.com/neoclide/coc-lists', {'do': 'yarn install --frozen-lockfile'}
-
-" grep current word in current buffer
-nnoremap <silent> <leader>w  :exe 'CocList -I --normal --input='.expand('<cword>').' words'<CR>
-
-" grep word under cursor
-command! -nargs=+ -complete=custom,s:GrepArgs Rg exe 'CocList grep '.<q-args>
-
-" Keymapping for grep word under cursor with interactive mode
-nnoremap <silent> <Leader>cf :exe 'CocList -I --input='.expand('<cword>').' grep'<CR>
-
-function! s:GrepArgs(...)
-  let list = ['-S', '-smartcase', '-i', '-ignorecase', '-w', '-word',
-        \ '-e', '-regex', '-u', '-skip-vcs-ignores', '-t', '-extension']
-  return join(list, "\n")
-endfunction
-
-" }}}
-
-" ext: prettier {{{
-
-Plug 'https://github.com/neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
-
+" prettier
 vmap <leader>y  <Plug>(coc-format-selected)
 nmap <leader>y  <Plug>(coc-format-selected)
 
 " format on save
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
-
-" }}}
-
-" mappings {{{
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
@@ -463,24 +429,6 @@ endfunction
 
 " }}}
 
-" snippets {{{
-
-" Plug 'https://github.com/SirVer/ultisnips'
-
-" " Options
-" " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-" let g:UltiSnipsExpandTrigger="<tab>"
-" let g:UltiSnipsJumpForwardTrigger="<c-b>"
-" let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-
-" " If you want :UltiSnipsEdit to split your window.
-" " let g:UltiSnipsEditSplit="vertical"
-
-" " snippets
-" Plug 'https://github.com/honza/vim-snippets'
-
-" " }}}
-
 " startify {{{
 
 Plug 'https://github.com/mhinz/vim-startify'
@@ -516,26 +464,6 @@ endfunction
 
 " }}}
 
-" taglist {{{
-
-" Plug 'https://github.com/yegappan/taglist'
-
-" let Tlist_Close_On_Select = 1
-" let Tlist_Exit_OnlyWindow = 1
-" let Tlist_GainFocus_On_ToggleOpen = 1
-" let Tlist_Use_Right_Window = 1
-" let Tlist_Process_File_Always = 1
-" " let Tlist_Compact_Format = 1
-" " let Tlist_Use_Horiz_Window = 1
-
-" " show tags for only open file
-" let Tlist_Show_One_File = 1
-
-" " show taglist
-" nnoremap <silent> <F12> :TlistToggle<CR>
-
-" }}}
-
 " vim-signature {{{
 
 Plug 'https://github.com/kshenoy/vim-signature'
@@ -568,6 +496,12 @@ Plug 'https://github.com/kshenoy/vim-signature'
 
 " ------------------------------------------------------------------------ }}}
 
+" kotlin {{{
+
+Plug 'https://github.com/udalov/kotlin-vim'
+
+" }}}
+
 " git {{{
 
 Plug 'https://github.com/tpope/vim-fugitive'
@@ -577,86 +511,7 @@ Plug 'https://github.com/airblade/vim-gitgutter'
 
 " rust {{{
 
-Plug 'https://github.com/rust-lang/rust.vim'
-
 let g:rustfmt_autosave = 1
-
-" " "macunix                 Macintosh version of Vim, using Unix files (OS-X).
-" " "unix                    Unix version of Vim.
-" " "win32                   Win32 version of Vim (MS-Windows 95 and later, 32 or 64 bits)
-" " "win32unix               Win32 version of Vim, using Unix files (Cygwin)
-" if has('macunix')
-"   let g:rust_clip_command = 'pbcopy'
-" elseif has('unix')
-"   let g:rust_clip_command = 'xclip -selection clipboard'
-" endif
-
-" au! BufNewFile,BufReadPost *.{rs} set foldmethod=syntax
-
-" rust-racer {{{
-
-" Plug 'racer-rust/vim-racer'
-"
-" " racer path
-" let g:racer_cmd = "$HOME/.cargo/bin/racer"
-"
-" " insert parentheses
-" let g:racer_insert_paren = 1
-"
-" " auto commands
-" augroup Racer
-"   autocmd!
-"   autocmd FileType rust nmap <buffer> gd         <Plug>(rust-def)
-"   autocmd FileType rust nmap <buffer> gs         <Plug>(rust-def-split)
-"   autocmd FileType rust nmap <buffer> gx         <Plug>(rust-def-vertical)
-"   autocmd FileType rust nmap <buffer> gt         <Plug>(rust-def-tab)
-"   autocmd FileType rust nmap <buffer> <leader>gd <Plug>(rust-doc)
-" augroup END
-
-" ------------------------------------------------------------------------ }}}
-
-" }}}
-
-" go {{{
-
-Plug 'https://github.com/fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-
-let g:go_def_mode = "gopls"
-let g:go_info_mode = "gopls"
-let g:go_fmt_command = "goimports"
-let g:go_def_mapping_enabled = 0
-
-" gofmt shows any errors during parsing the file in quickfix
-let g:go_fmt_fail_silently = 1
-
-map <C-n> :cnext<CR>
-map <C-m> :cprevious<CR>
-nnoremap <leader>a :cclose<CR>
-
-" au! FileType go nmap <Leader>i <Plug>(go-info)
-" au! FileType go nmap <leader>r  <Plug>(go-run)
-" au! FileType go nmap <leader>t  <Plug>(go-test)
-" au! FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
-" au! FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
-au! BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
-
-" functions
-" run :GoBuild or :GoTestCompile based on the go file
-function! s:build_go_files()
-  let l:file = expand('%')
-  if l:file =~# '^\f\+_test\.go$'
-    call go#test#Test(0, 1)
-  elseif l:file =~# '^\f\+\.go$'
-    call go#cmd#Build(0)
-  endif
-endfunction
-
-" }}}
-
-" web {{{
-
-" Plug 'https://github.com/posva/vim-vue'
-" Plug 'https://github.com/mattn/emmet-vi
 
 " }}}
 
@@ -813,6 +668,24 @@ tnoremap <silent> <Esc> <C-\><C-n>
 
 " save with sudo
 cmap w!! w !sudo tee %
+
+" terminal mappings
+" To simulate |i_CTRL-R|
+tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
+
+" To use `ALT+{h,j,k,l}` to navigate windows from any mode:
+tnoremap <A-h> <C-\><C-N><C-w>h
+tnoremap <A-j> <C-\><C-N><C-w>j
+tnoremap <A-k> <C-\><C-N><C-w>k
+tnoremap <A-l> <C-\><C-N><C-w>l
+inoremap <A-h> <C-\><C-N><C-w>h
+inoremap <A-j> <C-\><C-N><C-w>j
+inoremap <A-k> <C-\><C-N><C-w>k
+inoremap <A-l> <C-\><C-N><C-w>l
+nnoremap <A-h> <C-w>h
+nnoremap <A-j> <C-w>j
+nnoremap <A-k> <C-w>k
+nnoremap <A-l> <C-w>l
 
 " }}}
 
