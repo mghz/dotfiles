@@ -201,21 +201,26 @@ if ask "-> Clone dotfiles repo?" N; then
 fi
 
 echo
-if ask "-> Update symbolic links?" Y; then
+if ask "-> Update symbolic links?" N; then
 
     echo
-    if ask "-> link neovim?" Y; then
+    if ask "-> link neovim?" N; then
         ln -sfv ~/dotfiles/neovim $HOME/.config/nvim
     fi
 
     echo
-    if ask "-> link zsh config?" Y; then
+    if ask "-> link vimrc?" N; then
+        ln -sfv ~/dotfiles/neovim/vimrc.vim $HOME/.vimrc
+    fi
+
+    echo
+    if ask "-> link zsh config?" N; then
         echo "skipped"
 #         ln -sfv ~/dotfiles/shell/zprezto/zshrc $HOME/.zshrc
     fi
 
     echo
-    if ask "-> link bash configs?" Y; then
+    if ask "-> link bash configs?" N; then
         ln -sfv ~/dotfiles/shell/bash_profile $HOME/.bash_profile
         ln -sfv ~/dotfiles/shell/profile $HOME/.profile
         ln -sfv ~/dotfiles/shell/zshalias $HOME/.bash_aliases
@@ -223,12 +228,12 @@ if ask "-> Update symbolic links?" Y; then
     fi
 
     echo
-    if ask "-> link git config?" Y; then
+    if ask "-> link git config?" N; then
         ln -sfv ~/dotfiles/git/gitconfig $HOME/.gitconfig
     fi
 
     echo
-    if ask "-> link npm config?" Y; then
+    if ask "-> link npm config?" N; then
         ln -sfv ~/dotfiles/nodejs/npmrc $HOME/.npmrc
     fi
 fi
