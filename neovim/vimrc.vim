@@ -1,15 +1,29 @@
 " nvim configuration
 
+" abbreviations {{{
+
+abbr waht what
+abbr tehn then
+abbr funciton function
+abbr teh the
+abbr tempalte template
+abbr fitler filter
+abbr cosnt const
+abbr attribtue attribute
+abbr attribuet attribute
+
+" }}}
+
+" settings {{{
+
 set encoding=utf-8
 scriptencoding utf-8
 
 " define leader
 let mapleader = ','
 
-" settings {{{
-
 " disable netrw
-let loaded_netrwPlugin=1
+" let loaded_netrwPlugin=1
 
 syntax on
 filetype plugin indent on
@@ -211,6 +225,18 @@ Plug 'https://github.com/airblade/vim-gitgutter'
 
 " }}}
 
+" polyglot {{{
+
+Plug 'https://github.com/sheerun/vim-polyglot'
+
+" }}}
+
+" commentary {{{
+
+Plug 'https://github.com/tpope/vim-commentary'
+
+" }}}
+
 call plug#end()
 
 " }}}
@@ -336,6 +362,12 @@ tnoremap <silent> <Esc> <C-\><C-n>
 " save with sudo
 cmap w!! w !sudo tee %
 
+" netrw
+nnoremap <silent><leader>x :Explore<CR>
+
+" format
+nnoremap <silent><leader>f gg=G
+
 " }}}
 
 " color schemes {{{
@@ -354,19 +386,5 @@ let ayucolor="mirage" " options: light, mirage, dark
 " colorscheme onedark
 " colorscheme vimterial_dark
 colorscheme palenight
-
-" }}}
-
-" abbreviations {{{
-
-abbr waht what
-abbr tehn then
-abbr funciton function
-abbr teh the
-abbr tempalte template
-abbr fitler filter
-abbr cosnt const
-abbr attribtue attribute
-abbr attribuet attribute
 
 " }}}
