@@ -38,8 +38,6 @@ if has('clipboard')
 endif
 
 " backup
-" set directory=~/.cache/vim " swap directory"
-" set backupdir=~/.cache/vim " backup directory"
 set backupcopy=yes         " enable safe writes
 
 " functionality
