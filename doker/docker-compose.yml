@@ -1,6 +1,73 @@
 version: "3.7"
 
 services:
+  cassdb:
+    container_name: cassdb
+    image: cassandra:latest
+    command: /bin/bash -c "sleep 1 && echo '-- catch up -->' && /docker-entrypoint.sh cassandra -f"
+    env_file:
+      - ./dev.env
+    ports:
+      - 9042:9042
+    # expose:
+    #   - 7000:7000
+    #   - 7001:7001
+    #   - 7199:7199
+    #   - 9042:9042
+    #   - 9160:9160
+    volumes:
+      - cassdb:/var/lib/cassandra
+    networks:
+      - zarusnet
+
+  pgdb:
+    container_name: pgdb
+    image: postgres
+    env_file:
+      - ./dev.env
+    ports:
+      - 5432:5432
+    volumes:
+      - pgdb:/var/lib/postgresql/data
+    networks:
+      - zarusnet
+
+  mysqldb:
+    container_name: mysqldb
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    env_file:
+      - ./dev.env
+    ports:
+      - 3306:3306
+    volumes:
+      - mysqldb:/var/lib/mysql
+    networks:
+      - zarusnet
+
+  gitea:
+    container_name: gitea
+    image: gitea/gitea:latest
+    env_file:
+      - ./dev.env
+    ports:
+      - 3000:3000
+      - 222:22
+    volumes:
+      - gitea:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    depends_on:
+      - pgdb
+
+volumes:
+  cassdb:
+  pgdb:
+  mysqldb:
+  gitea:
+
+networks:
+  zarusnet:
 
   # kong:
   #   container_name: kong
@@ -64,33 +131,6 @@ services:
   #     - 8000:8000
   #   command: dgraph-ratel
 
-  # mysql:
-  #   container_name: mysql
-  #   image: mysql
-  #   command: --default-authentication-plugin=mysql_native_password
-  #   restart: always
-  #   volumes:
-  #     - mysql:/var/lib/mysql
-  #   ports:
-  #     - 3306:3306
-  #   environment:
-  #     MYSQL_ROOT_PASSWORD: 'root'
-  #   networks:
-  #     - zarusnet
-
-  # phpmyadmin:
-  #   container_name: phpmyadmin
-  #   depends_on:
-  #     - mysql
-  #   image: phpmyadmin/phpmyadmin
-  #   restart: always
-  #   ports:
-  #     - '9000:80'
-  #   environment:
-  #     PMA_HOST: mysql
-  #     MYSQL_ROOT_PASSWORD: root
-  #   networks:
-  #     - zarusnet
 
   # reqheap:
   #   container_name: reqhea
@@ -103,14 +143,4 @@ services:
   #     - $PWD:/app
   #   networks:
   #     - zarusnet
-
-volumes:
-  mysql:
-  pulsardata:
-  pulsarconf:
-  dgraph:
-
-networks:
-  zarusnet:
-
 

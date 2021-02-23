@@ -38,8 +38,8 @@ if has('clipboard')
 endif
 
 " backup
-set directory=~/.cache/vim " swap directory"
-set backupdir=~/.cache/vim " backup directory"
+" set directory=~/.cache/vim " swap directory"
+" set backupdir=~/.cache/vim " backup directory"
 set backupcopy=yes         " enable safe writes
 
 " functionality
@@ -59,10 +59,10 @@ set ttyfast                    " faster redrawing "
 " display
 set background=dark            " vim background color "
 set foldcolumn=2               " display sidebar for folds "
-" set cursorline                 " enable cursor line, may slow vim "
 set linebreak                  " avoid wrapping a line in the middle of a word "
-" set list                       " show invisibles
+set list                       " show invisibles
 " set listchars=tab:→→,eol:¬,space:.,trail:.,extends:#,nbsp:.
+set listchars=tab:→→,trail:.,extends:#,nbsp:.
 set matchtime=1                " When typing a closing bracket, briefly flash the one it matches "
 set number relativenumber      " show hybrid line numbers "
 set noshowmode                 " don't show mode "
@@ -75,12 +75,12 @@ set splitbelow                 " split below by default "
 set splitright                 " split right by default "
 " set textwidth=80
 set title                      " set title of window to file "
-set virtualedit=block          " virtual cursor movements. options: block, insert or all "
+set virtualedit=all            " virtual cursor movements. options: block, insert or all "
 set wildmenu                   " wild menu "
 
 " scroll
-set scrolloff=5                " screenlines to keep above and below the cursor "
-set sidescrolloff=5            " col to keep to the left and right of the cursor "
+set scrolloff=15                " screenlines to keep above and below the cursor "
+set sidescrolloff=15            " col to keep to the left and right of the cursor "
 
 " tab control
 set autoindent                 " auto indent on new lines set autoread "
@@ -105,9 +105,9 @@ set cmdheight=1                " better display for message "
 set laststatus=2               " always display the status bar "
 
 " backup, swap, spelling
-set nobackup                   " don't create backup files "
-set nospell                    " disable spelling highlights "
-set noswapfile                 " no swap files "
+" set nobackup                   " don't create backup files "
+" set nospell                    " disable spelling highlights "
+" set noswapfile                 " no swap files "
 set nowritebackup              " delete backup after write "
 
 " search
@@ -157,6 +157,11 @@ if (has('termguicolors'))
 
     set termguicolors
 endif
+
+" terminal cursor mode
+let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+let &t_SR = "\<Esc>]50;CursorShape=2\x7"
+let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 
 " }}}
 
@@ -277,6 +282,8 @@ augroup configgroup
     " remove cursor line on insert
     au InsertEnter,InsertLeave * set cul!
 
+    au InsertEnter,InsertLeave * set cul!
+
 augroup END
 
 " }}}
@@ -307,12 +314,12 @@ nnoremap ; :
 nnoremap : ;
 
 " remap movement keys
-nnoremap e <S-e>
-nnoremap w <S-w>
-nnoremap b <S-b>
-nnoremap <S-e> e
-nnoremap <S-w> w
-nnoremap <S-b> b
+" nnoremap e <S-e>
+" nnoremap w <S-w>
+" nnoremap b <S-b>
+" nnoremap <S-e> e
+" nnoremap <S-w> w
+" nnoremap <S-b> b
 
 " moving up and down work as you would expect
 nnoremap <silent> j gj
