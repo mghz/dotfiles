@@ -168,8 +168,8 @@ let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 " automatically install vim-plug and run PlugInstall if vim-plug not found
 " auto-install vim-plug
 if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-      \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+                \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
@@ -185,6 +185,123 @@ Plug 'https://github.com/larsbs/vimterial_dark'
 Plug 'https://github.com/mhartington/oceanic-next'
 Plug 'https://github.com/morhetz/gruvbox'
 Plug 'https://github.com/rakr/vim-one'
+
+" fzf {{{
+
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'pbogut/fzf-mru.vim'
+
+let g:fzf_action = {
+            \ 'ctrl-t': 'tab split',
+            \ 'ctrl-x': 'split',
+            \ 'ctrl-v': 'vsplit' }
+
+" An action can be a reference to a function that processes selected lines
+function! s:build_quickfix_list(lines)
+    call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
+    copen
+    cc
+endfunction
+
+let g:fzf_action = {
+            \ 'ctrl-q': function('s:build_quickfix_list'),
+            \ 'ctrl-t': 'tab split',
+            \ 'ctrl-x': 'split',
+            \ 'ctrl-v': 'vsplit' }
+
+" Default fzf layout
+" - Popup window
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+
+" - down / up / left / right
+" let g:fzf_layout = { 'down': '40%' }
+
+" - Window using a Vim command
+let g:fzf_layout = { 'window': 'enew' }
+let g:fzf_layout = { 'window': '-tabnew' }
+let g:fzf_layout = { 'window': '10new' }
+
+if has('nvim-0.4.0') || has("patch-8.2.0191")
+    let g:fzf_layout = { 'window': {
+                \ 'width': 0.9,
+                \ 'height': 0.7,
+                \ 'highlight': 'Comment',
+                \ 'rounded': v:false } }
+else
+    let g:fzf_layout = { "window": "silent botright 16split enew" }
+endif
+
+
+" Customize fzf colors to match your color scheme
+" - fzf#wrap translates this to a set of `--color` options
+let g:fzf_colors =
+            \ {
+            \ 'fg':      ['fg', 'Normal'],
+            \ 'bg':      ['bg', 'Normal'],
+            \ 'hl':      ['fg', 'Comment'],
+            \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+            \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+            \ 'hl+':     ['fg', 'Statement'],
+            \ 'info':    ['fg', 'PreProc'],
+            \ 'border':  ['fg', 'Ignore'],
+            \ 'prompt':  ['fg', 'Conditional'],
+            \ 'pointer': ['fg', 'Exception'],
+            \ 'marker':  ['fg', 'Keyword'],
+            \ 'spinner': ['fg', 'Label'],
+            \ 'header':  ['fg', 'Comment'] }
+
+" Enable per-command history
+" - History files will be stored in the specified directory
+" - When set, CTRL-N and CTRL-P will be bound to 'next-history' and
+"   'previous-history' instead of 'down' and 'up'.
+let g:fzf_history_dir = '~/.local/share/fzf-history'
+
+" Mapping selecting mappings
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
+
+" insert mode completion
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+imap <c-x><c-l> <plug>(fzf-complete-line)
+
+" normal mode mappings
+nnoremap <silent> <Leader>ff :Files<CR>
+nnoremap <silent> <Leader>f. :Files <C-r>=expand("%:h")<CR>/<CR>
+nnoremap <silent> <Leader>bb :Buffers<CR>
+nnoremap <silent> <Leader>ll :Lines<CR>
+nnoremap <silent> <Leader>lb :BLines<CR>
+nnoremap <silent> <Leader>fc :Colors<CR>
+nnoremap <silent> <Leader>fh :History<CR>
+nnoremap <silent> <Leader>; :Commands<CR>
+nnoremap <silent> <Leader>ht :Helptags<CR>
+nnoremap <silent> <Leader>] :Tags<CR>
+nnoremap <silent> <Leader>b] :BTags<CR>
+
+" git mappings
+let g:fzf_commits_log_options = '--graph --color=always
+            \ --format="%C(yellow)%h%C(red)%d%C(reset)
+            \ - %C(bold green)(%ar)%C(reset) %s %C(blue)<%an>%C(reset)"'
+nnoremap <silent> <Leader>gg :GFiles?<CR>
+nnoremap <silent> <Leader>gc  :Commits<CR>
+nnoremap <silent> <Leader>gb :BCommits<CR>
+
+" rust grep
+nnoremap <Leader>rg :Rg<Space>
+nnoremap <Leader>RG :Rg!<Space>
+
+" recently used files
+nnoremap <silent> <Leader>fm :FZFMru<CR>
+
+" marks
+nnoremap <silent> <Leader>mm :Marks<CR>
+nnoremap <silent> <Leader>mp :Maps<CR>
+nnoremap <silent> <Leader>ms :Snippets<CR>
+
+" }}}
 
 " startify {{{
 
@@ -280,7 +397,9 @@ augroup configgroup
     " remove cursor line on insert
     au InsertEnter,InsertLeave * set cul!
 
-    au InsertEnter,InsertLeave * set cul!
+    " Escape inside a FZF terminal window should exit the terminal window
+    " rather than going into the terminal's normal mode.
+    au FileType fzf tnoremap <buffer> <Esc> <Esc>
 
 augroup END
 
@@ -371,8 +490,10 @@ cmap w!! w !sudo tee %
 nnoremap <silent><leader>x :Explore<CR>
 
 " format
-nnoremap <silent><leader>f gg=G
+nnoremap <silent><leader>w f gg=G<CR>
 
+" noh
+nnoremap <silent><leader><space> :noh<CR>
 " }}}
 
 " color schemes {{{
