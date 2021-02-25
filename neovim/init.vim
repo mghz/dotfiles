@@ -1,5 +1,19 @@
 " nvim configuration
 
+" abbreviations {{{
+
+abbr waht what
+abbr tehn then
+abbr funciton function
+abbr teh the
+abbr tempalte template
+abbr fitler filter
+abbr cosnt const
+abbr attribtue attribute
+abbr attribuet attribute
+
+" }}}
+
 " settings {{{
 
 set encoding=utf-8
@@ -7,9 +21,6 @@ scriptencoding utf-8
 
 " define leader
 let mapleader = ','
-
-" disable netrw
-let loaded_netrwPlugin=1
 
 syntax on
 filetype plugin indent on
@@ -63,14 +74,11 @@ set splitright                 " split right by default "
 set title                      " set title of window to file "
 set virtualedit=block          " virtual cursor movements. options: block, insert or all "
 set wildmenu                   " wild menu "
-set wildoptions=pum            " display menu in popup "
+
 
 " scroll
 set scrolloff=5                " screenlines to keep above and below the cursor "
 set sidescrolloff=5            " col to keep to the left and right of the cursor "
-
-" popup
-set winbl=10                   " floating window transparency "
 
 " tab control
 set autoindent                 " auto indent on new lines set autoread "
@@ -130,12 +138,22 @@ endif
 
 if has('macunix') " options: unix, win32, win32unix
 
+    " disable netrw
+    let loaded_netrwPlugin=1
+
     " prevent mac terminal flash issue
     set noerrorbells
     set visualbell
     set t_vb=
     set timeoutlen=500
+    set winbl=10               " floating window transparency "
+    set wildoptions=pum            " display menu in popup "
 
+    " cursor settings
+    " iterm2
+    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+    let &t_SR = "\<Esc>]50;CursorShape=2\x7"
+    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 endif
 
 " enable 24 bit color support if supported
@@ -147,6 +165,7 @@ if (has('termguicolors'))
 
     set termguicolors
 endif
+
 
 " }}}
 
@@ -230,6 +249,7 @@ command! -bang -nargs=*  All
 
 " }}}
 
+if has('macunix')
 " coc.nvim {{{
 
 Plug 'https://github.com/neoclide/coc.nvim', {'branch': 'release'}
@@ -332,7 +352,6 @@ nmap <silent> gr <Plug>(coc-references)
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-
 " Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
@@ -381,10 +400,10 @@ xmap <silent> <C-s> <Plug>(coc-range-select)
 command! -nargs=0 Format :call CocAction('format')
 
 " Add `:Fold` command to fold current buffer.
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+command! -nargs=? Fold :call CocAction('fold', <f-args>)
 
 " Add `:OR` command for organize imports of the current buffer.
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+command! -nargs=0 OR   :call CocAction('runCommand', 'editor.action.organizeImport')
 
 " Add (Neo)Vim's native statusline support.
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
@@ -408,6 +427,7 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 " nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " " Resume latest coc list.
 " nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
 " }}}
 
 " functions {{{
@@ -428,6 +448,7 @@ endfunction
 " }}}
 
 " }}}
+endif
 
 " startify {{{
 
@@ -531,9 +552,9 @@ augroup configgroup
 
     " automatically install missing plugins on startup
     au VimEnter *
-                \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
-                \|   PlugUpdate --sync | q
-                \| endif
+        \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+        \|   PlugUpdate --sync | q
+        \| endif
 
     au FileType html,xhtml,htm setlocal foldmethod=indent foldlevel=0 foldenable
     au FileType zsh setlocal foldmethod=marker foldlevel=0 foldenable
@@ -545,6 +566,9 @@ augroup configgroup
     " Escape inside a FZF terminal window should exit the terminal window
     " rather than going into the terminal's normal mode.
     au FileType fzf tnoremap <buffer> <Esc> <Esc>
+    au FileType sh let g:sh_fold_enabled=5
+    au FileType sh let g:is_bash=1
+    au FileType sh set foldmethod=syntax
 
     " todo: add comment for this command
     au BufReadPost *
@@ -554,7 +578,7 @@ augroup configgroup
 
     " au BufEnter Makefile setlocal noexpandtab
     " au BufEnter *.cls setlocal filetype=java
-    " au BufEnter *.sh setlocal tabstop=2 shiftwidth=2 softtabstop=2
+    au BufEnter *.sh setlocal tabstop=2 shiftwidth=2 softtabstop=2
     au BufEnter *.zsh-theme setlocal filetype=zsh
 
     " trim whitespace on save
@@ -570,7 +594,7 @@ augroup configgroup
     au InsertEnter,InsertLeave * set cul!
 
     " remove scrolloff in terminal
-    au TermEnter,TermLeave * setlocal scrolloff=0
+    " au TermEnter,TermLeave * setlocal scrolloff=0
 augroup END
 
 " }}}
@@ -701,23 +725,8 @@ let ayucolor="mirage" " options: light, mirage, dark
 " colorscheme dracula
 " colorscheme gruvbox
 " colorscheme one
-" colorscheme onedark
-" colorscheme onedark
+colorscheme onedark
 " colorscheme vimterial_dark
-colorscheme palenight
-
-" }}}
-
-" abbreviations {{{
-
-abbr waht what
-abbr tehn then
-abbr funciton function
-abbr teh the
-abbr tempalte template
-abbr fitler filter
-abbr cosnt const
-abbr attribtue attribute
-abbr attribuet attribute
+" colorscheme palenight
 
 " }}}

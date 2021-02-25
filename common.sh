@@ -1,4 +1,5 @@
 #!/usr/bin/sh
+# common functions
 
 ask() {
 
@@ -75,114 +76,16 @@ ask() {
     done
 }
 
-echo
-if ask "-> Check upgrades?" N; then
-    echo
-    echo "-> Updating packages"
-    sudo apt update
-
-    echo
-    echo "-> Upgrading packages"
-    sudo apt -y upgrade
-
-    echo
-    echo "-> Cleaning up packages"
-    sudo apt autoclean
-    sudo apt autoremove
-fi
-
-echo
-if ask "-> Install apt packages?" N; then
-    echo
-    echo "-> installing apt-transport-https"
-    sudo apt install -y apt-transport-https
-
-    echo
-    echo "-> installing git"
-    sudo apt install -y git
-
-    echo
-    echo "-> installing curl"
-    sudo apt install -y curl
-
-    echo
-    echo "-> installing neovim"
-    sudo apt install -y neovim
-
-    echo
-    echo "-> installing python3-neovim"
-    sudo apt install -y python3-neovim
-
-    echo
-    echo "-> installing python3-pynvim"
-    sudo apt install -y python3-pynvim
-
-    echo
-    echo "-> installing zsh"
-    sudo apt install -y zsh
-
-    echo
-    echo "-> installing fzf"
-    sudo apt install -y fzf
-
-    echo
-    echo "-> installing tmux"
-    sudo apt install -y tmux
-
-    echo
-    echo "-> installing completions"
-    sudo apt install -y bash-completion
-
-    echo
-    echo "-> installing fonts"
-    sudo apt install -y fonts-powerline
-    sudo apt install -y fonts-inconsolata
-    sudo apt install -y fonts-ubuntu
-    sudo apt install -y fonts-ubuntu-console
-fi
-
-echo
-if ask "-> Install snap packages?" N; then
-    echo
-    echo "-> installing node"
-    sudo snap install node --classic --channel=14
-fi
-
-echo
-if ask "-> Install npm packages?" N; then
-
-    echo
-    if ask "-> setup npm configs?" N; then
-        npm config set init.author.name "mghz"
-        npm config set init.author.email "m1gharzed@gmail.com"
-        npm config set init.license "MIT"
-        npm config set init.version "0.0.1"
-
-        [ -d ~/.npm ] && mkdir ~/.npm
-        npm config set prefix "~/.npm"
-    fi
-
-    echo
-    echo "-> installing yarn"
-    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-    echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-    sudo apt update
-    sudo apt install yarn
-fi
-
-echo
-if ask "-> Create directories?" N; then
-    [ -d "$HOME/space/projects" ] && mkdir -p space/projects
-    [ -d "$HOME/space/sandbox" ] && mkdir -p space/sandbox
-fi
+link_files() {
 
 echo
 if ask "-> Update symbolic links?" Y; then
 
     echo
-    if ask "-> link neovim?" Y; then
+    if ask "-> link nvim and vim?" Y; then
         [ -d "~/.config" ] && mkdir -p ~/.config
         ln -sfv ~/dotfiles/neovim $HOME/.config/nvim
+        ln -sfv ~/dotfiles/neovim/init.vim $HOME/.vimrc
     fi
 
     echo
@@ -203,3 +106,5 @@ if ask "-> Update symbolic links?" Y; then
         ln -sfv ~/dotfiles/nodejs/npmrc $HOME/.npmrc
     fi
 fi
+}
+

@@ -1,82 +1,16 @@
 #!/usr/bin/sh
 
-ask() {
+source ./common.sh
 
-# URL: https://gist.github.com/davejamesmiller/1965569
-# EXAMPLE USAGE:
-# if ask "Do you want to do such-and-such?"; then
-#     echo "Yes"
-# else
-#     echo "No"
-# fi
-#
-# # Default to Yes if the user presses enter without giving an answer:
-# if ask "Do you want to do such-and-such?" Y; then
-#     echo "Yes"
-# else
-#     echo "No"
-# fi
-#
-# # Default to No if the user presses enter without giving an answer:
-# if ask "Do you want to do such-and-such?" N; then
-#     echo "Yes"
-# else
-#     echo "No"
-# fi
-#
-# # Only do something if you say Yes
-# if ask "Do you want to do such-and-such?"; then
-#     said_yes
-# fi
-#
-# # Only do something if you say No
-# if ! ask "Do you want to do such-and-such?"; then
-#     said_no
-# fi
-#
-# # Or if you prefer the shorter version:
-# ask "Do you want to do such-and-such?" && said_yes
-#
-# ask "Do you want to do such-and-such?" || said_no
-
-    # https://djm.me/ask
-    local prompt default reply
-
-    if [ "${2:-}" = "Y" ]; then
-        prompt="Y/n"
-        default=Y
-    elif [ "${2:-}" = "N" ]; then
-        prompt="y/N"
-        default=N
-    else
-        prompt="y/n"
-        default=
-    fi
-
-    while true; do
-
-        # Ask the question (not using "read -p" as it uses stderr not stdout)
-        echo -n "$1 [$prompt] "
-
-        # Read the answer (use /dev/tty in case stdin is redirected from somewhere else)
-        read reply </dev/tty
-
-        # Default?
-        if [ -z "$reply" ]; then
-            reply=$default
-        fi
-
-        # Check if the reply is valid
-        case "$reply" in
-            Y*|y*) return 0 ;;
-            N*|n*) return 1 ;;
-        esac
-
-    done
+setup_mac() {
 }
 
+setup_nix() {
+}
+
+
 echo
-if ask "-> Check upgrades?" N; then
+if ask "-> Check upgrades and cleanup?" N; then
     echo
     echo "-> Updating packages"
     sudo apt update
@@ -183,7 +117,7 @@ fi
 
 echo
 if ask "-> Install zsh?" N; then
-    sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    # sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 fi
 
 echo
