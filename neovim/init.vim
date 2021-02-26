@@ -16,7 +16,7 @@ abbr attribuet attribute
 
 " settings {{{
 
-set encoding=utf-8
+set enc=utf-8
 scriptencoding utf-8
 
 " define leader
@@ -625,16 +625,22 @@ nnoremap ; :
 nnoremap : ;
 
 " remap movement keys
-nnoremap e <S-e>
-nnoremap w <S-w>
-nnoremap b <S-b>
-nnoremap <S-e> e
-nnoremap <S-w> w
-nnoremap <S-b> b
+" nnoremap e <S-e>
+" nnoremap w <S-w>
+" nnoremap b <S-b>
+" nnoremap <S-e> e
+" nnoremap <S-w> w
+" nnoremap <S-b> b
 
 " moving up and down work as you would expect
 nnoremap <silent> j gj
 nnoremap <silent> k gk
+
+" map noh
+nnoremap <leader><space> :noh<CR>
+
+" map save
+nnoremap <leader>s :w<CR>
 
 " use qq to record, q to stop, Q to play a macro
 nnoremap Q @q
@@ -698,18 +704,18 @@ cmap w!! w !sudo tee %
 tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
 
 " To use `ALT+{h,j,k,l}` to navigate windows from any mode:
-tnoremap <A-h> <C-\><C-N><C-w>h
-tnoremap <A-j> <C-\><C-N><C-w>j
-tnoremap <A-k> <C-\><C-N><C-w>k
-tnoremap <A-l> <C-\><C-N><C-w>l
-inoremap <A-h> <C-\><C-N><C-w>h
-inoremap <A-j> <C-\><C-N><C-w>j
-inoremap <A-k> <C-\><C-N><C-w>k
-inoremap <A-l> <C-\><C-N><C-w>l
-nnoremap <A-h> <C-w>h
-nnoremap <A-j> <C-w>j
-nnoremap <A-k> <C-w>k
-nnoremap <A-l> <C-w>l
+" tnoremap <A-h> <C-\><C-N><C-w>h
+" tnoremap <A-j> <C-\><C-N><C-w>j
+" tnoremap <A-k> <C-\><C-N><C-w>k
+" tnoremap <A-l> <C-\><C-N><C-w>l
+" inoremap <A-h> <C-\><C-N><C-w>h
+" inoremap <A-j> <C-\><C-N><C-w>j
+" inoremap <A-k> <C-\><C-N><C-w>k
+" inoremap <A-l> <C-\><C-N><C-w>l
+" nnoremap <A-h> <C-w>h
+" nnoremap <A-j> <C-w>j
+" nnoremap <A-k> <C-w>k
+" nnoremap <A-l> <C-w>l
 
 " }}}
 
