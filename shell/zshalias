@@ -40,9 +40,6 @@ alias rm='rm -i'
 alias rmf='rm -rf'
 alias which='type -a'
 
-# audio
-alias yta='youtube-dl --audio-format best -x'
-
 # config files
 alias vi='vim'
 alias vim='nvim'
@@ -68,6 +65,12 @@ alias pre='open -a Preview'
 alias text='open -a TextEdit'
 alias mup='brew update && brew outdated --cask && brew upgrade && brew cleanup && brew doctor'
 alias lup='sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && sudo apt autoclean && sudo snap refresh'
+
+# git
+alias g='git'
+
+# youtube
+alias yt'youtube-dl --audio-format best -x'
 
 # docker
 alias dk='docker'
