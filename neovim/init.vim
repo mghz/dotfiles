@@ -651,6 +651,10 @@ nnoremap <silent> <C-y> 3<C-y>
 " enable . command in visual mode
 vnoremap . :normal .<cr>
 
+" netrw shortcuts
+nnoremap <leader>x :Ex<CR>
+vnoremap <leader>x :Ex<CR>
+
 " keep visual selection when indenting/outdenting
 vmap <silent> < <gv
 vmap <silent> > >gv
@@ -665,9 +669,6 @@ vnoremap <Space> za
 " edit, source vim file
 nnoremap <silent> <leader>ev :e $MYVIMRC<cr>
 nnoremap <silent> <leader>sv :source $MYVIMRC<cr>
-
-" " resize =
-" nnoremap <M-=> <C-w>=
 
 " move to window
 map <silent> <C-h> <C-w>h
@@ -690,6 +691,12 @@ map <down>  <c-w>-
 " remap exit
 tnoremap <silent> <Esc> <C-\><C-n>
 
+" save with space in normal mode
+nnoremap <leader>s :w<CR>
+
+" remove search highlight
+nnoremap <leader><space> :noh<CR>
+
 " save with sudo
 cmap w!! w !sudo tee %
 
@@ -698,18 +705,18 @@ cmap w!! w !sudo tee %
 tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
 
 " To use `ALT+{h,j,k,l}` to navigate windows from any mode:
-tnoremap <A-h> <C-\><C-N><C-w>h
-tnoremap <A-j> <C-\><C-N><C-w>j
-tnoremap <A-k> <C-\><C-N><C-w>k
-tnoremap <A-l> <C-\><C-N><C-w>l
-inoremap <A-h> <C-\><C-N><C-w>h
-inoremap <A-j> <C-\><C-N><C-w>j
-inoremap <A-k> <C-\><C-N><C-w>k
-inoremap <A-l> <C-\><C-N><C-w>l
-nnoremap <A-h> <C-w>h
-nnoremap <A-j> <C-w>j
-nnoremap <A-k> <C-w>k
-nnoremap <A-l> <C-w>l
+" tnoremap <A-h> <C-\><C-N><C-w>h
+" tnoremap <A-j> <C-\><C-N><C-w>j
+" tnoremap <A-k> <C-\><C-N><C-w>k
+" tnoremap <A-l> <C-\><C-N><C-w>l
+" inoremap <A-h> <C-\><C-N><C-w>h
+" inoremap <A-j> <C-\><C-N><C-w>j
+" inoremap <A-k> <C-\><C-N><C-w>k
+" inoremap <A-l> <C-\><C-N><C-w>l
+" nnoremap <A-h> <C-w>h
+" nnoremap <A-j> <C-w>j
+" nnoremap <A-k> <C-w>k
+" nnoremap <A-l> <C-w>l
 
 " }}}
 
@@ -720,12 +727,12 @@ let g:onedark_terminal_italics=1
 let g:palenight_terminal_italics=1
 let ayucolor="mirage" " options: light, mirage, dark
 
-" colorscheme OceanicNext
+colorscheme OceanicNext
 " colorscheme ayu
 " colorscheme dracula
 " colorscheme gruvbox
 " colorscheme one
-colorscheme onedark
+" colorscheme onedark
 " colorscheme vimterial_dark
 " colorscheme palenight
 

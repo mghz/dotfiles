@@ -2,12 +2,12 @@ version: '3'
 
 services:
 
-  cassdb:
-    container_name: cassdb
+  cassandra:
+    container_name: cassandra
     image: cassandra:latest
     command: /bin/bash -c "sleep 1 && echo '-- catch up -->' && /docker-entrypoint.sh cassandra -f"
     env_file:
-      - ./dev.cass.env
+      - ./config/dev.env
     ports:
       - 9042:9042
     # expose:
@@ -17,32 +17,19 @@ services:
     #   - 9042:9042
     #   - 9160:9160
     volumes:
-      - cassdb:/var/lib/cassandra
+      - cassandra:/var/lib/cassandra
     networks:
       - zarusnet
 
-  pgdb:
-    container_name: pgdb
+  postgres:
+    container_name: postgres
     image: postgres
     env_file:
-      - ./dev.postgres.env
+      - ./config/dev.env
     ports:
       - 5432:5432
     volumes:
-      - pgdb:/var/lib/postgresql/data
-    networks:
-      - zarusnet
-
-  mysqldb:
-    container_name: mysqldb
-    image: mysql
-    command: --default-authentication-plugin=mysql_native_password
-    env_file:
-      - ./dev.mysql.env
-    ports:
-      - 3306:3306
-    volumes:
-      - mysqldb:/var/lib/mysql
+      - postgres:/var/lib/postgresql/data
     networks:
       - zarusnet
 
@@ -50,7 +37,8 @@ services:
     container_name: gitea
     image: gitea/gitea:latest
     env_file:
-      - ./dev.gitea.env
+      - ./config/dev.env
+    restart: always
     ports:
       - 3000:3000
       - 222:22
@@ -59,16 +47,64 @@ services:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
     depends_on:
-      - pgdb
+      - postgres
 
 volumes:
-  cassdb:
-  pgdb:
-  mysqldb:
+  cassandra:
+  postgres:
   gitea:
 
 networks:
   zarusnet:
+
+  # janus:
+  #   container_name: janus
+  #   image: janusgraph/janusgraph:latest
+  #   ports:
+  #     - 8182:8182
+  #     - 8184:8184
+  #   depends_on:
+  #     - cass1
+  #     - elastic1
+  #   env_file:
+  #     - janus.env
+
+    # environment:
+    #   - JANUS_STORAGE_BACKEND=cql
+    #   - JANUS_STORAGE_HOSTNAME=cass1
+    #   - JANUS_INDEXES=elastic1
+    #   - JANUS_INDEX_HOSTNAME=elastic1
+    #   - JANUS_GREMLIN_CHANNELIZER=org.apache.tinkerpop.gremlin.server.channel.HttpChannelizer
+    # networks:
+    #   - zarusnet
+
+  # elastic1:
+  #   container_name: elastic1
+  #   image: docker.elastic.co/elasticsearch/elasticsearch:7.4.1
+  #   environment:
+  #     - discovery.type=single-node
+  #     - cluster.name=cluster1
+  #     - bootstrap.memory_lock=true
+  #     - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+  #   volumes:
+  #     - elastic1:/usr/share/elasticsearch/data
+  #   ports:
+  #     - 9200:9200
+  #   networks:
+  #     - zarusnet
+
+  # mysql:
+  #   container_name: mysql
+  #   image: mysql
+  #   command: --default-authentication-plugin=mysql_native_password
+  #   env_file:
+  #     - ./dev.mysql.env
+  #   ports:
+  #     - 3306:3306
+  #   volumes:
+  #     - mysqldb:/var/lib/mysql
+  #   networks:
+  #     - zarusnet
 
   # kong:
   #   container_name: kong
@@ -145,3 +181,25 @@ networks:
   #   networks:
   #     - zarusnet
 
+  # phpmyadmin:
+  #   container_name: phpmyadmin
+  #   depends_on:
+  #     - mysql
+  #   image: phpmyadmin/phpmyadmin
+  #   restart: always
+  #   ports:
+  #     - '9000:80'
+  #   environment:
+  #     PMA_HOST: mysql
+  #     MYSQL_ROOT_PASSWORD: root
+  #   networks:
+  #     - zarusnet
+
+  # adminer:
+  #   container_name: adminer
+  #   image: adminer
+  #   # restart: always
+  #   ports:
+  #     - 8000:8080
+  #   networks:
+  #     - zarusnet
