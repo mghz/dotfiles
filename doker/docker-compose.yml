@@ -2,57 +2,67 @@ version: '3'
 
 services:
 
-  cassandra:
-    container_name: cassandra
-    image: cassandra:latest
-    command: /bin/bash -c "sleep 1 && echo '-- catch up -->' && /docker-entrypoint.sh cassandra -f"
-    env_file:
-      - ./config/dev.env
+  registry:
+    container_name: registry
+    image: registry:latest
     ports:
-      - 9042:9042
-    # expose:
-    #   - 7000:7000
-    #   - 7001:7001
-    #   - 7199:7199
-    #   - 9042:9042
-    #   - 9160:9160
-    volumes:
-      - cassandra:/var/lib/cassandra
-    networks:
-      - zarusnet
-
-  postgres:
-    container_name: postgres
-    image: postgres
-    env_file:
-      - ./config/dev.env
-    ports:
-      - 5432:5432
-    volumes:
-      - postgres:/var/lib/postgresql/data
-    networks:
-      - zarusnet
-
-  gitea:
-    container_name: gitea
-    image: gitea/gitea:latest
-    env_file:
-      - ./config/dev.env
+      - 5000:5000
     restart: always
-    ports:
-      - 3000:3000
-      - 222:22
-    volumes:
-      - gitea:/data
-      - /etc/timezone:/etc/timezone:ro
-      - /etc/localtime:/etc/localtime:ro
-    depends_on:
-      - postgres
+    networks:
+      - zarusnet
+
+  # cassandra:
+  #   container_name: cassandra
+  #   image: cassandra:latest
+  #   command: /bin/bash -c "sleep 1 && echo '-- catch up -->' && /docker-entrypoint.sh cassandra -f"
+  #   env_file:
+  #     - ./config/dev.env
+  #   ports:
+  #     - 9042:9042
+  #   # expose:
+  #   #   - 7000:7000
+  #   #   - 7001:7001
+  #   #   - 7199:7199
+  #   #   - 9042:9042
+  #   #   - 9160:9160
+  #   volumes:
+  #     - cassandra:/var/lib/cassandra
+  #   networks:
+  #     - zarusnet
+
+  # postgres:
+  #   container_name: postgres
+  #   image: postgres
+  #   env_file:
+  #     - ./config/dev.env
+  #   ports:
+  #     - 5432:5432
+  #   volumes:
+  #     - postgres:/var/lib/postgresql/data
+  #   networks:
+  #     - zarusnet
+
+  # gitea:
+  #   container_name: gitea
+  #   image: gitea/gitea:latest
+  #   env_file:
+  #     - ./config/dev.env
+  #   restart: always
+  #   ports:
+  #     - 3000:3000
+  #     - 222:22
+  #   volumes:
+  #     - gitea:/data
+  #     - /etc/timezone:/etc/timezone:ro
+  #     - /etc/localtime:/etc/localtime:ro
+  #   depends_on:
+  #     - postgres
 
 volumes:
-  cassandra:
-  postgres:
-  gitea:
+  registry:
+  # cassandra:
+  # postgres:
+  # gitea:
 
 networks:
   zarusnet:
