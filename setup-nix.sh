@@ -1,11 +1,13 @@
-#!/usr/bin/sh
+#!/usr/bin/env bash
 
-source ./common.sh
+. ./common.sh
 
 setup_mac() {
+    echo "setting up mac"
 }
 
 setup_nix() {
+    echo "setting up linux"
 }
 
 
@@ -117,20 +119,21 @@ fi
 
 echo
 if ask "-> Install zsh?" N; then
+    echo 'installing zsh'
     # sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 fi
 
 echo
 if ask "-> Create directories?" N; then
-    [ -d "$HOME/wspace/projects" ] && mkdir -p wspace/projects
-    [ -d "$HOME/wspace/sandbox" ] && mkdir -p wspace/sandbox
-    [ -d "$HOME/wspace/open-source" ] && mkdir -p wspace/open-source
+    [ -d "~/space/projects" ] && mkdir -p wspace/projects
+    [ -d "~/space/sandbox" ] && mkdir -p wspace/sandbox
+    [ -d "~/space/oss" ] && mkdir -p wspace/open-source
 fi
 
 echo
 if ask "-> Clone dotfiles repo?" N; then
     echo
-    cd ~/
+    cd 
     git clone https://github.com/mghz/dotfiles.git
 fi
 
@@ -139,35 +142,36 @@ if ask "-> Update symbolic links?" N; then
 
     echo
     if ask "-> link neovim?" N; then
-        ln -sfv ~/dotfiles/neovim $HOME/.config/nvim
+        [ -d ~/.config ] && mkdir -p ~/.config
+	ln -sfv ~/dotfiles/neovim ~/.config/nvim
     fi
 
     echo
     if ask "-> link vimrc?" N; then
-        ln -sfv ~/dotfiles/neovim/vimrc.vim $HOME/.vimrc
+        ln -sfv ~/dotfiles/neovim/init.vim ~/.vimrc
     fi
 
     echo
     if ask "-> link zsh config?" N; then
-        echo "skipped"
-#         ln -sfv ~/dotfiles/shell/zprezto/zshrc $HOME/.zshrc
+        echo "linking zsh zprezto"
+#         ln -sfv ~/dotfiles/shell/zprezto/zshrc ~/.zshrc
     fi
 
     echo
     if ask "-> link bash configs?" N; then
-        ln -sfv ~/dotfiles/shell/bash_profile $HOME/.bash_profile
-        ln -sfv ~/dotfiles/shell/profile $HOME/.profile
-        ln -sfv ~/dotfiles/shell/zshalias $HOME/.bash_aliases
-        ln -sfv ~/dotfiles/shell/bashrc $HOME/.bashrc
+        ln -sfv ~/dotfiles/shell/bash_profile ~/.bash_profile
+        ln -sfv ~/dotfiles/shell/profile ~/.profile
+        ln -sfv ~/dotfiles/shell/zshalias ~/.bash_aliases
+        ln -sfv ~/dotfiles/shell/bashrc ~/.bashrc
     fi
 
     echo
     if ask "-> link git config?" N; then
-        ln -sfv ~/dotfiles/git/gitconfig $HOME/.gitconfig
+        ln -sfv ~/dotfiles/git/gitconfig ~/.gitconfig
     fi
 
     echo
     if ask "-> link npm config?" N; then
-        ln -sfv ~/dotfiles/nodejs/npmrc $HOME/.npmrc
+        ln -sfv ~/dotfiles/nodejs/npmrc ~/.npmrc
     fi
 fi
