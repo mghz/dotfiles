@@ -197,5 +197,8 @@ function manp() { man -t "$@" | open -f -a "Preview" ;}
 
 # }}}
 
+# source fzf
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
+# source auto completion
+source /etc/profile.d/bash_completion.sh
