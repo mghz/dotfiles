@@ -250,6 +250,7 @@ command! -bang -nargs=*  All
 " }}}
 
 if has('macunix')
+
 " coc.nvim {{{
 
 Plug 'https://github.com/neoclide/coc.nvim', {'branch': 'release'}
@@ -448,6 +449,7 @@ endfunction
 " }}}
 
 " }}}
+
 endif
 
 " startify {{{
