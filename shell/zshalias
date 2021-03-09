@@ -11,12 +11,17 @@ case `uname` in
         # add autocomplete permanently to your zsh shell
         #echo "[[ $commands[kubectl] ]] && source <(kubectl completion zsh)" >> ~/.zshrc
 
+        # os updates
+        alias osup='brew update && brew outdated --cask && brew upgrade && brew cleanup && brew doctor'
         ;;
     Linux)
         # kubernetes - microk8s
         alias kc='microk8s.kubectl'
         alias kubectl='microk8s.kubectl'
         alias m8='microk8s'
+
+        # os updates
+        alias osup='sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && sudo apt autoclean && sudo snap refresh'
         ;;
 esac
 
@@ -57,6 +62,9 @@ alias tagrc='vi ~/.ctags'
 alias epath='vi /etc/paths.d'
 alias path='echo "${PATH//:/\n}"'
 
+# fzf
+# alias fz='fzf --height 40% --reverse'
+
 # networking
 alias ping='ping -c 4'
 
@@ -64,8 +72,6 @@ alias ping='ping -c 4'
 alias grep='grep -n'
 alias pre='open -a Preview'
 alias text='open -a TextEdit'
-alias mup='brew update && brew outdated --cask && brew upgrade && brew cleanup && brew doctor'
-alias lup='sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && sudo apt autoclean && sudo snap refresh'
 
 # git
 alias g='git'

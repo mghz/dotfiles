@@ -12,35 +12,28 @@ fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# binding
-#bindkey -M viins '^R' history-incremental-search-backward
-#bindkey -M vicmd '^R' history-incremental-search-backward
-
-# fzf command
-# export FZF_DEFAULT_COMMAND='rg --files --hidden --follow -g "!{node_modules,.git,.cache}" | fzf'
-export FZF_DEFAULT_COMMAND='rg --files --hidden -g "!{node_modules,.git,.cache}" | fzf'
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-
-# fzf completion and options
-# export FZF_COMPLETION_TRIGGER=''
-# export FZF_COMPLETION_OPTS='+c -x'
-
-# Using highlight (http://www.andre-simon.de/doku/highlight/en/highlight.html)
-# export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
-
-# automatically selects the item if there's only one
-# export FZF_CTRL_T_OPTS="--select-1 --exit-0"
+# default command and options
+export FZF_DEFAULT_COMMAND='rg -L --files --hidden --follow -g "!{node_modules,.git,.cache}"'
+export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --inline-info'
+export FZF_COMPLETION_OPTS='--border --info=inline'
+export FZF_COMPLETION_TRIGGER=''
+export FZF_COMPLETION_OPTS='+c -x'
 
 # enable sorting
-# export FZF_CTRL_R_OPTS='--sort --exact'
+export FZF_CTRL_R_OPTS='--sort --exact'
 
 # use tree command to show directory entries
-# export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
+export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
 
-# alias fzfi='rg --files --hidden --follow --no-ignore-vcs -g "!{node_modules,.git}" | fzf'
-alias fzfa='rg --files --hidden --follow --no-ignore-vcs | fzf'
 
-export FZF_BASE="$HOME/.fzf"
+# Using highlight (http://www.andre-simon.de/doku/highlight/en/highlight.html)
+export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -2"
+
+# automatically selects the item if there's only one
+export FZF_CTRL_T_OPTS="--select-1 --exit-0"
+
+# apply the command to CTRL-T as well
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 # }}}
 

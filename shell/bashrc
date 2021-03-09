@@ -1,3 +1,10 @@
+
+# source fzf
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+# sources
+source "$HOME/.cargo/env"
+
 # exports {{{
 
 export PS1="\[\033[32m\]\w\[\033[33m\]\$(parse_git_branch)\[\033[00m\] -> "
@@ -197,8 +204,3 @@ function manp() { man -t "$@" | open -f -a "Preview" ;}
 
 # }}}
 
-# source fzf
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
-
-# source auto completion
-source /etc/profile.d/bash_completion.sh

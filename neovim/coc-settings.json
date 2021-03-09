@@ -14,8 +14,26 @@
       "vue-html": "html"
   },
 
-  "coc.preferences.formatOnSaveFiletypes": ["css", "markdown", "html", "js", "vue"],
+  // coc.nvim settings
+  "coc.preferences.formatOnSaveFiletypes": [
+    "css",
+    "markdown",
+    "html",
+    "vue",
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+  ],
+  "coc.preferences.formatOnType": true,
   "coc.preferences.useQuickfixForLocations": true,
+  "explorer.width": 35,
+  "explorer.file.showHiddenFiles": true,
+  /* "explorer.icon.enableVimDevicons": true, */
+  /* "explorer.icon.enableNerdfont": true, */
+  "explorer.file.child.template": "[git | 2] [selection | clip | 1] [indent][icon | 1] [diagnosticError & 1][filename omitCenter 1][modified][readonly] [linkIcon & 1][link growRight 1 omitCenter 5]",
+  "explorer.buffer.root.template": "[icon & 1] OPEN EDITORS",
+  "explorer.file.root.template": "[icon & 1] PROJECT ([root])",
 
   "diagnostic.infoSign": "ღ",
   "diagnostic.hintSign": "ஐ",
@@ -30,6 +48,16 @@
   "eslint.autoFix": true,
   "eslint.autoFixOnSave": true,
   "eslint.packageManager": "yarn",
+  "eslint.filetypes": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+
+  "prettier.eslintIntegration": true,
+  "prettier.disableSuccessMessage": true,
+  "prettier.disableLanguages": [],
 
   "explorer.previewAction.onHover": false,
   "explorer.quitOnOpen": true,
@@ -53,9 +81,6 @@
       "--hidden",
       "--files"
   ],
-
-  "prettier.eslintIntegration": true,
-  "prettier.disableLanguages": [],
 
   "suggest.maxCompleteItemCount": 20,
   "suggest.enablePreselect": true,

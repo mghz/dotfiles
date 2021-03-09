@@ -1,5 +1,11 @@
 " nvim configuration
 
+" to detect os type use if has(<option>)
+" macunix                 Macintosh version of Vim, using Unix files (OS-X).
+" unix                    Unix version of Vim.
+" win32                   Win32 version of Vim (MS-Windows 95 and later, 32 or 64 bits)
+" win32unix               Win32 version of Vim, using Unix files (Cygwin)
+
 " abbreviations {{{
 
 abbr waht what
@@ -202,6 +208,7 @@ Plug 'https://github.com/tpope/vim-commentary'
 
 " development
 Plug 'https://github.com/sheerun/vim-polyglot'
+Plug 'https://github.com/ryanoasis/vim-devicons'
 
 " indentLine {{{
 
@@ -214,42 +221,43 @@ let g:indentLine_enabled = 1
 
 " fzf {{{
 
-Plug 'https://github.com/junegunn/fzf', { 'do': { -> fzf#install() } }
+" set rtp+=/usr/local/opt/fzf
+
+Plug 'https://github.com/junegunn/fzf', { 'dir': '~/.fzf', 'do': { -> fzf#install() } }
 Plug 'https://github.com/junegunn/fzf.vim'
 
 " key bindings
 nnoremap <M-f> :FZF<CR>
-nnoremap <silent> <leader>f :Files<CR>
-nnoremap <silent> <leader>b :Buffers<CR>
-nnoremap <silent> <leader>l :Lines<CR>
-nnoremap <silent> <leader>g :Rg<CR>
-nnoremap <silent> <leader>o :All<cr>
-nnoremap <silent> <leader>t :Tags<CR>
-nnoremap <silent> <leader>T :Tags<CR>
-nnoremap <silent> <leader>m :Marks<CR>
-nnoremap <silent> <leader>h :History<CR>
+nnoremap <silent><leader>f :Files<CR>
+nnoremap <silent><leader>b :Buffers<CR>
+nnoremap <silent><leader>l :Lines<CR>
+nnoremap <silent><leader>g :Rg<CR>
+nnoremap <silent><leader>o :All<cr>
+nnoremap <silent><leader>t :Tags<CR>
+nnoremap <silent><leader>T :Tags<CR>
+nnoremap <silent><leader>m :Marks<CR>
+nnoremap <silent><leader>h :History<CR>
 
-" change layout
-" let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+" " change layout
+" " let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
 
-let g:fzf_action = {
-            \ 'ctrl-t': 'tab split',
-            \ 'ctrl-x': 'split',
-            \ 'ctrl-v': 'vsplit' }
+" let g:fzf_action = {
+"             \ 'ctrl-t': 'tab split',
+"             \ 'ctrl-x': 'split',
+"             \ 'ctrl-v': 'vsplit' }
 
-let g:fzf_default_command = 'rg -p --files --ignore-case -g ''node_modules/**'' -g ''.git/**'''
-let g:fzf_tags_command = 'ctags -R --exclude="node_modules/*" --exclude=".git" --exclude="dist/*" --exclude="build/*" --exclude="tests" .'
+" " let g:fzf_default_command = 'rg -p --files --ignore-case -g ''node_modules/**'' -g ''.git/**'''
+" let g:fzf_default_command = 'rg -L --files --hidden --smartcase --follow --glob "!.git/*"'
+" let g:fzf_tags_command = 'ctags -R --exclude="node_modules/*" --exclude=".git" --exclude="dist/*" --exclude="build/*" --exclude="tests" .'
 
-command! -bang -nargs=*  All
-            \ call fzf#run(fzf#wrap({
-            \ 'source': 'rg --files --hidden --no-ignore-vcs --glob "!{node_modules/*,.git/*,.cache/*,dist/*,*.lock}"',
-            \ 'down': '40%',
-            \ 'options': '--expect=ctrl-t,ctrl-x,ctrl-v --multi --reverse'
-            \ }))
+" command! -bang -nargs=*  All
+"             \ call fzf#run(fzf#wrap({
+"             \ 'source': 'rg --files --hidden --no-ignore-vcs --glob "!{node_modules/*,.git/*,.cache/*,dist/*,*.lock}"',
+"             \ 'down': '40%',
+"             \ 'options': '--expect=ctrl-t,ctrl-x,ctrl-v --multi --reverse'
+"             \ }))
 
 " }}}
-
-if has('macunix')
 
 " coc.nvim {{{
 
@@ -280,10 +288,11 @@ let g:coc_global_extensions = [
     \ 'coc-python',
     \ 'coc-rust-analyzer',
     \ 'coc-stylelint',
+    \ 'coc-tsserver',
     \ 'coc-vetur',
     \ 'coc-xml',
     \ 'coc-yaml',
-    \ 'coc-yank'
+    \ 'coc-yank',
     \]
 
 " }}}
@@ -308,9 +317,6 @@ nnoremap <silent> <leader>x :CocCommand explorer<CR>
 " prettier
 vmap <leader>y  <Plug>(coc-format-selected)
 nmap <leader>y  <Plug>(coc-format-selected)
-
-" format on save
-command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
@@ -450,8 +456,6 @@ endfunction
 
 " }}}
 
-endif
-
 " startify {{{
 
 Plug 'https://github.com/mhinz/vim-startify'
@@ -535,6 +539,39 @@ Plug 'https://github.com/airblade/vim-gitgutter'
 " rust {{{
 
 let g:rustfmt_autosave = 1
+
+" }}}
+
+" javascript {{{
+
+Plug 'https://github.com/pangloss/vim-javascript'
+Plug 'https://github.com/leafgarland/typescript-vim'
+
+" javascript
+" enables syntax highlighting for JSDocs
+let g:javascript_plugin_jsdoc = 1
+
+" enables some additional syntax highlighting for NGDocs
+let g:javascript_plugin_ngdoc = 1
+
+" enables syntax highlighting for Flow
+let g:javascript_plugin_flow = 1
+
+" enables code folding for javascript based on our syntax file
+augroup javascript_folding
+    au!
+    au FileType javascript setlocal foldmethod=syntax
+augroup END
+
+" typescript
+let g:typescript_indent_disable = 1
+let g:typescript_opfirst='\%([<>=,?^%|*/&]\|\([-:+]\)\1\@!\|!=\|in\%(stanceof\)\=\>\)'
+let g:typescript_compiler_binary = 'tsc'
+" let g:typescript_compiler_options = ''
+
+" typescript quickfix window
+autocmd QuickFixCmdPost [^l]* nested cwindow
+autocmd QuickFixCmdPost    l* nested lwindow
 
 " }}}
 
@@ -659,10 +696,6 @@ nnoremap <silent> <C-y> 3<C-y>
 " enable . command in visual mode
 vnoremap . :normal .<cr>
 
-" netrw shortcuts
-nnoremap <leader>x :Ex<CR>
-vnoremap <leader>x :Ex<CR>
-
 " keep visual selection when indenting/outdenting
 vmap <silent> < <gv
 vmap <silent> > >gv
@@ -726,6 +759,18 @@ tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
 " nnoremap <A-k> <C-w>k
 " nnoremap <A-l> <C-w>l
 
+" unix mappings {{{
+
+" if has('unix')
+
+" netrw shortcuts
+" nnoremap <leader>x :Ex<CR>
+" vnoremap <leader>x :Ex<CR>
+
+" endif
+
+" }}}
+
 " }}}
 
 " color schemes {{{
@@ -735,12 +780,12 @@ let g:onedark_terminal_italics=1
 let g:palenight_terminal_italics=1
 let ayucolor="mirage" " options: light, mirage, dark
 
-colorscheme OceanicNext
+" colorscheme OceanicNext
 " colorscheme ayu
 " colorscheme dracula
 " colorscheme gruvbox
 " colorscheme one
-" colorscheme onedark
+colorscheme onedark
 " colorscheme vimterial_dark
 " colorscheme palenight
 
